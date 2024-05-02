@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SommerHusProjekt.Model07
 {
-    internal class User
+    public class User
     {
+
     }
 }
