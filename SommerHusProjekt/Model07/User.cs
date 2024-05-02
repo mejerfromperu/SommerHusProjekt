@@ -19,8 +19,8 @@ namespace SommerHusProjekt.Model07
         private string _floor;
         private string _city;
         private int _postalCode;
-        private bool _isLandLord;
-        private bool _isadmin;
+        private bool _isLandlord;
+        private bool _isAdmin;
 
 
         // Properties
@@ -35,8 +35,8 @@ namespace SommerHusProjekt.Model07
         public string Floor { get => _floor; set => _floor = value; }
         public string City { get => _city; set => _city = value; }
         public int PostalCode { get => _postalCode; set => _postalCode = value; }
-        public bool IsLandLord { get => _isLandLord; set => _isLandLord = value; }
-        public bool Isadmin { get => _isadmin; set => _isadmin = value; }
+        public bool IsLandlord { get => _isLandlord; set => _isLandlord = value; }
+        public bool IsAdmin { get => _isAdmin; set => _isAdmin = value; }
 
         // Constructor
 
@@ -59,8 +59,8 @@ namespace SommerHusProjekt.Model07
             _floor = floor;
             _city = city;
             _postalCode = postalCode;
-            _isLandLord = isLandLord;
-            _isadmin = isadmin;
+            _isLandlord = isLandLord;
+            _isAdmin = isadmin;
         }
 
         public User( string firstName, string lastName, string email, string password, string phone, string streetName, string houseNumber, string floor, string city, int postalCode, bool isLandLord, bool isadmin)
@@ -76,8 +76,8 @@ namespace SommerHusProjekt.Model07
             _floor = floor;
             _city = city;
             _postalCode = postalCode;
-            _isLandLord = isLandLord;
-            _isadmin = isadmin;
+            _isLandlord = isLandLord;
+            _isAdmin = isadmin;
         }
 
         public User(string firstName, string lastName, string email, string password, string phone, string streetName, string houseNumber, string floor, string city, int postalCode)
@@ -98,7 +98,7 @@ namespace SommerHusProjekt.Model07
 
         public override string ToString()
         {
-            return $"{{{nameof(Id)}={Id.ToString()}, {nameof(FirstName)}={FirstName}, {nameof(LastName)}={LastName}, {nameof(Email)}={Email}, {nameof(Password)}={Password}, {nameof(Phone)}={Phone}, {nameof(StreetName)}={StreetName}, {nameof(HouseNumber)}={HouseNumber}, {nameof(Floor)}={Floor}, {nameof(City)}={City}, {nameof(PostalCode)}={PostalCode.ToString()}, {nameof(IsLandLord)}={IsLandLord.ToString()}, {nameof(Isadmin)}={Isadmin.ToString()}}}";
+            return $"{{{nameof(Id)}={Id.ToString()}, {nameof(FirstName)}={FirstName}, {nameof(LastName)}={LastName}, {nameof(Email)}={Email}, {nameof(Password)}={Password}, {nameof(Phone)}={Phone}, {nameof(StreetName)}={StreetName}, {nameof(HouseNumber)}={HouseNumber}, {nameof(Floor)}={Floor}, {nameof(City)}={City}, {nameof(PostalCode)}={PostalCode.ToString()}, {nameof(IsLandlord)}={IsLandlord.ToString()}, {nameof(IsAdmin)}={IsAdmin.ToString()}}}";
         }
     }
 }
