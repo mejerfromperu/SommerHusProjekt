@@ -1,0 +1,141 @@
+﻿@page
+@model SommerhusHjemmeside.Pages.SommerHouseFolder.GreateSommerHouseModel
+@{
+    ViewData["Title"] = "Greate New Rental";
+}
+
+<div class="row my-2 p-2 d-flex flex-wrap" style="width: 100%; background: whitesmoke;">
+    <div class="col-12 row d-flex justify-content-center">
+        <h4 class="d-flex justify-content-center">Sommerhus Preview Card</h4>
+        <div class="card my-2 p-2" style="width: 20em; height: 32em; background: whitesmoke;">
+            <div>
+                <div class="col-12 justify-content-center">
+                    <img id="uploadedImage" src="#" alt="Uploaded Image" class="card-img-top rounded-2" style="width: 100%; height: 14em; justify-content: center;">
+                    
+                </div>
+                <div class="card-subtitle my-2">
+                    <h2 id="outputLocation"></h2>
+                    <h4 id="outputPrice"></h4>
+                </div>
+
+                <div class="card-body text-black">
+                    <h5>Beskrivelse:</h5>
+                    <p id ="outputText"></p>
+                    <div class="d-flex justify-content-around text-white">
+                        <a class="btn btn-outline-dark rounded-pill" style="background: #DEE50F; border: 2px dimgrey; width: 50%;">BESTIL</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="post">
+    <div class="col-12 row d-flex flex-wrap" style="padding-top: 15px;">
+        <h4 class=" d-flex justify-content-center">Sommer Hus Lokation</h4>
+        <div class="col-8">
+            <input id="inputCity" placeholder="By" class="form-control" oninput="displayLocation()" /><br />
+        </div>
+        <div class="col-4">
+            <span @* asp-validation-for="@Model.NewSommerHousePostalCode" *@ class="text-danger"></span>
+            <input id="inputPostalcode" placeholder="Postnummer" oninput="displayLocation()" @* asp-for="@Model.NewSommerHousePostalCode" *@ class="form-control" /><br />
+        </div>
+        <div class="col-6">
+            <span @* asp-validation-for="@Model.NewSommerHouseStreetName" *@ class="text-danger"></span>
+            <input class="form-control" placeholder="Vej Navn"@*  asp-for="@Model.NewSommerHouseStreetName" *@ /><br />
+        </div>
+        <div class="col-3">
+            <span @* asp-validation-for="@Model.NewSommerHouseHouseNumber" *@ class="text-danger"></span>
+            <input class="form-control" placeholder="Vej Nr." @* asp-for="@Model.NewSommerHouseHouseNumber" *@ /><br />
+        </div>
+        <div class="col-3">
+            <span @* asp-validation-for="@Model.NewSommerHouseFloor" *@ class="text-danger"></span>
+            <input class="form-control" placeholder="Etage" @* asp-for="@Model.NewSommerHouseFloor" *@ /><br />
+        </div>
+        <div class="row d-flex">
+            <div class="col-6">
+                <h4 class="d-flex justify-content-center">Pris Pr. Dag</h4>
+                <div class="col-12" style="margin-top: 32px;">
+                    <span @* asp-validation-for="@Model.NewSommerHousePrice" *@ class="text-danger"></span>
+                    <input class="form-control" placeholder="Pris Pr. Dag" type="number" id="inputPrice" oninput="displayPrice()"/*  @* asp-for="@Model.NewSommerHousePrice" *@ */ /><br />
+                </div>
+                <h4 class="d-flex justify-content-center" style="margin-top: 10px;">Beskrivelse</h4>
+                <div class="col-12">
+                    <span @* asp-validation-for="@Model.NewSommerHouseDescription" *@ class="text-danger"></span>
+                    <input class="form-control" placeholder="Beskrivelse" id="inputText" type="text" oninput="displayText()" @* asp-for="@Model.NewSommerHouseDescription" *@ /><br />
+                </div>
+                <h4 class="d-flex justify-content-center">Indsæt Billede Fil</h4>
+                <div class="col-12">
+                    <span @* asp-validation-for="@Model.NewSommerHousePicture" *@ class="text-danger"></span>
+                    <input class="card-img-top rounded-2" style="width: 100%; height: 14em; justify-content: center;" type="file" id="imageInput" onchange="displayImage(this)" @* asp-for="@Model.NewSommerHousePicture" *@ />
+                </div>
+            </div>
+            <div class="col-6 flex-column">
+                <h4 class="d-grid justify-content-center" >Udlejnings Periode</h4>
+                <div class="col-12">
+                    <label>Dato Fra</label><br/>
+                    <input type="date" class="form-control" name="fromDate"><br/>
+                </div>
+                <h4 class="d-gridjustify-content-center"></h4>
+                <div class="col-12">
+                    <label>Dato Til</label><br/>
+                    <input type="date" class="form-control" name="toDate"><br/>
+                </div>                    
+            </div>
+                 <div class="row">
+            <div class="col-6 d-flex justify-content-center">
+                <input type="submit" value="Opret Sommerhus" class="btn btn-primary" />
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+                <input type="submit" value="Fortryd" class="btn btn-outline-danger" asp-page-handler="Cancel"/>
+            </div>
+    </div>
+    </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    function displayImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('uploadedImage').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<script>
+    function displayText() {
+        var inputText = document.getElementById("inputText").value;
+
+        var outputElement = document.getElementById("outputText");
+
+        outputElement.innerHTML = inputText;
+    }
+</script>
+
+<script>
+    function displayLocation() {
+        var city = document.getElementById("inputCity").value;
+        var postalCode = document.getElementById("inputPostalcode").value;
+
+        var outputElement = document.getElementById("outputLocation");
+
+        outputElement.textContent = postalCode + " " + city;
+    }
+</script>
+
+<script>
+    function displayPrice() {
+        var inputPrice = parseFloat(document.getElementById("inputPrice").value);
+
+        var outputElement = document.getElementById("outputPrice");
+
+        outputElement.textContent = "Kr. " + inputPrice.toFixed(2) + " Pr. Dag";
+    }
+</script>
