@@ -11,8 +11,8 @@ namespace SommerHusProjekt.Model07
 
         // Properties uden manuelt at skrive instans felterne.
         public int Id { get; set; }
-        public int UserId { get; set; } // Id på brugeren, der har foretaget bookingen
-        public int SummerHouseId { get; set; } // Id på det sommerhus, der er booket
+        public int UserId { get; set; } // Id på brugeren
+        public int SummerHouseId { get; set; } // Id på det sommerhus
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
