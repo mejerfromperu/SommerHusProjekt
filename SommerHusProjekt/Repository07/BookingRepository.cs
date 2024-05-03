@@ -15,7 +15,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string insertSql = "INSERT INTO SommerBooking (UserId, SummerHouseId, StartDate, EndDate) VALUES (@UserId, @SummerHouseId, @StartDate, @EndDate)";
+            string insertSql = "INSERT INTO SommerBookings (UserId, SummerHouseId, StartDate, EndDate) VALUES (@UserId, @SummerHouseId, @StartDate, @EndDate)";
 
             SqlCommand cmd = new SqlCommand(insertSql, connection);
             cmd.Parameters.AddWithValue("@UserId", b.UserId);
@@ -35,7 +35,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string deleteSql = "DELETE FROM SommerBooking WHERE Id = @Id";
+            string deleteSql = "DELETE FROM SommerBookings WHERE Id = @Id";
 
             SqlCommand cmd = new SqlCommand(deleteSql, connection);
             cmd.Parameters.AddWithValue("@Id", id);
@@ -55,7 +55,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string sql = "SELECT * FROM SommerBooking";
+            string sql = "SELECT * FROM SommerBookings";
             SqlCommand cmd = new SqlCommand(sql, connection);
 
             SqlDataReader reader = cmd.ExecuteReader();
@@ -91,7 +91,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string selectSql = "SELECT * FROM SommerBooking WHERE Id = @Id";
+            string selectSql = "SELECT * FROM SommerBookings WHERE Id = @Id";
 
             SqlCommand cmd = new SqlCommand(selectSql, connection);
             cmd.Parameters.AddWithValue("@Id", id);
@@ -124,7 +124,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string updateSql = "UPDATE SommerBooking SET UserId = @UserId, SummerHouseId = @SummerHouseId, StartDate = @StartDate, EndDate = @EndDate  WHERE Id = @Id";
+            string updateSql = "UPDATE SommerBookings SET UserId = @UserId, SummerHouseId = @SummerHouseId, StartDate = @StartDate, EndDate = @EndDate  WHERE Id = @Id";
 
             SqlCommand cmd = new SqlCommand(updateSql, connection);
             cmd.Parameters.AddWithValue("@UserId", b.UserId);
