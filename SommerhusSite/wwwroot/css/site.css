@@ -7,6 +7,26 @@ html {
     font-size: 16px;
   }
 }
+@media(min-width: 576px ) 
+{
+    .loginHeader {
+        left: 90%;
+        top: 9px;
+        position: absolute;
+        background: #DEE50F;
+        border: 2px dimgrey;
+    }
+}
+
+@media(max-width: 575px) {
+    .loginHeader-ex {
+        margin-left: 70%;
+        position: absolute;
+        top: 9px;
+        background: #DEE50F;
+        border: 2px dimgrey;
+    }
+}
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -33,6 +53,7 @@ body {
     color: #DEE50F;
     font-family: fantasy, copperplate;
 }
+
 .wrapper {
     width: 100%;
     display: flex;
