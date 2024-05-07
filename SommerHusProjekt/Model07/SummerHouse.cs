@@ -34,9 +34,11 @@ namespace SommerHusProjekt.Model07
             Description = string.Empty;
             Price = 0.0m;
             Picture = string.Empty;
+            DateFrom = DateTime.MinValue;
+            DateTo = DateTime.MinValue;
         }
 
-        public SummerHouse(int id, string streetName, string houseNumber, int postalCode, string city, string floor, string description, decimal price, string picture)
+        public SummerHouse(int id, string streetName, string houseNumber, int postalCode, string city, string floor, string description, decimal price, string picture, DateTime dateFrom, DateTime dateTo)
         {
             Id = id;
             StreetName = streetName;
@@ -47,9 +49,11 @@ namespace SommerHusProjekt.Model07
             Description = description;
             Price = price;
             Picture = picture;
+            DateFrom = dateFrom;
+            DateTo = dateTo;
         }
 
-        public SummerHouse(string streetName, string houseNumber, string floor, int postalCode, string description, decimal price)
+        public SummerHouse(string streetName, string houseNumber, string floor, int postalCode, string description, decimal price, string picture, DateTime dateFrom, DateTime dateTo)
         {
             StreetName = streetName;
             HouseNumber = houseNumber;
@@ -57,6 +61,9 @@ namespace SommerHusProjekt.Model07
             PostalCode = postalCode;
             Description = description;
             Price = price;
+            Picture = picture;
+            DateFrom = dateFrom;
+            DateTo = dateTo;
         }
 
         public override string ToString()
@@ -64,4 +71,5 @@ namespace SommerHusProjekt.Model07
             return $"{{{nameof(Id)}={Id.ToString()}, {nameof(StreetName)}={StreetName}, {nameof(HouseNumber)}={HouseNumber}, {nameof(PostalCode)}={PostalCode.ToString()}, {nameof(City)}={City}, {nameof(Floor)}={Floor}, {nameof(Description)}={Description}, {nameof(Price)}={Price.ToString()}, {nameof(Picture)}={Picture}, {nameof(DateFrom)}={DateFrom.ToString()}, {nameof(DateTo)}={DateTo.ToString()}}}";
         }
     }
+
 }
