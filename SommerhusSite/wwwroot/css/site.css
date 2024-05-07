@@ -7,24 +7,30 @@ html {
     font-size: 16px;
   }
 }
-@media(min-width: 576px ) 
+@media(min-width: 576px) and (max-width: 1708px) 
 {
     .loginHeader {
-        left: 90%;
-        top: 9px;
+        left: 85%;
+        top: 10px;
         position: absolute;
         background: #DEE50F;
-        border: 2px dimgrey;
     }
 }
-
 @media(max-width: 575px) {
-    .loginHeader-ex {
-        margin-left: 70%;
+    .loginHeader-min {
+        left: 72%;
         position: absolute;
         top: 9px;
         background: #DEE50F;
-        border: 2px dimgrey;
+    }
+}
+@media(min-width: 1708px)
+{
+    .loginHeader-max {
+        left: 75%;
+        top: 10px;
+        position: absolute;
+        background: #DEE50F;
     }
 }
 
@@ -74,6 +80,35 @@ body {
     font-family: fantasy, copperplate;
 }
 
+/*All CSS to Create Profile*/
+.CreateBox {
+    position: relative;
+    background-color: whitesmoke;
+    backdrop-filter: blur(50%);
+    border: solid 4px #4AADFF;
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    max-width: 45em;
+    padding: 4.5em 2em 2em 2em;
+}
+
+.Create-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4AADFF;
+    width: 210px;
+    height: 46px;
+    border-radius: 0 0 20px 20px;
+}
+    .Create-header span {
+        font-size: 30px;
+        font-weight: 600;
+    }
 
 .wrapper {
     width: 100%;
