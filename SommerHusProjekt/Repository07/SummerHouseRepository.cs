@@ -15,7 +15,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price, Picture) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price, @Picture)";
+            string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price, Picture, DateFrom, DateTo) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price, @Picture, @DateFrom, @DateTo)";
 
             SqlCommand cmd = new SqlCommand(insertSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
@@ -25,6 +25,8 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@Description", s.Description);
             cmd.Parameters.AddWithValue("@Price", s.Price);
             cmd.Parameters.AddWithValue("@Picture", s.Picture);
+            cmd.Parameters.AddWithValue("@DateFrom", s.DateFrom);
+            cmd.Parameters.AddWithValue("@DateTo", s.DateTo);
 
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);
@@ -81,58 +83,48 @@ namespace SommerHusProjekt.Repository07
             s.Id = reader.GetInt32(0);
             s.StreetName = reader.GetString(1);
             s.HouseNumber = reader.GetString(2);
-            s.Floor = reader.GetString(3);
+            s.Floor = reader.IsDBNull(3) ? null : reader.GetString(3);
             s.PostalCode = reader.GetInt32(4);
             s.Description = reader.GetString(5);
             s.Price = reader.GetDecimal(6);
-            s.Picture = reader.GetString(7);
-
-
+            s.Picture = reader.IsDBNull(7) ? null : reader.GetString(7);
+            s.DateFrom = reader.GetDateTime(8);
+            s.DateTo = reader.GetDateTime(9);
 
             return s;
         }
 
         public SummerHouse GetById(int id)
+    {
+        SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
+        connection.Open();
+
+        string selectSql = "SELECT * FROM SommerSommerHouse WHERE Id = @Id";
+
+        SqlCommand cmd = new SqlCommand(selectSql, connection);
+        cmd.Parameters.AddWithValue("@Id", id);
+
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        SummerHouse s = null;
+
+        if (reader.Read())
         {
-            SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
-            connection.Open();
-
-            string selectSql = "SELECT * FROM SommerSommerHouse WHERE Id = @Id";
-
-            SqlCommand cmd = new SqlCommand(selectSql, connection);
-            cmd.Parameters.AddWithValue("@Id", id);
-
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            SummerHouse s = null;
-
-            if (reader.Read())
-            {
-                s = new SummerHouse
-                {
-                    Id = Convert.ToInt32(reader["Id"]),
-                    StreetName = reader["StreetName"].ToString(),
-                    HouseNumber = reader["HouseNumber"].ToString(),
-                    Floor = reader["Floor"].ToString(),
-                    PostalCode = Convert.ToInt32(reader["PostalCode"]),
-                    Description = reader["Description"].ToString(),
-                    Price = Convert.ToDecimal(reader["Price"]),
-                    Picture = reader["Picture"].ToString(),
-                };
-            }
-
-            reader.Close();
-            connection.Close();
-
-            return s;
+            s = ReadSommerHouse(reader);
         }
+
+        reader.Close();
+        connection.Close();
+
+        return s;
+    }
 
         public SummerHouse Update(int id, SummerHouse s)
         {
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string updateSql = "UPDATE SommerSommerHouse SET FirstName =  StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, Postalcode = @Postalcode, Description = @Description, Price = @Price, Picture = @Picture  WHERE Id = @Id";
+            string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo WHERE Id = @Id";
 
             SqlCommand cmd = new SqlCommand(updateSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
@@ -142,6 +134,8 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@Description", s.Description);
             cmd.Parameters.AddWithValue("@Price", s.Price);
             cmd.Parameters.AddWithValue("@Picture", s.Picture);
+            cmd.Parameters.AddWithValue("@DateFrom", s.DateFrom);
+            cmd.Parameters.AddWithValue("@DateTo", s.DateTo);
             cmd.Parameters.AddWithValue("@Id", id);
 
             int rowsAffected = cmd.ExecuteNonQuery();
