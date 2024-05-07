@@ -53,7 +53,7 @@ namespace SommerHusProjekt.Model07
             DateTo = dateTo;
         }
 
-        public SummerHouse(string streetName, string houseNumber, string floor, int postalCode, string description, decimal price, string picture, DateTime dateFrom, DateTime dateTo)
+        public SummerHouse(string streetName, string houseNumber, string floor, int postalCode, string description, decimal price, DateTime dateFrom, DateTime dateTo)
         {
             StreetName = streetName;
             HouseNumber = houseNumber;
@@ -61,7 +61,6 @@ namespace SommerHusProjekt.Model07
             PostalCode = postalCode;
             Description = description;
             Price = price;
-            Picture = picture;
             DateFrom = dateFrom;
             DateTo = dateTo;
         }
