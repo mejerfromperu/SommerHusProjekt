@@ -5,12 +5,13 @@
 }
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-5">
+        <div class="col-lg-4" style="padding-top: 15px;">
             <h4 class="text-center">Sommerhus Preview Card</h4>
             <div class="p-2 justify-content-center d-flex">
-                <div class="card p-2 my-2 d-flex" style="width: 20em; height: 32em; background: whitesmoke;">
+                <div class="card p-2 my-2 d-flex cardSpecial">
                     <div class="col-md-12 justify-content-center">
-                            <img src="~/css/images/sommer&solplaceholder.png" class="card-img-top rounded-2" style="width: 100%; height: 14em; justify-content: center;" />
+                        <form></form>
+                            <img src="~/css/images/sommer&solplaceholder.png" class="card-img-top cardSpecialIMG"/>
                     </div>
                     <div class="card-subtitle my-2">
                         <h2 id="outputLocation"></h2>
@@ -27,28 +28,33 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-8">
         <form method="post">
-            <div class="row d-flex" style="padding-top: 15px; padding-left: 15px;">
-                <h4 class=" d-flex justify-content-center">Sommer Hus Lokation</h4>
-            <div class="col-md-8">
-                <input id="inputCity" placeholder="By" class="form-control" oninput="displayLocation()" /><br />
-            </div>
-            <div class="col-md-4">
-                <span asp-validation-for="@Model.NewSummerHousePostalCode" class="text-danger"></span>
-                <input class="form-control" placeholder="Postnummer" id="inputPostalcode" type="text" oninput="displayLocation()" asp-for="@Model.NewSummerHousePostalCode" /><br />
-            </div>
-            <div class="col-md-6">
-                <span asp-validation-for="@Model.NewSummerHouseStreetName" class="text-danger"></span>
-                <input class="form-control" placeholder="Vej Navn" asp-for="@Model.NewSummerHouseStreetName" /><br />
-            </div>
-            <div class="col-md-3">
-                <span asp-validation-for="@Model.NewSummerHouseHouseNumber" class="text-danger"></span>
-                <input class="form-control" placeholder="Vej Nr." asp-for="@Model.NewSummerHouseHouseNumber" /><br />
-            </div>
-            <div class="col-md-3">
-                <span asp-validation-for="@Model.NewSummerHouseFloor" class="text-danger"></span>
-                <input class="form-control" placeholder="Etage" asp-for="@Model.NewSummerHouseFloor" /><br />
+                <div style="padding-top: 15px; padding-bottom: 15px;">
+                        <h4 class=" d-flex justify-content-center">Udfyld Arket</h4>
+                </div>
+                <div class="container" style="padding-top: 15px; padding-left: 15px; border-radius: 20px; border: #4AADFF 2px solid;">
+                    <h4 class=" d-flex justify-content-center">Sommer Hus Lokation</h4>
+            <div class="row d-flex" style="padding-top: 15px;">
+                <div class="col-md-8">
+                    <input id="inputCity" placeholder="By" class="form-control" oninput="displayLocation()" /><br />
+                </div>
+                <div class="col-md-4">
+                    <span asp-validation-for="@Model.NewSummerHousePostalCode" class="text-danger"></span>
+                    <input class="form-control" placeholder="Postnummer" id="inputPostalcode" type="text" oninput="displayLocation()" asp-for="@Model.NewSummerHousePostalCode" /><br />
+                </div>
+                <div class="col-md-6">
+                    <span asp-validation-for="@Model.NewSummerHouseStreetName" class="text-danger"></span>
+                    <input class="form-control" placeholder="Vej Navn" asp-for="@Model.NewSummerHouseStreetName" /><br />
+                </div>
+                <div class="col-md-3">
+                    <span asp-validation-for="@Model.NewSummerHouseHouseNumber" class="text-danger"></span>
+                    <input class="form-control" placeholder="Vej Nr." asp-for="@Model.NewSummerHouseHouseNumber" /><br />
+                </div>
+                <div class="col-md-3">
+                    <span asp-validation-for="@Model.NewSummerHouseFloor" class="text-danger"></span>
+                    <input class="form-control" placeholder="Etage" asp-for="@Model.NewSummerHouseFloor" /><br />
+                </div>
             </div>
             <div class="row d-flex">
                 <div class="col-md-6">
@@ -67,15 +73,15 @@
                     <h4 class="d-grid justify-content-center" >Udlejnings Periode</h4>
                     <div class="mb-3">
                         <label>Dato Fra</label><br/>
-                        <input type="date" class="form-control" name="fromDate"><br/>
+                        <input type="date" class="form-control" name="fromDate" asp-for="@Model.NewSummerHouseFromDate"><br/>
                     </div>
                     <h4 class="d-gridjustify-content-center"></h4>
                     <div class="mb-3">
                         <label>Dato Til</label><br/>
-                        <input type="date" class="form-control" name="toDate"><br/>
+                        <input type="date" class="form-control" name="toDate" asp-for="@Model.NewSummerHouseToDate"><br/>
                     </div>                    
                 </div>
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-evenly" style="padding-bottom: 15px;">
                     <div class="col-md-6 d-flex justify-content-center">
                         <input type="submit" value="Opret Sommerhus" class="btn btn-primary" />
                     </div>
@@ -83,8 +89,8 @@
                         <input type="submit" value="Fortryd" class="btn btn-outline-danger" asp-page-handler="Cancel"/>
                     </div>
                 </div>
-            </div>
-            </div>
+                </div>
+                </div>
         </form>
         </div>
     </div>

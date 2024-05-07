@@ -43,6 +43,14 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         [Required(ErrorMessage = "Pris skal udfyldes")]
         public decimal NewSummerHousePrice { get; set; }
 
+        [BindProperty]
+        [Required(ErrorMessage = "Dato Fra skal udfyldes")]
+        public DateTime NewSummerHouseFromDate { get; set; }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Dato Til skal udfyldes")]
+        public DateTime NewSummerHouseToDate { get; set; }
+
         public string ErrorMessage { get; private set; }
 
         public void OnGet()
@@ -64,7 +72,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
                 ErrorMessage = "Invalid postal code format";
                 return Page(); // Or return an error response as per your requirement
             }
-            SummerHouse newsummerhouse = new SummerHouse(NewSummerHouseStreetName, NewSummerHouseHouseNumber, NewSummerHouseFloor, postalCode, NewSummerHouseDescription, NewSummerHousePrice);
+            SummerHouse newsummerhouse = new SummerHouse(NewSummerHouseStreetName, NewSummerHouseHouseNumber, NewSummerHouseFloor, postalCode, NewSummerHouseDescription, NewSummerHousePrice, NewSummerHouseFromDate, NewSummerHouseToDate);
 
             try
             {
