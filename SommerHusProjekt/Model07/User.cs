@@ -45,7 +45,7 @@ namespace SommerHusProjekt.Model07
             
         }
 
-        public User(int id, string firstName, string lastName, string email, string password, string phone, string streetName, string houseNumber, string floor, string city, int postalCode, bool isLandLord, bool isadmin)
+        public User(int id, string firstName, string lastName, string phone, string email, string password, string streetName, string houseNumber, string floor, string city, int postalCode, bool isLandLord, bool isadmin)
         {
             id = 0;
             _id = id;
@@ -63,9 +63,8 @@ namespace SommerHusProjekt.Model07
             _isAdmin = isadmin;
         }
 
-        public User( string firstName, string lastName, string email, string password, string phone, string streetName, string houseNumber, string floor, string city, int postalCode, bool isLandLord, bool isadmin)
+        public User( string firstName, string lastName, string phone, string email, string password, string streetName, string houseNumber, string floor, int postalCode, bool isLandLord, bool isadmin)
         {
-            _id = 0;
             _firstName = firstName;
             _lastName = lastName;
             _email = email;
@@ -74,13 +73,12 @@ namespace SommerHusProjekt.Model07
             _streetName = streetName;
             _houseNumber = houseNumber;
             _floor = floor;
-            _city = city;
             _postalCode = postalCode;
             _isLandlord = isLandLord;
             _isAdmin = isadmin;
         }
 
-        public User(string firstName, string lastName, string email, string password, string phone, string streetName, string houseNumber, string floor, string city, int postalCode)
+        public User(string firstName, string lastName, string phone, string email, string password, string streetName, string houseNumber, string floor, string city, int postalCode)
         {
             _id = 0;
             _firstName = firstName;

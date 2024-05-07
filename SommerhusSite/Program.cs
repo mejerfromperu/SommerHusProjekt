@@ -1,7 +1,13 @@
+using SommerHusProjekt.Repository07;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<IUserRepository>(new UserRepository());
+
+builder.Services.AddSingleton<ISummerHouseRepository>(new SummerHouseRepository());
 
 var app = builder.Build();
 
