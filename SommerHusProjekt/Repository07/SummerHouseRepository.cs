@@ -85,7 +85,7 @@ namespace SommerHusProjekt.Repository07
             s.PostalCode = reader.GetInt32(4);
             s.Description = reader.GetString(5);
             s.Price = reader.GetDecimal(6);
-            s.Picture = reader.GetString(7);
+            s.Picture = reader.IsDBNull(7) ? null : reader.GetString(7);
 
 
 
