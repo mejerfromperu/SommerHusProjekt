@@ -22,7 +22,7 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@SummerHouseId", b.SummerHouseId);
             cmd.Parameters.AddWithValue("@StartDate", b.StartDate);
             cmd.Parameters.AddWithValue("@EndDate", b.EndDate);
-
+                                                                                                                                                                                                                                                                                            
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);
 
