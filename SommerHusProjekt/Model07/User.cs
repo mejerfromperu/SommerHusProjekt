@@ -78,6 +78,21 @@ namespace SommerHusProjekt.Model07
             _isAdmin = isadmin;
         }
 
+        public User(string firstName, string lastName, string phone, string email, string password, string streetName, string houseNumber, int postalCode, bool isLandLord, bool isadmin)
+        {
+            _firstName = firstName;
+            _lastName = lastName;
+            _email = email;
+            _password = password;
+            _phone = phone;
+            _streetName = streetName;
+            _houseNumber = houseNumber;
+            _floor = string.Empty;
+            _postalCode = postalCode;
+            _isLandlord = isLandLord;
+            _isAdmin = isadmin;
+        }
+
         public User(string firstName, string lastName, string phone, string email, string password, string streetName, string houseNumber, string floor, string city, int postalCode)
         {
             _id = 0;

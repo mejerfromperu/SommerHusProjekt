@@ -56,6 +56,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
         public string NewUserHouseNumber { get; set; }
 
         [BindProperty]
+        [StringLength(100, MinimumLength = 0, ErrorMessage = "Der skal være mindst 0 tegn i et etagefelt")]
         public string NewUserFloor { get; set; }
 
         [BindProperty]
@@ -77,12 +78,17 @@ namespace SommerhusHjemmeside.Pages.UserSite
         {
 
             ErrorMessage = "fEJL 404 KUNNE IKKE OPRETTE EN USER";
+            ModelState.Remove("NewUserFloor"); // Ignorer validering af NewUserFloor
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            User newuser = new User(NewUserFirstName, NewUserLastName, NewUserPhone, NewUserEmail, NewUserPassword, NewUserStreetName, NewUserHouseNumber, NewUserFloor, NewUserPostalCode, NewUserIsLandLord, NewUserIsAdmin);
+            if (NewUserFloor == null)
+            {
+                NewUserFloor = string.Empty;  
+            }
 
+            User newuser = new User(NewUserFirstName, NewUserLastName, NewUserPhone, NewUserEmail, NewUserPassword, NewUserStreetName, NewUserHouseNumber, NewUserFloor, NewUserPostalCode, NewUserIsLandLord, NewUserIsAdmin);
             try
             {
                 _repo.Add(newuser);
