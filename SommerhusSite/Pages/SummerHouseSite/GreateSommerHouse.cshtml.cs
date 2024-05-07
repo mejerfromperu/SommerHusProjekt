@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using 
+using SommerHusProjekt.Repository07;
+using SommerHusProjekt.Model07;
 
 namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 {
     public class GreateSommerHouseModel : PageModel
     {
-        private ISommerHouseRepository _repo;
+        private ISummerHouseRepository _repo;
 
         // dependency injection
-        public GreateSommerHouseModel(ISommerHouseRepository sommerhouserepo)
+        public GreateSommerHouseModel(ISummerHouseRepository sommerhouserepo)
         {
             _repo = sommerhouserepo;
         }
@@ -42,11 +43,6 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         [Required(ErrorMessage = "Pris skal udfyldes")]
         public decimal NewSommerHousePrice { get; set; }
 
-        [BindProperty]
-        [Required(ErrorMessage = "Billede skal udfyldes")]
-        public string NewSommerHousePicture { get; set; }
-
-
         public string ErrorMessage { get; private set; }
 
         public void OnGet()
@@ -61,7 +57,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
             {
                 return Page();
             }
-            SommerHouse newsommerhouse = new SommerHouse(NewSommerHouseStreetName, NewSommerHouseHouseNumber, NewSommerHouseFloor, NewSommerHousePostalCode, NewSommerHouseDescription, NewSommerHousePrice, NewSommerHousePicture);
+            SummerHouse newsommerhouse = new SummerHouse(NewSommerHouseStreetName, NewSommerHouseHouseNumber, NewSommerHouseFloor, NewSommerHousePostalCode, NewSommerHouseDescription, NewSommerHousePrice);
 
             try
             {
