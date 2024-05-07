@@ -17,7 +17,10 @@ namespace SommerHusProjekt.Repository07
             connection.Open();
 
             string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord) VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
-
+            if (user.Floor == null) 
+            {
+                user.Floor = string.Empty;
+            }
             SqlCommand cmd = new SqlCommand(insertSql, connection);
             cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
             cmd.Parameters.AddWithValue("@LastName", user.LastName);
@@ -132,8 +135,8 @@ namespace SommerHusProjekt.Repository07
                     HouseNumber = reader["HouseNumber"].ToString(),
                     Floor = reader["Floor"].ToString(),
                     PostalCode = Convert.ToInt32(reader["PostalCode"]),
-                    IsAdmin = reader["IsAdmin"].ToString() == "false",
-                    IsLandlord = reader["IsLandlord"].ToString() == "false"
+                    IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
+                    IsLandlord = reader.GetBoolean(reader.GetOrdinal("IsLandlord"))
                 };
             }
 
