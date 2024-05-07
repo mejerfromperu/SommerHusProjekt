@@ -22,26 +22,26 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 
         [BindProperty]
         [Required(ErrorMessage = "Vejnavn skal udfyldes")]
-        public string NewSommerHouseStreetName { get; set; }
+        public string NewSummerHouseStreetName { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Hus nummer skal udfyldes")]
-        public string NewSommerHouseHouseNumber { get; set; }
+        public string NewSummerHouseHouseNumber { get; set; }
 
         [BindProperty]
-        public string NewSommerHouseFloor { get; set; }
+        public string NewSummerHouseFloor { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Postnummer skal udfyldes")]
-        public int NewSommerHousePostalCode { get; set; }
+        public string NewSummerHousePostalCode { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Beskrivelse skal udfyldes")]
-        public string NewSommerHouseDescription { get; set; }
+        public string NewSummerHouseDescription { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Pris skal udfyldes")]
-        public decimal NewSommerHousePrice { get; set; }
+        public decimal NewSummerHousePrice { get; set; }
 
         public string ErrorMessage { get; private set; }
 
@@ -57,12 +57,19 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
             {
                 return Page();
             }
-            SummerHouse newsommerhouse = new SummerHouse(NewSommerHouseStreetName, NewSommerHouseHouseNumber, NewSommerHouseFloor, NewSommerHousePostalCode, NewSommerHouseDescription, NewSommerHousePrice);
+
+            if (!int.TryParse(NewSummerHousePostalCode, out int postalCode))
+            {
+                // Failed to parse postal code to integer
+                ErrorMessage = "Invalid postal code format";
+                return Page(); // Or return an error response as per your requirement
+            }
+            SummerHouse newsummerhouse = new SummerHouse(NewSummerHouseStreetName, NewSummerHouseHouseNumber, NewSummerHouseFloor, postalCode, NewSummerHouseDescription, NewSummerHousePrice);
 
             try
             {
-                _repo.Add(newsommerhouse);
-                TempData["SuccessMessage"] = $"User {newsommerhouse} added successfully";
+                _repo.Add(newsummerhouse);
+                TempData["SuccessMessage"] = $"User {newsummerhouse} added successfully";
 
             }
             catch (ArgumentException ex)
