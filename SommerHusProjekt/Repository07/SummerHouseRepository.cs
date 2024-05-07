@@ -15,7 +15,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price, Picture) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price, @Picture)";
+            string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price)";
 
             SqlCommand cmd = new SqlCommand(insertSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
@@ -24,7 +24,6 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@PostalCode", s.PostalCode);
             cmd.Parameters.AddWithValue("@Description", s.Description);
             cmd.Parameters.AddWithValue("@Price", s.Price);
-            cmd.Parameters.AddWithValue("@Picture", s.Picture);
 
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);

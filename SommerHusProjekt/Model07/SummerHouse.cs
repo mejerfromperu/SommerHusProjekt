@@ -49,7 +49,7 @@ namespace SommerHusProjekt.Model07
             Picture = picture;
         }
 
-        public SummerHouse(string streetName, string houseNumber, string floor, int postalCode, string description, decimal price, string picture)
+        public SummerHouse(string streetName, string houseNumber, string floor, int postalCode, string description, decimal price)
         {
             StreetName = streetName;
             HouseNumber = houseNumber;
@@ -57,7 +57,6 @@ namespace SommerHusProjekt.Model07
             PostalCode = postalCode;
             Description = description;
             Price = price;
-            Picture = picture;
         }
 
         public override string ToString()
