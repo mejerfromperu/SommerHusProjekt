@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using SommerHusProjekt.Model07
+@using SommerhusSite.Services
+@{
+    User? user = null;
+    try
+    {
+        user = SessionHelper.Get<User>(Context);
+    }
+    catch
+    {
+
+    }
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,15 +44,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Sommer Huse</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/UserSite/LogIn">Log In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/SummerHouseSite/GreateSommerHouse">Opret SommerHus</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/AdminSite/Index">Admin</a>
-                        </li>
+                        @if (user == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/UserSite/LogIn">Log In</a>
+                            </li>
+                        }
+                        @if (user != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/UserSite/LogOut">Log Out</a>
+                            </li>
+                        }
+                        @if (user != null && user?.IsLandlord == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/SummerHouseSite/GreateSommerHouse">Opret SommerHus</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
