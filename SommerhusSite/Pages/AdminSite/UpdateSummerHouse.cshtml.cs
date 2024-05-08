@@ -47,6 +47,10 @@ namespace SommerhusSite.Pages.AdminSite
         [BindProperty]
         [Required(ErrorMessage = "Dato Fra skal udfyldes")]
         public DateTime NewSummerHouseFromDate { get; set; }
+       
+        [BindProperty]
+        [Required(ErrorMessage = "Picture skal udfyldes")]
+        public string NewSummerHousePicture { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Til skal udfyldes")]
@@ -73,6 +77,7 @@ namespace SommerhusSite.Pages.AdminSite
                 NewSummerHousePrice = summerHouse.Price;
                 NewSummerHouseFromDate = summerHouse.DateFrom;
                 NewSummerHouseToDate = summerHouse.DateTo;
+                NewSummerHousePicture = summerHouse.Picture;
             }
             catch (KeyNotFoundException knfe)
             {
