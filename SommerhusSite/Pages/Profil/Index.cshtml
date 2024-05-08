@@ -1,10 +1,31 @@
 ﻿@page
+@using SommerHusProjekt.Model07
+@using SommerhusSite.Services
 @model SommerhusSite.Pages.Profil.IndexModel
 @{
-    
-
+    User loggedInUser = SessionHelper.Get<User>(HttpContext);
 }
 
-<h1>HERE IS YOUR INFORMATION FOR YOU</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <div class="justify-content-center d-flex" style="padding-bottom: 1.5em;">
+                <div class="card p-2 d-flex cardSpecial">
+                    <div class="PreviewCardBox-Header">
 
-
+                    </div>
+                    <div class="col-md-12 justify-content-center">
+                        <p>ID: @loggedInUser.Id </p>
+                        <p>Name: @loggedInUser.FirstName @loggedInUser.LastName</p>
+                        <p>Email: @loggedInUser.Email</p>
+                        <p>City: @loggedInUser.City</p>
+                        <p>Password: @loggedInUser.Password</p>
+                        <p>Phone: @loggedInUser.Phone</p>
+                        <p>Streetname: @loggedInUser.StreetName @loggedInUser.HouseNumber</p>
+                        <p>Post nummer: @loggedInUser.PostalCode</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
