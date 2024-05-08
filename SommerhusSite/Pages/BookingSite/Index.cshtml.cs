@@ -1,12 +1,62 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SommerHusProjekt.Model07;
+using SommerHusProjekt.Repository07;
+using SommerhusSite.Services;
 
 namespace SommerhusSite.Pages.BookingSite
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
+        private readonly ISummerHouseRepository _summerList;
+        private readonly IBookingRepository _bookingList;
+
+        [BindProperty]
+        public Booking Booking { get; set; }
+
+        public SummerHouse SelectedSummerhouse { get; set; }
+
+        public User LoggedInUser { get; set; } 
+
+        public IndexModel(ISummerHouseRepository summerlist, IBookingRepository bookinglist)
         {
+            _summerList = summerlist;
+            _bookingList = bookinglist;
         }
+
+        public void OnGet(int summerhouseId)
+        {
+            SelectedSummerhouse = _summerList.GetById(summerhouseId);
+            LoggedInUser = SessionHelper.Get<User>(HttpContext);
+        }
+
+        public IActionResult OnPost(int summerhouseId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            // Retrieve user object from session
+            User loggedInUser = SessionHelper.Get<User>(HttpContext);
+
+            // Retrieve the selected SummerHouse based on the summerhouseId
+            SummerHouse selectedSummerhouse = _summerList.GetById(summerhouseId);
+
+            // Create a new Booking object with the provided information
+            var newBooking = new Booking
+            {
+                UserId = loggedInUser.Id,
+                SummerHouseId = selectedSummerhouse.Id,
+                StartDate = Booking.StartDate,
+                EndDate = Booking.EndDate
+            };
+
+            // Add the booking to the database
+            _bookingList.Add(newBooking);
+
+            return RedirectToPage("/BookingSite/Confirmation");
+        }
+
     }
 }
