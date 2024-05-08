@@ -1,0 +1,50 @@
+﻿@page
+@using SommerHusProjekt.Model07
+@model SommerhusSite.Pages.AdminSite.UserListModel
+@{
+}
+
+<h1>Her ses alle kunder</h1>
+
+<div class="form-selectt rounded-2">
+    <form method="post" class="border border-success rounded">
+        <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-success" />
+        Kunde Nummer <input type="number" asp-for="@Model.SearchId" />
+        Kunde Fornavn <input type="text" asp-for="@Model.SearchFirstName" />
+        Kunde Efternavn <input type="text" asp-for="@Model.SearchLastName" />
+        Kunde Tlf <input type="text" asp-for="@Model.SearchPhone" />
+        Kunde Email <input type="text" asp-for="@Model.SearchEmail" />
+    </form>
+</div>
+
+@* Tabel med alle kunder og man kan sortere efter id og navn *@
+<div class="form-selectt">
+    <table class="table table-hover rounded-2">
+        <thead>
+            <tr>
+                <form method="post">
+                <th><input type="submit" asp-page-handler="SortId" value="Kunde Nummer" class="btn btn-success" /></th>
+                <th><input type="submit" asp-page-handler="SortFirstName" value="Fornavn" class="btn btn-success" /></th>
+                <th><input type="submit" asp-page-handler="SortLastName" value="Efternavn" class="btn btn-success" /></th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th></th>
+                <th></th>
+                </form>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (User u in Model.Users)
+            {
+                <tr>
+                    <td>@u.Id</td>
+                    <td>@u.FirstName</td>
+                    <td>@u.LastName</td>
+                    <td>@u.Email</td>
+                    <td>@u.Phone</td>
+                    <td><a asp-page="DeleteUser" asp-route-id="@u.Id">Slet</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
