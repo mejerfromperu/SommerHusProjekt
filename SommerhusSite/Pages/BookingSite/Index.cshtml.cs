@@ -10,6 +10,7 @@ namespace SommerhusSite.Pages.BookingSite
         private readonly ISummerHouseRepository _summerList;
         private readonly IBookingRepository _bookingList;
 
+
         [BindProperty]
         //public BookingInfo BookingInfo { get; set; }
 
