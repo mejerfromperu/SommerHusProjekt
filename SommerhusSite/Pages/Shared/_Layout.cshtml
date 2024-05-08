@@ -32,9 +32,7 @@
                     <img src="~/css/favimage/favicon-32x32.png" class="align-content-center" style="height: 20px; width: 20px;" alt="Brand Logo">
                     Sommer&SOL
                 </a>
-                <form action="/UserSite/LogIn">
-                    <input type="submit" value="LogIn" class="btn btn-outline-dark loginHeader-min loginHeader loginHeader-max" />
-                </form>
+                
                 <button class="navbar-toggler" style="position:relative; padding-right: 2%;" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -46,9 +44,9 @@
                         </li>
                         @if (user == null)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/UserSite/LogIn">Log In</a>
-                            </li>
+                            <form action="/UserSite/LogIn">
+                                <input type="submit" value="LogIn" class="btn btn-outline-dark loginHeader-min loginHeader loginHeader-max" />
+                            </form>
                         }
                         @if (user != null)
                         {
