@@ -2,32 +2,30 @@
 
 namespace SommerhusSite.Services
 {
-    public class SessionHelper
+    public static class SessionHelper
+{
+    public static T Get<T>(HttpContext context)
     {
-
-        public static T Get<T>(HttpContext context)
+        string sessionName = typeof(T).Name;
+        string s = context.Session.GetString(sessionName);
+        if (string.IsNullOrEmpty(s))
         {
-            String sessionName = typeof(T).Name;
-            String s = context.Session.GetString(sessionName);
-            if (string .IsNullOrEmpty(s))
-            {
-                throw new ArgumentException($"No session name found sorry {sessionName}");
-            }
-            return JsonSerializer.Deserialize<T>(s);
-
+            throw new ArgumentException($"No session data found for {sessionName}");
         }
-        public static void Set<T>(T t, HttpContext context)
-        {
-            String sessionName = typeof(T).Name;
-            String s = JsonSerializer.Serialize(t);
-            context.Session.SetString(sessionName, s);
-        }
-
-        public static void Clear<T>(HttpContext context)
-        {
-            context.Session.Remove(typeof(T).Name);
-        }
-
-
+        return JsonSerializer.Deserialize<T>(s);
     }
+
+    public static void Set<T>(T data, HttpContext context)
+    {
+        string sessionName = typeof(T).Name;
+        string s = JsonSerializer.Serialize(data);
+        context.Session.SetString(sessionName, s);
+    }
+
+    public static void Clear<T>(HttpContext context)
+    {
+        string sessionName = typeof(T).Name;
+        context.Session.Remove(sessionName);
+    }
+}
 }

@@ -6,7 +6,7 @@
     User loggedInUser = SessionHelper.Get<User>(HttpContext);
 }
 
-<h1>HELLO BOOKING</h1>
+<h1>BOOKING PAGE</h1>
 <div class="row d-flex justify-content-evenly gap-5">
     <div class="card my-2 p-2 d-flex cardSpecial">
         <div>
@@ -30,10 +30,27 @@
             </div>
         </div>
     </div>
+
+    <!-- User Information -->
+    <div>
+        <h2>User Information</h2>
+        <p>ID: @loggedInUser.Id </p>
+        <p>Name: @loggedInUser.FirstName @loggedInUser.LastName</p>
+        <p>Email: @loggedInUser.Email</p>
+    </div>
 </div>
-<h2>User Information</h2>
-<div>
-    <p>Name: @loggedInUser.FirstName @loggedInUser.LastName</p>
-    <p>Email: @loggedInUser.Email</p>
-    <!-- Add other user information fields as needed -->
-</div>
+<h2>Booking Details</h2>
+<form method="post">
+    <!-- Hidden input field to store the summerhouseId -->
+    <input type="hidden" name="summerhouseId" value="@Model.SelectedSummerhouse.Id" />
+
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" class="form-control" id="startDate" name="StartDate" required asp-for="Booking.StartDate" />
+    </div>
+    <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" class="form-control" id="endDate" name="EndDate" required asp-for="Booking.EndDate" />
+    </div>
+    <button type="submit" class="btn btn-primary">Book Now</button>
+</form>

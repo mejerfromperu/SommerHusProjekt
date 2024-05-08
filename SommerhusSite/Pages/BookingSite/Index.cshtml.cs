@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SommerHusProjekt.Model07;
 using SommerHusProjekt.Repository07;
+using SommerhusSite.Services;
 
 namespace SommerhusSite.Pages.BookingSite
 {
@@ -10,12 +11,12 @@ namespace SommerhusSite.Pages.BookingSite
         private readonly ISummerHouseRepository _summerList;
         private readonly IBookingRepository _bookingList;
 
-
         [BindProperty]
-        //public BookingInfo BookingInfo { get; set; }
-
+        public Booking Booking { get; set; }
 
         public SummerHouse SelectedSummerhouse { get; set; }
+
+        public User LoggedInUser { get; set; } 
 
         public IndexModel(ISummerHouseRepository summerlist, IBookingRepository bookinglist)
         {
@@ -26,30 +27,36 @@ namespace SommerhusSite.Pages.BookingSite
         public void OnGet(int summerhouseId)
         {
             SelectedSummerhouse = _summerList.GetById(summerhouseId);
+            LoggedInUser = SessionHelper.Get<User>(HttpContext);
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(int summerhouseId)
         {
             if (!ModelState.IsValid)
             {
-                // If model state is not valid, return to the page with validation errors
                 return Page();
             }
 
+            // Retrieve user object from session
+            User loggedInUser = SessionHelper.Get<User>(HttpContext);
+
+            // Retrieve the selected SummerHouse based on the summerhouseId
+            SummerHouse selectedSummerhouse = _summerList.GetById(summerhouseId);
+
             // Create a new Booking object with the provided information
-            //var newBooking = new Booking
-            //{
-            //    UserId = /* Get user ID from session or authentication */,
-            //    SummerHouseId = BookingInfo.SummerHouseId,
-            //    StartDate = BookingInfo.StartDate,
-            //    EndDate = BookingInfo.EndDate
-            //};
+            var newBooking = new Booking
+            {
+                UserId = loggedInUser.Id,
+                SummerHouseId = selectedSummerhouse.Id,
+                StartDate = Booking.StartDate,
+                EndDate = Booking.EndDate
+            };
 
             // Add the booking to the database
-            //_bookingRepository.Add(newBooking);
+            _bookingList.Add(newBooking);
 
-            // Redirect to a confirmation page or another relevant page after successful booking
             return RedirectToPage("/BookingSite/Confirmation");
         }
+
     }
 }
