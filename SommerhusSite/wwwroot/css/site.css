@@ -38,7 +38,7 @@ html {
     width: 20em;
     height: 32em;
     background: whitesmoke;
-    border: #4AADFF 2px solid;
+    border: #4AADFF 3px solid;
     border-radius: 20px;
     cursor: default;
     transition: box-shadow 0.03s ease;
@@ -79,6 +79,42 @@ body {
     color: #DEE50F;
     font-family: fantasy, copperplate;
 }
+/*All CSS to The preview card*/
+.PreviewCardBox-Header {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #DEE50F;
+    width: 140px;
+    height: 30px;
+    border-radius: 0 0 20px 20px;
+}
+    .PreviewCardBox-Header span {
+        font-size: 20px;
+        font-weight: 600;
+    }
+/*Sommerhus application*/
+.Application-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4AADFF;
+    width: 270px;
+    height: 46px;
+    border-radius: 0 0 20px 20px;
+}
+    .Application-header span {
+        font-size: 24px;
+        font-weight: 600;
+    }
 
 /*All CSS to Create Profile*/
 .CreateBox {

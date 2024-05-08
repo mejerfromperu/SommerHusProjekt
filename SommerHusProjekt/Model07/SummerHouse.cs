@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace SommerHusProjekt.Model07
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string Picture { get; set; }
+
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
 
@@ -53,14 +55,15 @@ namespace SommerHusProjekt.Model07
             DateTo = dateTo;
         }
 
-        public SummerHouse(string streetName, string houseNumber, string floor, int postalCode, string description, decimal price, DateTime dateFrom, DateTime dateTo)
+        public SummerHouse(string streetName, string houseNumber, int postalCode, string floor, string description, decimal price, string picture, DateTime dateFrom, DateTime dateTo)
         {
             StreetName = streetName;
             HouseNumber = houseNumber;
-            Floor = floor;
             PostalCode = postalCode;
+            Floor = floor;
             Description = description;
             Price = price;
+            Picture= picture;
             DateFrom = dateFrom;
             DateTo = dateTo;
         }

@@ -17,9 +17,6 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         }
 
         // Properties til de nye sommerhuse
-
-
-
         [BindProperty]
         [Required(ErrorMessage = "Vejnavn skal udfyldes")]
         public string NewSummerHouseStreetName { get; set; }
@@ -44,6 +41,10 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         public decimal NewSummerHousePrice { get; set; }
 
         [BindProperty]
+        [Required(ErrorMessage = "Picture skal udfyldes")]
+        public string NewSummerHousePicture { get; set ; }
+
+        [BindProperty]
         [Required(ErrorMessage = "Dato Fra skal udfyldes")]
         public DateTime NewSummerHouseFromDate { get; set; }
 
@@ -55,6 +56,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 
         public void OnGet()
         {
+            NewSummerHousePicture = "/images/sommer&solplaceholder.png";
         }
 
         public IActionResult OnPost()
@@ -68,11 +70,16 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 
             if (!int.TryParse(NewSummerHousePostalCode, out int postalCode))
             {
-                // Failed to parse postal code to integer
                 ErrorMessage = "Invalid postal code format";
-                return Page(); // Or return an error response as per your requirement
+                return Page(); 
             }
-            SummerHouse newsummerhouse = new SummerHouse(NewSummerHouseStreetName, NewSummerHouseHouseNumber, NewSummerHouseFloor, postalCode, NewSummerHouseDescription, NewSummerHousePrice, NewSummerHouseFromDate, NewSummerHouseToDate);
+
+            if (string.IsNullOrEmpty(NewSummerHousePicture))
+            {
+                NewSummerHousePicture = "/css/Images/Sommer&SOLPlaceHolder.png";
+            }
+
+            SummerHouse newsummerhouse = new SummerHouse(NewSummerHouseStreetName, NewSummerHouseHouseNumber, postalCode, NewSummerHouseFloor, NewSummerHouseDescription, NewSummerHousePrice, NewSummerHousePicture, NewSummerHouseFromDate, NewSummerHouseToDate);
 
             try
             {
