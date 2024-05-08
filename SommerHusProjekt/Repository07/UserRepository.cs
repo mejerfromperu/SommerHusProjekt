@@ -85,6 +85,31 @@ namespace SommerHusProjekt.Repository07
 
         }
 
+        public List<User> GetSomething()
+        {
+            List<User> list = new List<User>();
+
+            SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
+            connection.Open();
+
+            string sql = "SELECT Id, FirstName, LastName, Phone, Email FROM SommerUser";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+
+                User user = ReadUser2(reader);
+                list.Add(user);
+            }
+
+
+            connection.Close();
+            return list;
+
+
+        }
+
         private User ReadUser(SqlDataReader reader)
         {
             User user = new User();
@@ -103,6 +128,19 @@ namespace SommerHusProjekt.Repository07
             user.IsLandlord = reader.GetBoolean(11);
 
 
+
+            return user;
+        }
+
+        private User ReadUser2(SqlDataReader reader)
+        {
+            User user = new User();
+
+            user.Id = reader.GetInt32(0);
+            user.FirstName = reader.GetString(1);
+            user.LastName = reader.GetString(2);
+            user.Phone = reader.GetString(3);
+            user.Email = reader.GetString(4);
 
             return user;
         }
@@ -220,9 +258,136 @@ namespace SommerHusProjekt.Repository07
             return null; // User not found
         }
 
-        public List<User> Search(int? id, string? name, string? team)
+        public List<User> Search(int? id, string? firstName, string? lastName, string? phone, string? email)
         {
-            throw new NotImplementedException();
+            List<User> retUsers = new List<User>(GetSomething());
+
+            if (id != null)
+            {
+                retUsers = retUsers.FindAll(u => u.Id == id);
+            }
+
+            if (firstName != null)
+            {
+                retUsers = retUsers.FindAll(u => u.FirstName.Contains(firstName));
+            }
+
+            if (lastName != null)
+            {
+                retUsers = retUsers.FindAll(u => u.LastName.Contains(lastName));
+            }
+
+            if (phone != null)
+            {
+                retUsers = retUsers.FindAll(u => u.Phone.Contains(phone));
+            }
+
+            if (email != null)
+            {
+                retUsers = retUsers.FindAll(c => c.Email.Contains(email));
+            }
+
+            return retUsers;
+        }
+
+        private bool NumberASC = true;
+        public List<User> SortId()
+        {
+            List<User> retUsers = GetSomething();
+
+            retUsers.Sort(new SortById());
+
+            if (!NumberASC)
+            {
+                retUsers.Reverse();
+            }
+            NumberASC = !NumberASC;
+
+            return retUsers;
+        }
+
+        private class SortById : IComparer<User>
+        {
+            public int Compare(User? x, User? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+
+                //if (x.KundeNummer > y.KundeNummer)
+                //{
+                //    return 1;
+                //}
+                //else
+                //{
+                //    return -1;
+                //}
+
+                return x.Id - y.Id;
+            }
+        }
+
+
+        public List<User> SortLastName()
+        {
+            List<User> retUsers = GetSomething();
+
+            //retKunder.Sort(new SortByName());
+
+            retUsers   .Sort((x, y) => x.LastName.CompareTo(y.LastName));
+
+            if (!NameASC)
+            {
+                retUsers.Reverse();
+            }
+            NameASC = !NameASC;
+
+            return retUsers;
+        }
+
+        private bool NameASC = true;
+        public List<User> SortFirstName()
+        {
+            List<User> retUsers = GetSomething();
+
+            //retKunder.Sort(new SortByName());
+
+            retUsers.Sort((x, y) => x.FirstName.CompareTo(y.FirstName));
+
+            if (!NameASC)
+            {
+                retUsers.Reverse();
+            }
+            NameASC = !NameASC;
+
+            return retUsers;
+        }
+
+        private class SortByFirstName : IComparer<User>
+        {
+            public int Compare(User? x, User? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+
+                return x.FirstName.CompareTo(y.FirstName);
+            }
+        }
+
+        private class SortByLastName : IComparer<User>
+        {
+            public int Compare(User? x, User? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+
+                return x.LastName.CompareTo(y.LastName);
+            }
         }
     }
 }

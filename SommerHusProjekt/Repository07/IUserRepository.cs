@@ -12,11 +12,15 @@ namespace SommerHusProjekt.Repository07
         User Add(User m);
         User Delete(int id);
         List<User> GetAll();
+        List<User> GetSomething();
         User GetById(int id);
         string? ToString();
         User Update(int id, User User);
 
         User GetByEmailAndPassword(string email, string password);
-        public List<User> Search(int? id, string? name, string? team);
+        public List<User> Search(int? id, string? firstName, string? lastName, string? phone, string? email);
+        List<User> SortId();
+        List<User> SortFirstName();
+        List<User> SortLastName();
     }
 }
