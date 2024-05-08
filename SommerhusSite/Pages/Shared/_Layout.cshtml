@@ -68,7 +68,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/AdminSite/Index">Admin</a>
                             </li>
                         }
-                        
+                        @if (user != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Profil/Index">Profil</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
