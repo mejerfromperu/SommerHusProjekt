@@ -1,6 +1,33 @@
 ﻿@page
+@using SommerHusProjekt.Model07
 @model SommerhusSite.Pages.BookingSite.ConfirmationModel
 @{
 }
 
-<h1>Bookking done!</h1>
+<h1>Booking Details For The Completed Booking</h1>
+
+@if (Model.bookings != null && Model.bookings.Any())
+{
+    <h2>Your Last Booking for User ID: @Model.newuserid</h2>
+    @if (Model.bookings.Any(booking => booking.UserId == Model.newuserid))
+    {
+        var lastBooking = Model.bookings.Last(booking => booking.UserId == Model.newuserid);
+        <ul>
+            <li>
+                <p>Booking ID: @lastBooking.Id</p>
+                <p>Summerhouse ID: @lastBooking.SummerHouseId</p>
+                <p>Start Date: @lastBooking.StartDate</p>
+                <p>End Date: @lastBooking.EndDate</p>
+            </li>
+        </ul>
+    }
+    else
+    {
+        <p>No bookings found for User ID: @Model.newuserid</p>
+    }
+}
+else
+{
+    <p>No bookings found.</p>
+}
+
