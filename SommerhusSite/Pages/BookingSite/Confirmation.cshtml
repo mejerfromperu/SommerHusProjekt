@@ -12,10 +12,31 @@
     @if (Model.bookings.Any(booking => booking.UserId == Model.newuserid))
     {
         var lastBooking = Model.bookings.Last(booking => booking.UserId == Model.newuserid);
+        var summerhouse = Model._summerhouse.GetById(lastBooking.SummerHouseId);
+
+
         <ul>
             <li>
+                <p>Summerhouse ID: @summerhouse.Id</p>
+                <div class="card my-2 p-2 d-flex cardSpecial">
+                    <div>
+                        <div class="col-12 justify-content-center">
+                            <img class="card-img-top cardSpecialIMG" src="@summerhouse.Picture">
+                        </div>
+
+                        <div class="card-subtitle my-2">
+                            <h2>@summerhouse.City</h2>
+                            <h4>@summerhouse.StreetName</h4>
+                            <h4>@summerhouse.DateFrom</h4>
+                            <h4>@summerhouse.DateTo</h4>
+                            <h4>@summerhouse.Price</h4>
+                        </div>
+                        <div class="card-body text-black">
+                            <h5>@summerhouse.Description</h5>
+                        </div>
+                    </div>
+                </div>
                 <p>Booking ID: @lastBooking.Id</p>
-                <p>Summerhouse ID: @lastBooking.SummerHouseId</p>
                 <p>Start Date: @lastBooking.StartDate</p>
                 <p>End Date: @lastBooking.EndDate</p>
             </li>
@@ -25,9 +46,5 @@
     {
         <p>No bookings found for User ID: @Model.newuserid</p>
     }
-}
-else
-{
-    <p>No bookings found.</p>
 }
 
