@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -118,7 +119,6 @@ namespace SommerHusProjekt.Repository07
 
             return b;
         }
-
         public Booking Update(int id, Booking b)
         {
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
@@ -145,5 +145,39 @@ namespace SommerHusProjekt.Repository07
             return null;
         }
 
+        public List<Booking> GetBookingByUserId(int userId)
+        {
+            List<Booking> bookings = new List<Booking>();
+
+            using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+            {
+                connection.Open();
+
+                string selectSql = "SELECT * FROM SommerBookings WHERE UserId = @UserId";
+
+                SqlCommand cmd = new SqlCommand(selectSql, connection);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Booking b = new Booking
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        UserId = Convert.ToInt32(reader["UserId"]),
+                        SummerHouseId = Convert.ToInt32(reader["SummerHouseId"]),
+                        StartDate = Convert.ToDateTime(reader["StartDate"]),
+                        EndDate = Convert.ToDateTime(reader["EndDate"])
+                    };
+
+                    bookings.Add(b);
+                }
+
+                reader.Close();
+            }
+
+            return bookings;
+        }
     }
 }

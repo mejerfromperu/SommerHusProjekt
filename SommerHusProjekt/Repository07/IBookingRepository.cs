@@ -8,6 +8,7 @@ namespace SommerHusProjekt.Repository07
         Booking Delete(int id);
         List<Booking> GetAll();
         Booking GetById(int id);
+        List<Booking> GetBookingByUserId(int userId);
         Booking Update(int id, Booking b);
     }
 }

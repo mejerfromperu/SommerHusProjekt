@@ -2,3 +2,35 @@
 @model SommerhusSite.Pages.BookingSite.BookingWatchListModel
 @{
 }
+
+<h1>Welcome, @Model.LoggedInUser.FirstName!</h1>
+
+@if (Model.UserBookings != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Summer House ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var UserBookings in Model.UserBookings)
+            {
+                <tr>
+                    <td>@UserBookings.Id</td>
+                    <td>@UserBookings.SummerHouseId</td>
+                    <td>@UserBookings.StartDate.ToShortDateString()</td>
+                    <td>@UserBookings.EndDate.ToShortDateString()</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+else
+{
+    <p>@TempData["Message"]</p>
+}
