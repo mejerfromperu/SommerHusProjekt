@@ -59,7 +59,7 @@ namespace SommerhusSite.Pages.AdminSite
         public string ErrorMessage { get; private set; }
         public bool Error { get; private set; }
 
-        //Gør vi kan få de spefikke oplysninger om bilen
+        //Gør vi kan få de spefikke oplysninger om sommerhuset
         public void OnGet(int id)
         {
             ErrorMessage = "";
@@ -78,6 +78,7 @@ namespace SommerhusSite.Pages.AdminSite
                 NewSummerHouseFromDate = summerHouse.DateFrom;
                 NewSummerHouseToDate = summerHouse.DateTo;
                 NewSummerHousePicture = summerHouse.Picture;
+                NewSummerHouseId = summerHouse.Id;
             }
             catch (KeyNotFoundException knfe)
             {
@@ -87,14 +88,14 @@ namespace SommerhusSite.Pages.AdminSite
         }
 
         //Gør vi kan lave værdierne om til de nye ændrede værdier
-        public IActionResult OnPostChange()
+        public IActionResult OnPostChange(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            SummerHouse summerHouse = _summerHouseRepo.GetById(NewSummerHouseId);
+            SummerHouse summerHouse = _summerHouseRepo.GetById(id);
 
             summerHouse.StreetName = NewSummerHouseStreetName;
             summerHouse.HouseNumber = NewSummerHouseHouseNumber;
@@ -102,10 +103,11 @@ namespace SommerhusSite.Pages.AdminSite
             summerHouse.PostalCode = NewSummerHousePostalCode;
             summerHouse.Description = NewSummerHouseDescription;
             summerHouse.Price = NewSummerHousePrice;
+            summerHouse.Picture = NewSummerHousePicture;
             summerHouse.DateFrom = NewSummerHouseFromDate;
             summerHouse.DateTo = NewSummerHouseToDate;
 
-            //_summerHouseRepo.WriteToJson();
+            _summerHouseRepo.Update(id, summerHouse);
 
             return RedirectToPage("SummerHouseList");
         }
