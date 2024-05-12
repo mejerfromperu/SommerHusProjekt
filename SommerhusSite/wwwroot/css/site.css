@@ -33,18 +33,24 @@ html {
         background: #DEE50F;
     }
 }
-
+/*Colors*/
+:root {
+    --Color1: #4AADFF;
+    --Color2: #DEE50F;
+    --Color3: antiquewhite;
+    --Color4: WhiteSmoke;
+}
 .cardSpecial {
     width: 20em;
     height: 32em;
-    background: whitesmoke;
-    border: #4AADFF 3px solid;
+    background: var(--Color4);
+    border: var(--Color1) 3px solid;
     border-radius: 20px;
     cursor: default;
     transition: box-shadow 0.03s ease;
 }
     .cardSpecial:hover {
-        box-shadow: 0px 0px 20px #4AADFF;
+        box-shadow: 0px 0px 20px var(--Color1);
     }
 
 .cardSpecialIMG {
@@ -66,8 +72,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
 .BG-Special {
-    background: #4AADFF;
+    background: var(--Color1);
     color: black;
 }
 .gradient-text {
@@ -76,7 +83,7 @@ body {
     -webkit-text-fill-color: transparent;
 }
 .textv1 {
-    color: #DEE50F;
+    color: var(--Color2);
     font-family: fantasy, copperplate;
 }
 /*All CSS to The preview card*/
@@ -88,7 +95,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #DEE50F;
+    background: var(--Color2);
     width: 140px;
     height: 30px;
     border-radius: 0 0 20px 20px;
@@ -106,7 +113,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #4AADFF;
+    background: var(--Color1);
     width: 270px;
     height: 46px;
     border-radius: 0 0 20px 20px;
@@ -119,9 +126,9 @@ body {
 /*All CSS to Create Profile*/
 .CreateBox {
     position: relative;
-    background-color: whitesmoke;
+    background-color: var(--Color4);
     backdrop-filter: blur(50%);
-    border: solid 4px #4AADFF;
+    border: solid 4px var(--Color1);
     align-content: center;
     border-radius: 20px 20px 20px 20px;
     max-width: 45em;
@@ -136,7 +143,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #4AADFF;
+    background: var(--Color1);
     width: 210px;
     height: 46px;
     border-radius: 0 0 20px 20px;
@@ -148,19 +155,45 @@ body {
 
 /*All CSS to BookingWatchList*/
 
-.WatchBox {
-    background-color: whitesmoke;
-    border: solid 4px #4AADFF;
+.WatchListBox {
+    background-color: var(--Color3);
+    border: solid 3px var(--Color1);
+    justify-content: center;
     align-content: center;
     border-radius: 20px 20px 20px 20px;
-    max-width: 90%;
-    padding: 2em 2em 2em 2em;
+    max-width: 80%;
+    padding: 1em 0em 1em 0em;
     margin-top: 2em;
 }
 
 .WatchListIMGBox {
+    width: 20em;
+    height: 15.5em;
+    background-color: var(--Color3);
+    border: solid 2px var(--Color3);
+    border-radius: 20px;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+.WatchListInfoBox {
+    background-color: var(--Color4);
+    border: solid 3px var(--Color1);
     align-content: center;
-    justify-content: center;
+    border-radius: 20px 20px 20px 20px;
+    max-width: 98%;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    text-align: center;
+}
+.WatchListInfoBox label{
+    margin-top: 2px;
+    font-weight: 600;
+}
+.WatchListInfoBox output{
+    height: 35px;
+    margin-top: 10px;
+    font-weight: 600;
+    align-content: center;
 }
 
 .WatchListIMG {
@@ -168,12 +201,6 @@ body {
     height: 14em;
     justify-content: center;
     border-radius: 16px;
-}
-
-.WatchListDeleteBTN {
-    height: 38px;
-    align-content: center;
-    justify-content: center;
 }
 
 .wrapper {
@@ -184,12 +211,36 @@ body {
     min-height: 50vh;
 }
 
+.SortByBox {
+    position: relative;
+    background-color: var(--Color4);
+    border: solid 3px var(--Color1);
+    justify-content: center;
+    align-content: center;
+    border-radius: 0px 0px 20px 20px;
+    max-width: 80%;
+    height: contain;
+    padding: 5em 0em 1em 0em;
+    margin-top: 2em;
+}
+.SortByBoxHeader {
+    position: absolute;
+    background-color: var(--Color3);
+    border: solid 1px var(--Color1);
+    border-radius: 0px 0px 0px 40px ;
+    top: 0%;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
 /*all CSS to The login box*/
 .loginbox {
     position: relative;
-    background-color: whitesmoke;
+    background-color: var(--Color4);
     backdrop-filter: blur(50%);
-    border: solid 4px #4AADFF;
+    border: solid 4px var(--Color1);
     align-content: center;
     border-radius: 20px 20px 20px 20px;
     width: 350px;
@@ -205,7 +256,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #4AADFF;
+    background: var(--Color1);
     width: 140px;
     height: 46px;
     border-radius: 0 0 20px 20px;
@@ -230,7 +281,7 @@ body {
     font-size: 16px;
     background: transparent;
     padding-inline: 20px 10px;
-    border: 2px solid #4AADFF;
+    border: 2px solid var(--Color1);
     border-radius: 0 20px 20px 20px;
     outline: none;
     color: black;
@@ -274,5 +325,5 @@ body {
     font-weight: 600;
     border-radius: 15px;
     border: 2px solid dimgrey;
-    background-color: #DEE50F;
+    background-color: var(--Color2);
 }

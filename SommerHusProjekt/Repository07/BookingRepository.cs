@@ -152,7 +152,7 @@ namespace SommerHusProjekt.Repository07
             {
                 connection.Open();
 
-                string selectSql = "SELECT SommerBookings.Id, UserId, SummerHouseId, SommerBookings.StartDate, SommerBookings.EndDate, StreetName, HouseNumber, Postalcode, Price, Picture  \r\nFROM SommerBookings INNER JOIN SommerSommerHouse ON SommerBookings.SummerHouseId = SommerSommerHouse.Id WHERE UserId = @UserId";
+                string selectSql = "SELECT SommerBookings.Id, UserId, SummerHouseId, SommerBookings.StartDate, SommerBookings.EndDate, StreetName, HouseNumber, SommerPostalcode.City, SommerSommerHouse.Postalcode, Price, Picture FROM SommerBookings INNER JOIN SommerSommerHouse ON SommerBookings.SummerHouseId = SommerSommerHouse.Id INNER JOIN SommerPostalcode ON SommerSommerHouse.Postalcode = SommerPostalcode.Postalcode WHERE UserId = @UserId";
 
                 SqlCommand cmd = new SqlCommand(selectSql, connection);
                 cmd.Parameters.AddWithValue("@UserId", userId);
@@ -170,6 +170,7 @@ namespace SommerHusProjekt.Repository07
                         EndDate = Convert.ToDateTime(reader["EndDate"]),
                         StreetName = Convert.ToString(reader["StreetName"]),
                         HouseNumber = Convert.ToInt32(reader["HouseNumber"]),
+                        City = Convert.ToString(reader["City"]),
                         PostalCode = Convert.ToInt32(reader["Postalcode"]),
                         Price = Convert.ToDecimal(reader["Price"]),
                         Picture = Convert.ToString(reader["Picture"]),
