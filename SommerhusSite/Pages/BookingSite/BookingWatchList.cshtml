@@ -1,34 +1,76 @@
 ﻿@page
 @model SommerhusSite.Pages.BookingSite.BookingWatchListModel
 @{
+    ViewData["Title"] = "WatchList";
 }
-
-<h1>Welcome, @Model.LoggedInUser.FirstName!</h1>
+<div class="container rounded-pill" style="text-align: center; border: solid 4px #4AADFF; max-width: 90%;">
+    <h1>Velkommen tilbage til dine Bookninger, @Model.LoggedInUser.FirstName</h1>
+</div>
 
 @if (Model.UserBookings != null)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Booking ID</th>
-                <th>Summer House ID</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var UserBookings in Model.UserBookings)
-            {
-                <tr>
-                    <td>@UserBookings.Id</td>
-                    <td>@UserBookings.SummerHouseId</td>
-                    <td>@UserBookings.StartDate.ToShortDateString()</td>
-                    <td>@UserBookings.EndDate.ToShortDateString()</td>
-                </tr>
-            }
-
-        </tbody>
-    </table>
+    <div class="row d-flex justify-content-center">
+        @foreach (var UserBookings in Model.UserBookings)
+        {
+            <div class="container WatchBox row">
+                <div class="col-lg-4 align-content-center justify-content-center">
+                    <div class="WatchListIMGBox d-flex justify-content-center align-content-center">
+                        <img class="WatchListIMG" src="@UserBookings.Picture" />
+                    </div>
+                </div>
+                <div class="col-lg-8" style="text-align: center; padding-left: 15px;">
+                    <div class="row d-flex">
+                        <div class="col-6 d-inline">
+                            <label for="startDate">Dato Fra</label>
+                            <output id="startDate" type="date" class="form-control" readonly>@UserBookings.StartDate</output><br />
+                        </div>
+                        <div class="col-6 d-inline">
+                            <label for="endDate">Dato Til</label>
+                            <output id="endDate" type="date" class="form-control" readonly>@UserBookings.EndDate</output><br />
+                        </div>
+                        <div class="col-6">
+                            <label for="streetName">Vejnavn</label>
+                            <output id="streetName" class="form-control" readonly>@UserBookings.StreetName</output><br />
+                        </div>
+                        <div class="col-3">
+                            <label for="houseNumber">Hus nr.</label>
+                            <output id="houseNumber" class="form-control" readonly>@UserBookings.HouseNumber</output><br />
+                        </div>
+                        <div class="col-3">
+                            <label for="postalCode">Post nr.</label>
+                            <output id="postalCode" class="form-control" readonly>@UserBookings.PostalCode</output><br />
+                        </div>
+                        <div class="col-8">
+                            <label for="pricePerDay">Pris Pr. Dag</label>
+                            <output id="pricePerDay" class="form-control" readonly>@UserBookings.Price</output><br />
+                        </div>
+                        <div class="col-4">
+                            <label for="bookingId">Booking ID</label>
+                            <output id="bookingId" class="form-control" readonly>@UserBookings.Id</output>
+                        </div>
+                        @if (DateTime.Now.AddDays(14) < UserBookings.StartDate)
+                        {
+                            <form method="post">
+                                <input type="hidden" name="bookingId" value="@UserBookings.Id" />
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på du vil annullere')">Afbestil</button>
+                            </form>
+                        }
+                        else if (DateTime.Now < UserBookings.StartDate)
+                        {
+                            <form method="post">
+                                <input type="hidden" name="bookingId" value="@UserBookings.Id" />
+                                <button type="submit" class="btn btn-danger WatchListDeleteBTN" onclick="return confirm('Er du sikker på du vil annullere, du mister dit depositum')">Afbestil</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Vi håber det var hyggeligt</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
 else
 {

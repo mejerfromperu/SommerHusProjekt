@@ -146,6 +146,36 @@ body {
         font-weight: 600;
     }
 
+/*All CSS to BookingWatchList*/
+
+.WatchBox {
+    background-color: whitesmoke;
+    border: solid 4px #4AADFF;
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    max-width: 90%;
+    padding: 2em 2em 2em 2em;
+    margin-top: 2em;
+}
+
+.WatchListIMGBox {
+    align-content: center;
+    justify-content: center;
+}
+
+.WatchListIMG {
+    max-width: 19em;
+    height: 14em;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+.WatchListDeleteBTN {
+    height: 38px;
+    align-content: center;
+    justify-content: center;
+}
+
 .wrapper {
     width: 100%;
     display: flex;

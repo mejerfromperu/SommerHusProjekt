@@ -15,6 +15,11 @@ namespace SommerHusProjekt.Model07
         public int SummerHouseId { get; set; } // Id på det sommerhus
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string StreetName { get; set; }
+        public int HouseNumber { get; set; }
+        public int PostalCode { get; set; }
+        public decimal Price { get; set; }
+        public string Picture { get; set; }
 
 
         // Constructor
@@ -30,6 +35,19 @@ namespace SommerHusProjekt.Model07
             StartDate = startDate;
             EndDate = endDate;
 
+        }
+
+        public Booking(int userId, int summerHouseId, DateTime startDate, DateTime endDate,string streetName, int houseNumber, int postalcode, decimal price, string picture)
+        {
+            UserId = userId;
+            SummerHouseId = summerHouseId;
+            StartDate = startDate;
+            EndDate = endDate;
+            StreetName = streetName;
+            HouseNumber = houseNumber;
+            PostalCode = postalcode;
+            Price = price;
+            Picture = picture;
         }
 
         public override string ToString()

@@ -49,5 +49,26 @@ namespace SommerhusSite.Pages.BookingSite
                 RedirectToPage("/Index");
             }
         }
+
+        public IActionResult OnPostDelete(int bookingId)
+        {
+            // Retrieve the booking to delete
+            Booking bookingToDelete = _bookingRepository.GetById(bookingId);
+
+            // Check if the booking exists
+            if (bookingToDelete != null)
+            {
+                    _bookingRepository.Delete(bookingId);
+            }
+            else
+            {
+                // If the booking does not exist, display an error message
+                TempData["Message"] = "Booking not found.";
+            }
+
+            // Redirect back to the page to refresh the bookings list
+            return RedirectToPage();
+        }
+
     }
 }
