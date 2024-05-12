@@ -40,6 +40,7 @@ html {
     --Color3: antiquewhite;
     --Color4: WhiteSmoke;
 }
+
 .cardSpecial {
     width: 20em;
     height: 32em;
@@ -86,6 +87,7 @@ body {
     color: var(--Color2);
     font-family: fantasy, copperplate;
 }
+
 /*All CSS to The preview card*/
 .PreviewCardBox-Header {
     position: absolute;
@@ -104,6 +106,7 @@ body {
         font-size: 20px;
         font-weight: 600;
     }
+
 /*Sommerhus application*/
 .Application-header {
     position: absolute;
@@ -154,7 +157,6 @@ body {
     }
 
 /*All CSS to BookingWatchList*/
-
 .WatchListBox {
     background-color: var(--Color3);
     border: solid 3px var(--Color1);
@@ -219,7 +221,6 @@ body {
     align-content: center;
     border-radius: 0px 0px 20px 20px;
     max-width: 80%;
-    height: contain;
     padding: 5em 0em 1em 0em;
     margin-top: 2em;
 }
@@ -235,9 +236,73 @@ body {
     align-content: center;
 }
 
+/*All CSS to Profile Site*/
+.ProfileBox {
+    position: relative;
+    background-color: var(--Color3);
+    border: solid 3px var(--Color1);
+    border-radius: 20px 20px 20px 20px;
+    max-width: 45em;
+    max-height: 47em;
+    margin-top: 2em;
+    padding-bottom: 1.5em;
+}
+.ProfileUserForm{
+    position: relative;
+    background-color: var(--Color4);
+    height: 37px;
+    border-radius: 0px 20px 20px 20px;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    border: 2px solid var(--Color1);
+    text-align: center;
+    margin-bottom: 0.5em;
+    left: 8px;
+}
+
+.ProfileUserInfo {
+    position: relative;
+    margin-left: 5em;
+    padding: 2em 1em 1em 1em;
+}
+.ProfileUserTextBox{
+    top: 0%;
+    width: 100%;
+    height: 13px;
+    margin-bottom: 10px;
+}
+
+.ProfileUserInfo p{
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.ProfileUserInfo output{
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    justify-content: center;
+}
+
+.ProfileBoxHeader {
+    position: absolute;
+    background: var(--Color1);
+    border: solid 3px var(--Color1);
+    border-radius: 15px 0px 0px 15px;
+    top: 0%;
+    left: 0%;
+    transform: rotate(-0deg);
+    writing-mode: vertical-lr;
+    text-align:center;
+    align-content: center;
+    width: 4em;
+    height: 100%;
+}
+
 /*all CSS to The login box*/
 .loginbox {
-    position: relative;
+    position: absolute;
     background-color: var(--Color4);
     backdrop-filter: blur(50%);
     border: solid 4px var(--Color1);
