@@ -9,7 +9,7 @@ namespace SommerHusProjekt.Model07
     public class Booking
     {
 
-        // Properties uden manuelt at skrive instans felterne.
+        
         public int Id { get; set; }
         public int UserId { get; set; } // Id på brugeren
         public int SummerHouseId { get; set; } // Id på det sommerhus
@@ -24,9 +24,9 @@ namespace SommerHusProjekt.Model07
 
 
         // Constructor
-        public Booking() : this(1, 2, DateTime.Now, DateTime.UtcNow)
+        public Booking() : this(1, 2, DateTime.Now, DateTime.UtcNow, "sew", 2, "city", 2030, 20, "kijgfis")
         {
-            
+
         }
 
         public Booking(int userId, int summerHouseId, DateTime startDate, DateTime endDate)
@@ -37,7 +37,7 @@ namespace SommerHusProjekt.Model07
             EndDate = endDate;
         }
 
-        public Booking(int userId, int summerHouseId, DateTime startDate, DateTime endDate,string streetName, int houseNumber,string city, int postalcode, decimal price, string picture)
+        public Booking(int userId, int summerHouseId, DateTime startDate, DateTime endDate, string streetName, int houseNumber, string city, int postalcode, decimal price, string picture)
         {
             UserId = userId;
             SummerHouseId = summerHouseId;
@@ -55,5 +55,25 @@ namespace SommerHusProjekt.Model07
         {
             return $"{{{nameof(Id)}={Id.ToString()}, {nameof(UserId)}={UserId.ToString()}, {nameof(SummerHouseId)}={SummerHouseId.ToString()}, {nameof(StartDate)}={StartDate.ToString()}, {nameof(EndDate)}={EndDate.ToString()}}}";
         }
+
+        //// Constructor
+        //public Booking() : this(1, 2, DateTime.Now, DateTime.UtcNow)
+        //{
+            
+        //}
+
+        //public Booking(int userId, int summerHouseId, DateTime startDate, DateTime endDate)
+        //{
+        //    UserId = userId;
+        //    SummerHouseId = summerHouseId;
+        //    StartDate = startDate;
+        //    EndDate = endDate;
+
+        //}
+
+        //public override string ToString()
+        //{
+        //    return $"{{{nameof(Id)}={Id.ToString()}, {nameof(UserId)}={UserId.ToString()}, {nameof(SummerHouseId)}={SummerHouseId.ToString()}, {nameof(StartDate)}={StartDate.ToString()}, {nameof(EndDate)}={EndDate.ToString()}}}";
+        //}
     }
 }
