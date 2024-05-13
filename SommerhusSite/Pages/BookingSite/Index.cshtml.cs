@@ -37,13 +37,12 @@ namespace SommerhusSite.Pages.BookingSite
                 return Page();
             }
 
-            // Retrieve user object from session
+
             User loggedInUser = SessionHelper.Get<User>(HttpContext);
 
-            // Retrieve the selected SummerHouse based on the summerhouseId
+
             SummerHouse selectedSummerhouse = _summerList.GetById(summerhouseId);
 
-            // Create a new Booking object with the provided information
             var newBooking = new Booking
             {
                 UserId = loggedInUser.Id,
