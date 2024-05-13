@@ -21,22 +21,19 @@ namespace SommerhusSite.Pages.BookingSite
 
         public void OnGet()
         {
-            // Retrieve the logged-in user
             LoggedInUser = SessionHelper.Get<User>(HttpContext);
 
-            // Check if the user is logged in
             if (LoggedInUser != null)
             {
-                // Initialize the list to store all bookings
+                // list to store all the bookings
                 UserBookings = new List<Booking>();
 
                 // Retrieve bookings for the logged-in user
                 int userId = LoggedInUser.Id;
 
-                // Retrieve all bookings for the logged-in user
                 UserBookings = _bookingRepository.GetBookingByUserId(userId);
 
-                // Check if any bookings were found
+                // Check if any bookings
                 if (UserBookings.Count == 0)
                 {
                     TempData["Message"] = "No bookings found for this user.";
@@ -45,28 +42,23 @@ namespace SommerhusSite.Pages.BookingSite
             else
             {
                 TempData["Message"] = "Please log in to view your bookings.";
-                // Redirect to the login page
                 RedirectToPage("/Index");
             }
         }
 
         public IActionResult OnPostDelete(int bookingId)
         {
-            // Retrieve the booking to delete
             Booking bookingToDelete = _bookingRepository.GetById(bookingId);
 
-            // Check if the booking exists
             if (bookingToDelete != null)
             {
                     _bookingRepository.Delete(bookingId);
             }
             else
             {
-                // If the booking does not exist, display an error message
                 TempData["Message"] = "Booking not found.";
             }
 
-            // Redirect back to the page to refresh the bookings list
             return RedirectToPage();
         }
 

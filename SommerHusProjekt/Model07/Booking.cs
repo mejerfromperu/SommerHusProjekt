@@ -35,7 +35,6 @@ namespace SommerHusProjekt.Model07
             SummerHouseId = summerHouseId;
             StartDate = startDate;
             EndDate = endDate;
-
         }
 
         public Booking(int userId, int summerHouseId, DateTime startDate, DateTime endDate,string streetName, int houseNumber,string city, int postalcode, decimal price, string picture)
