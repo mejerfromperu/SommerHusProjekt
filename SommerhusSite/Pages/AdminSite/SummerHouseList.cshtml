@@ -1,0 +1,58 @@
+﻿@page
+@using SommerHusProjekt.Model07
+@model SommerhusSite.Pages.AdminSite.SummerHouseListModel
+@{
+}
+
+<h1>Her ses alle Sommerhuse</h1>
+
+<div class="form-selectt rounded-2">
+    <form method="post" class="border border-success rounded">
+        <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-success" />
+        Sommerhus Nummer <input type="number" asp-for="@Model.SearchId" />
+        Sommerhus Vejnavn <input type="text" asp-for="@Model.SearchStreetName" />
+        Sommerhus Husnummer <input type="text" asp-for="@Model.SearchHouseNumber" />
+        Sommerhus Etage <input type="text" asp-for="@Model.SearchFloor" />
+        Sommerhus Postnummer  <input type="text" asp-for="@Model.SearchPostalCode" />
+        Sommerhus Pris <input type="text" asp-for="@Model.SearchPrice" />
+    </form>
+</div>
+
+@* Tabel med alle kunder og man kan sortere efter id og navn *@
+<div class="form-selectt">
+    <table class="table table-hover rounded-2">
+        <thead>
+            <tr>
+                <form method="post">
+                <th><input type="submit" asp-page-handler="SortId" value="Sommerhus Nummer" class="btn btn-success" /></th>
+                <th><input type="submit" asp-page-handler="SortStreetName" value="Vejnavn" class="btn btn-success" /></th>
+                <th>Husnummer</th>
+                <th>Etage</th>
+                <th><input type="submit" asp-page-handler="SortPostalCode" value="Postnummer" class="btn btn-success" /></th>
+                <th>Pris</th>
+                <th>DateFrom</th>
+                <th>DateTo</th>
+                <th></th>
+                <th></th>
+                </form>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SummerHouse s in Model.SummerHouses)
+            {
+                <tr>
+                    <td>@s.Id</td>
+                    <td>@s.StreetName</td>
+                    <td>@s.HouseNumber</td>
+                    <td>@s.Floor</td>
+                    <td>@s.PostalCode</td>
+                    <td>@s.Price</td>
+                    <td>@s.DateFrom</td>
+                    <td>@s.DateTo</td>
+                    <td><a asp-page="DeleteSummerHouse" asp-route-id="@s.Id">Slet</a></td>
+                    <td><a asp-page="UpdateSummerHouse" asp-route-id="@s.Id">Update</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

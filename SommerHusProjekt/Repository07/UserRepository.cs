@@ -284,7 +284,7 @@ namespace SommerHusProjekt.Repository07
 
             if (email != null)
             {
-                retUsers = retUsers.FindAll(c => c.Email.Contains(email));
+                retUsers = retUsers.FindAll(u => u.Email.Contains(email));
             }
 
             return retUsers;
@@ -315,15 +315,6 @@ namespace SommerHusProjekt.Repository07
                     return 0;
                 }
 
-                //if (x.KundeNummer > y.KundeNummer)
-                //{
-                //    return 1;
-                //}
-                //else
-                //{
-                //    return -1;
-                //}
-
                 return x.Id - y.Id;
             }
         }
@@ -332,8 +323,6 @@ namespace SommerHusProjekt.Repository07
         public List<User> SortLastName()
         {
             List<User> retUsers = GetSomething();
-
-            //retKunder.Sort(new SortByName());
 
             retUsers   .Sort((x, y) => x.LastName.CompareTo(y.LastName));
 
@@ -350,8 +339,6 @@ namespace SommerHusProjekt.Repository07
         public List<User> SortFirstName()
         {
             List<User> retUsers = GetSomething();
-
-            //retKunder.Sort(new SortByName());
 
             retUsers.Sort((x, y) => x.FirstName.CompareTo(y.FirstName));
 

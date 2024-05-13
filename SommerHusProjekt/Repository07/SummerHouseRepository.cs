@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -77,6 +78,28 @@ namespace SommerHusProjekt.Repository07
             return list;
         }
 
+        public List<SummerHouse> GetSomething()
+        {
+            List<SummerHouse> list = new List<SummerHouse>();
+
+            SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
+            connection.Open();
+
+            string sql = "SELECT Id, StreetName, HouseNumber, Floor, PostalCode, Price, DateFrom, DateTo FROM SommerSommerHouse";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                SummerHouse sommerHouse = ReadSommerHouse2(reader);
+                list.Add(sommerHouse);
+            }
+
+
+            connection.Close();
+            return list;
+        }
+
         private SummerHouse ReadSommerHouse(SqlDataReader reader)
         {
             SummerHouse s = new SummerHouse();
@@ -91,6 +114,20 @@ namespace SommerHusProjekt.Repository07
             s.Picture = reader.IsDBNull(7) ? null : reader.GetString(7);
             s.DateFrom = reader.GetDateTime(8);
             s.DateTo = reader.GetDateTime(9);
+
+            return s;
+        }
+
+        private SummerHouse ReadSommerHouse2(SqlDataReader reader)
+        {
+            SummerHouse s = new SummerHouse();
+
+            s.Id = reader.GetInt32(0);
+            s.StreetName = reader.GetString(1);
+            s.HouseNumber = reader.GetString(2);
+            s.Floor = reader.IsDBNull(3) ? null : reader.GetString(3);
+            s.PostalCode = reader.GetInt32(4);
+            s.Price = reader.GetDecimal(5);
 
             return s;
         }
@@ -150,5 +187,131 @@ namespace SommerHusProjekt.Repository07
             }
             return null;
         }
+
+        public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, string? floor, int? postalCode, decimal? price)
+        {
+            List<SummerHouse> retSummerHouses = new List<SummerHouse>(GetSomething());
+
+            if (id != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.Id == id);
+            }
+
+            if (streetName != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.StreetName.Contains(streetName));
+            }
+
+            if (houseNumber != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.HouseNumber.Contains(houseNumber));
+            }
+
+            if (floor != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.Floor.Contains(floor));
+            }
+
+            if (postalCode != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.PostalCode == postalCode);
+            }
+
+            if (price != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.Price == price);
+            }
+
+            return retSummerHouses;
+        }
+
+        private bool NumberASC = true;
+        public List<SummerHouse> SortId()
+        {
+            List<SummerHouse> retSummerHouses = GetSomething();
+
+            retSummerHouses.Sort(new SortById());
+
+            if (!NumberASC)
+            {
+                retSummerHouses.Reverse();
+            }
+            NumberASC = !NumberASC;
+
+            return retSummerHouses;
+        }
+
+        private class SortById : IComparer<SummerHouse>
+        {
+            public int Compare(SummerHouse? x, SummerHouse? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+
+                return x.Id - y.Id;
+            }
+        }
+
+        private bool NameASC = true;
+
+        public List<SummerHouse> SortStreetName()
+        {
+            List<SummerHouse> retSummerHouses = GetSomething();
+
+            retSummerHouses.Sort((x, y) => x.StreetName.CompareTo(y.StreetName));
+
+            if (!NameASC)
+            {
+                retSummerHouses.Reverse();
+            }
+            NameASC = !NameASC;
+
+            return retSummerHouses;
+        }
+
+        private class SortByFirstName : IComparer<SummerHouse>
+        {
+            public int Compare(SummerHouse? x, SummerHouse? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+
+                return x.StreetName.CompareTo(y.StreetName);
+            }
+        }
+
+        public List<SummerHouse> SortPostalCode()
+        {
+            List<SummerHouse> retSummerHouses = GetSomething();
+
+            retSummerHouses.Sort(new SortByPostalCode());
+
+            if (!NumberASC)
+            {
+                retSummerHouses.Reverse();
+            }
+            NumberASC = !NumberASC;
+
+            return retSummerHouses;
+        }
+
+        private class SortByPostalCode : IComparer<SummerHouse>
+        {
+            public int Compare(SummerHouse? x, SummerHouse? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+
+                return x.PostalCode - y.PostalCode;
+            }
+        }
+
+        
     }
 }
