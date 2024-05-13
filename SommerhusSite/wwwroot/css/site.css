@@ -33,18 +33,25 @@ html {
         background: #DEE50F;
     }
 }
+/*Colors*/
+:root {
+    --Color1: #4AADFF;
+    --Color2: #DEE50F;
+    --Color3: antiquewhite;
+    --Color4: WhiteSmoke;
+}
 
 .cardSpecial {
     width: 20em;
     height: 32em;
-    background: whitesmoke;
-    border: #4AADFF 3px solid;
+    background: var(--Color4);
+    border: var(--Color1) 3px solid;
     border-radius: 20px;
     cursor: default;
     transition: box-shadow 0.03s ease;
 }
     .cardSpecial:hover {
-        box-shadow: 0px 0px 20px #4AADFF;
+        box-shadow: 0px 0px 20px var(--Color1);
     }
 
 .cardSpecialIMG {
@@ -66,8 +73,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
 .BG-Special {
-    background: #4AADFF;
+    background: var(--Color1);
     color: black;
 }
 .gradient-text {
@@ -76,9 +84,10 @@ body {
     -webkit-text-fill-color: transparent;
 }
 .textv1 {
-    color: #DEE50F;
+    color: var(--Color2);
     font-family: fantasy, copperplate;
 }
+
 /*All CSS to The preview card*/
 .PreviewCardBox-Header {
     position: absolute;
@@ -88,7 +97,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #DEE50F;
+    background: var(--Color2);
     width: 140px;
     height: 30px;
     border-radius: 0 0 20px 20px;
@@ -97,6 +106,7 @@ body {
         font-size: 20px;
         font-weight: 600;
     }
+
 /*Sommerhus application*/
 .Application-header {
     position: absolute;
@@ -106,7 +116,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #4AADFF;
+    background: var(--Color1);
     width: 270px;
     height: 46px;
     border-radius: 0 0 20px 20px;
@@ -119,9 +129,9 @@ body {
 /*All CSS to Create Profile*/
 .CreateBox {
     position: relative;
-    background-color: whitesmoke;
+    background-color: var(--Color4);
     backdrop-filter: blur(50%);
-    border: solid 4px #4AADFF;
+    border: solid 4px var(--Color1);
     align-content: center;
     border-radius: 20px 20px 20px 20px;
     max-width: 45em;
@@ -136,7 +146,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #4AADFF;
+    background: var(--Color1);
     width: 210px;
     height: 46px;
     border-radius: 0 0 20px 20px;
@@ -146,6 +156,55 @@ body {
         font-weight: 600;
     }
 
+/*All CSS to BookingWatchList*/
+.WatchListBox {
+    background-color: var(--Color3);
+    border: solid 3px var(--Color1);
+    justify-content: center;
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    max-width: 80%;
+    padding: 1em 0em 1em 0em;
+    margin-top: 2em;
+}
+
+.WatchListIMGBox {
+    width: 20em;
+    height: 15.5em;
+    background-color: var(--Color3);
+    border: solid 2px var(--Color3);
+    border-radius: 20px;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+.WatchListInfoBox {
+    background-color: var(--Color4);
+    border: solid 3px var(--Color1);
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    max-width: 98%;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    text-align: center;
+}
+.WatchListInfoBox label{
+    margin-top: 2px;
+    font-weight: 600;
+}
+.WatchListInfoBox output{
+    height: 35px;
+    margin-top: 10px;
+    font-weight: 600;
+    align-content: center;
+}
+
+.WatchListIMG {
+    max-width: 19em;
+    height: 14em;
+    justify-content: center;
+    border-radius: 16px;
+}
+
 .wrapper {
     width: 100%;
     display: flex;
@@ -154,12 +213,99 @@ body {
     min-height: 50vh;
 }
 
+.SortByBox {
+    position: relative;
+    background-color: var(--Color4);
+    border: solid 3px var(--Color1);
+    justify-content: center;
+    align-content: center;
+    border-radius: 0px 0px 20px 20px;
+    max-width: 80%;
+    padding: 5em 0em 1em 0em;
+    margin-top: 2em;
+}
+.SortByBoxHeader {
+    position: absolute;
+    background-color: var(--Color3);
+    border: solid 1px var(--Color1);
+    border-radius: 0px 0px 0px 40px ;
+    top: 0%;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+/*All CSS to Profile Site*/
+.ProfileBox {
+    position: relative;
+    background-color: var(--Color3);
+    border: solid 3px var(--Color1);
+    border-radius: 20px 20px 20px 20px;
+    max-width: 45em;
+    max-height: 47em;
+    margin-top: 2em;
+    padding-bottom: 1.5em;
+}
+.ProfileUserForm{
+    position: relative;
+    background-color: var(--Color4);
+    height: 37px;
+    border-radius: 0px 20px 20px 20px;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    border: 2px solid var(--Color1);
+    text-align: center;
+    margin-bottom: 0.5em;
+    left: 8px;
+}
+
+.ProfileUserInfo {
+    position: relative;
+    margin-left: 5em;
+    padding: 2em 1em 1em 1em;
+}
+.ProfileUserTextBox{
+    top: 0%;
+    width: 100%;
+    height: 13px;
+    margin-bottom: 10px;
+}
+
+.ProfileUserInfo p{
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.ProfileUserInfo output{
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    justify-content: center;
+}
+
+.ProfileBoxHeader {
+    position: absolute;
+    background: var(--Color1);
+    border: solid 3px var(--Color1);
+    border-radius: 15px 0px 0px 15px;
+    top: 0%;
+    left: 0%;
+    transform: rotate(-0deg);
+    writing-mode: vertical-lr;
+    text-align:center;
+    align-content: center;
+    width: 4em;
+    height: 100%;
+}
+
 /*all CSS to The login box*/
 .loginbox {
-    position: relative;
-    background-color: whitesmoke;
+    position: absolute;
+    background-color: var(--Color4);
     backdrop-filter: blur(50%);
-    border: solid 4px #4AADFF;
+    border: solid 4px var(--Color1);
     align-content: center;
     border-radius: 20px 20px 20px 20px;
     width: 350px;
@@ -175,7 +321,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #4AADFF;
+    background: var(--Color1);
     width: 140px;
     height: 46px;
     border-radius: 0 0 20px 20px;
@@ -200,7 +346,7 @@ body {
     font-size: 16px;
     background: transparent;
     padding-inline: 20px 10px;
-    border: 2px solid #4AADFF;
+    border: 2px solid var(--Color1);
     border-radius: 0 20px 20px 20px;
     outline: none;
     color: black;
@@ -244,5 +390,5 @@ body {
     font-weight: 600;
     border-radius: 15px;
     border: 2px solid dimgrey;
-    background-color: #DEE50F;
+    background-color: var(--Color2);
 }
