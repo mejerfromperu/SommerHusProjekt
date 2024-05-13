@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SommerHusProjekt.Model07;
 using SommerHusProjekt.Repository07;
 using System.ComponentModel.DataAnnotations;
 using System.Formats.Asn1;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SommerhusSite.Pages.AdminSite
 {
