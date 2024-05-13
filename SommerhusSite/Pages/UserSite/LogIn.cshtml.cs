@@ -39,18 +39,17 @@ namespace SommerhusHjemmeside.Pages.UserSite
                 return Page();
             }
 
-            // Fetch user by email and password
+            
             User user = _repo.GetByEmailAndPassword(Email, Password);
 
             if (user != null)
             {
-                // Set user in session
+                // Set user in to session
                 SessionHelper.Set(user, HttpContext);
 
                 return RedirectToPage("/Index");
             }
 
-            // Authentication failed
             ModelState.AddModelError(string.Empty, "Invalid email or password");
             return Page();
         }
