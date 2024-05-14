@@ -10,24 +10,22 @@
     <div class="wrapper">
         <div class="loginbox">
             <div class="login-header">
-                <span class="gradient-text">
-                    Login
-                </span>
+                <span class="gradient-text">Login</span>
             </div>
 
             <form method="post">
                 <div class="input_box">
                     <label for="username" class="label">Email</label>
-                    <input type="text" id="username" class="input-field" placeholder="Email" required @* asp-for="@Model.Email" *@ />
+                    <input type="text" id="username" class="input-field" placeholder="Email" required asp-for="@Model.Email" />
                     <i class="bx bx-lock-alt icon"></i>
-                    <span class="text-danger">@* @Html.ValidationMessageFor(model => model.Email) *@</span>
+                    <span class="text-danger"> @Html.ValidationMessageFor(model => model.Email) </span>
                 </div>
 
                 <div class="input_box">
                     <label for="password" class="label">Password</label>
-                    <input type="password" id="password" class="input-field" placeholder="Password" required @* asp-for="@Model.Password" *@ />
+                    <input type="password" id="password" class="input-field" placeholder="Password" required asp-for="@Model.Password" />
                     <i class="bx bx-lock-alt icon"></i>
-                    <span class="text-danger">@* @Html.ValidationMessageFor(model => model.Password) *@</span>
+                    <span class="text-danger">@Html.ValidationMessageFor(model => model.Password)</span>
                 </div>
 
                 <div class="remember-forgot">
@@ -36,7 +34,7 @@
                         <label for="remember">Remember Me</label>
                     </div>
                     <div class="forgot">
-                        <a href="#">Forgot Password</a>
+                        <a href="">Forgot Password</a>
                     </div>
                 </div>
                 <div class="NewProfile">

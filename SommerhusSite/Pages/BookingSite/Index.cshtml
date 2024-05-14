@@ -1,6 +1,56 @@
 ﻿@page
+@using SommerHusProjekt.Model07
+@using SommerhusSite.Services
 @model SommerhusSite.Pages.BookingSite.IndexModel
 @{
+    User loggedInUser = SessionHelper.Get<User>(HttpContext);
 }
 
-<h1>HELLO BOOKING</h1>
+<h1>BOOKING PAGE</h1>
+<div class="row d-flex justify-content-evenly gap-5">
+    <div class="card my-2 p-2 d-flex cardSpecial">
+        <div>
+            <div class="col-12 justify-content-center">
+                <img class="card-img-top cardSpecialIMG" src="@Model.SelectedSummerhouse.Picture">
+            </div>
+
+            <div class="card-subtitle my-2">
+                <h2 id="outputLocation">@Model.SelectedSummerhouse.City</h2>
+                <h4 id="outputPrice">@Model.SelectedSummerhouse.StreetName</h4>
+                <h4 id="outputPrice">@Model.SelectedSummerhouse.DateFrom</h4>
+                <h4 id="outputPrice">@Model.SelectedSummerhouse.DateTo</h4>
+                <h4 id="outputPrice">@Model.SelectedSummerhouse.Price</h4>
+            </div>
+            <div class="card-body text-black">
+                <h5>@Model.SelectedSummerhouse.Description</h5>
+                <p id="outputText"></p>
+                <div class="d-flex justify-content-around text-white">
+                    <a asp-page="/BookingSite/Index" asp-route-summerhouseId="@Model.SelectedSummerhouse.Id" class="btn btn-outline-dark rounded-pill" style="background: #DEE50F; border: 2px dimgrey; width: 50%;">Se Mere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Information -->
+    <div>
+        <h2>User Information</h2>
+        <p>ID: @loggedInUser.Id </p>
+        <p>Name: @loggedInUser.FirstName @loggedInUser.LastName</p>
+        <p>Email: @loggedInUser.Email</p>
+    </div>
+</div>
+<h2>Booking Details</h2>
+<form method="post">
+    <!-- Hidden input field to store the summerhouseId -->
+    <input type="hidden" name="summerhouseId" value="@Model.SelectedSummerhouse.Id" />
+
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" class="form-control" id="startDate" name="StartDate" required asp-for="Booking.StartDate" />
+    </div>
+    <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" class="form-control" id="endDate" name="EndDate" required asp-for="Booking.EndDate" />
+    </div>
+    <button type="submit" class="btn btn-primary">Book Now</button>
+</form>

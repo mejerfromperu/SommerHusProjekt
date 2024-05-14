@@ -1,87 +1,106 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using SommerHusProjekt.Repository07;
+using SommerHusProjekt.Model07;
 
 namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 {
     public class GreateSommerHouseModel : PageModel
     {
-        //private ISommerHouseRepository _repo;
+        private ISummerHouseRepository _repo;
 
-        //// dependency injection
-        //public GreateSommerHouseModel(ISommerHouseRepository sommerhouserepo)
-        //{
-        //    _repo = sommerhouserepo;
-        //}
+        // dependency injection
+        public GreateSommerHouseModel(ISummerHouseRepository sommerhouserepo)
+        {
+            _repo = sommerhouserepo;
+        }
 
-        //// Properties til de nye sommerhuse
+        // Properties til de nye sommerhuse
+        [BindProperty]
+        [Required(ErrorMessage = "Vejnavn skal udfyldes")]
+        public string NewSummerHouseStreetName { get; set; }
 
+        [BindProperty]
+        [Required(ErrorMessage = "Hus nummer skal udfyldes")]
+        public string NewSummerHouseHouseNumber { get; set; }
 
+        [BindProperty]
+        public string NewSummerHouseFloor { get; set; }
 
-        //[BindProperty]
-        //[Required(ErrorMessage = "Vejnavn skal udfyldes")]
-        //public string NewSommerHouseStreetName { get; set; }
+        [BindProperty]
+        [Required(ErrorMessage = "Postnummer skal udfyldes")]
+        public string NewSummerHousePostalCode { get; set; }
 
-        //[BindProperty]
-        //[Required(ErrorMessage = "Hus nummer skal udfyldes")]
-        //public string NewSommerHouseHouseNumber { get; set; }
+        [BindProperty]
+        [Required(ErrorMessage = "Beskrivelse skal udfyldes")]
+        public string NewSummerHouseDescription { get; set; }
 
-        //[BindProperty]
-        //public string NewSommerHouseFloor { get; set; }
+        [BindProperty]
+        [Required(ErrorMessage = "Pris skal udfyldes")]
+        public decimal NewSummerHousePrice { get; set; }
 
-        //[BindProperty]
-        //[Required(ErrorMessage = "Postnummer skal udfyldes")]
-        //public int NewSommerHousePostalCode { get; set; }
+        [BindProperty]
+        [Required(ErrorMessage = "Picture skal udfyldes")]
+        public string NewSummerHousePicture { get; set ; }
 
-        //[BindProperty]
-        //[Required(ErrorMessage = "Beskrivelse skal udfyldes")]
-        //public string NewSommerHouseDescription { get; set; }
+        [BindProperty]
+        [Required(ErrorMessage = "Dato Fra skal udfyldes")]
+        public DateTime NewSummerHouseFromDate { get; set; }
 
-        //[BindProperty]
-        //[Required(ErrorMessage = "Pris skal udfyldes")]
-        //public decimal NewSommerHousePrice{ get; set; }
+        [BindProperty]
+        [Required(ErrorMessage = "Dato Til skal udfyldes")]
+        public DateTime NewSummerHouseToDate { get; set; }
 
-        //[BindProperty]
-        //[Required(ErrorMessage = "Billede skal udfyldes")]
-        //public string NewSommerHousePicture { get; set; }
+        public string ErrorMessage { get; private set; }
 
+        public void OnGet()
+        {
+            NewSummerHousePicture = "/images/sommer&solplaceholder.png";
+        }
 
-        //public string ErrorMessage { get; private set; }
+        public IActionResult OnPost()
+        {
 
-        //public void OnGet()
-        //{
-        //}
+            ErrorMessage = "fEJL 404 KUNNE IKKE OPRETTE EN USER";
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-        //public IActionResult OnPost()
-        //{
+            if (!int.TryParse(NewSummerHousePostalCode, out int postalCode))
+            {
+                ErrorMessage = "Invalid postal code format";
+                return Page(); 
+            }
 
-        //    ErrorMessage = "fEJL 404 KUNNE IKKE OPRETTE EN USER";
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Page();
-        //    }
-        //    SommerHouse newsommerhouse = new SommerHouse(NewSommerHouseStreetName, NewSommerHouseHouseNumber, NewSommerHouseFloor, NewSommerHousePostalCode, NewSommerHouseDescription, NewSommerHousePrice, NewSommerHousePicture);
+            if (string.IsNullOrEmpty(NewSummerHousePicture))
+            {
+                NewSummerHousePicture = "/css/Images/Sommer&SOLPlaceHolder.png";
+            }
 
-        //    try
-        //    {
-        //        _repo.Add(newsommerhouse);
-        //        TempData["SuccessMessage"] = $"User {newsommerhouse} added successfully";
+            SummerHouse newsummerhouse = new SummerHouse(NewSummerHouseStreetName, NewSummerHouseHouseNumber, postalCode, NewSummerHouseFloor, NewSummerHouseDescription, NewSummerHousePrice, NewSummerHousePicture, NewSummerHouseFromDate, NewSummerHouseToDate);
 
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        ErrorMessage = ex.Message;
-        //        return Page();
-        //    }
+            try
+            {
+                _repo.Add(newsummerhouse);
+                TempData["SuccessMessage"] = $"User {newsummerhouse} added successfully";
 
-        //    return RedirectToPage("/Index");
+            }
+            catch (ArgumentException ex)
+            {
+                ErrorMessage = ex.Message;
+                return Page();
+            }
 
-        //}
+            return RedirectToPage("/Index");
 
-        //public IActionResult OnPostCancel()
-        //{
-        //    return RedirectToPage("/Index");
-        //}
+        }
+
+        public IActionResult OnPostCancel()
+        {
+            return RedirectToPage("/Index");
+        }
 
     }
 }

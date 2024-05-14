@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SommerHusProjekt.Repository07
 {
-    public class BookingRepository
+    public class BookingRepository : IBookingRepository
     {
         public Booking Add(Booking b)
         {
@@ -22,7 +23,7 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@SummerHouseId", b.SummerHouseId);
             cmd.Parameters.AddWithValue("@StartDate", b.StartDate);
             cmd.Parameters.AddWithValue("@EndDate", b.EndDate);
-                                                                                                                                                                                                                                                                                            
+
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);
 
@@ -82,7 +83,6 @@ namespace SommerHusProjekt.Repository07
 
 
 
-
             return b;
         }
 
@@ -118,7 +118,6 @@ namespace SommerHusProjekt.Repository07
 
             return b;
         }
-
         public Booking Update(int id, Booking b)
         {
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
@@ -145,5 +144,45 @@ namespace SommerHusProjekt.Repository07
             return null;
         }
 
+        public List<Booking> GetBookingByUserId(int userId)
+        {
+            List<Booking> bookings = new List<Booking>();
+
+            using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+            {
+                connection.Open();
+
+                string selectSql = "SELECT SommerBookings.Id, UserId, SummerHouseId, SommerBookings.StartDate, SommerBookings.EndDate, StreetName, HouseNumber, SommerPostalcode.City, SommerSommerHouse.Postalcode, Price, Picture FROM SommerBookings INNER JOIN SommerSommerHouse ON SommerBookings.SummerHouseId = SommerSommerHouse.Id INNER JOIN SommerPostalcode ON SommerSommerHouse.Postalcode = SommerPostalcode.Postalcode WHERE UserId = @UserId";
+
+                SqlCommand cmd = new SqlCommand(selectSql, connection);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Booking b = new Booking
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        UserId = Convert.ToInt32(reader["UserId"]),
+                        SummerHouseId = Convert.ToInt32(reader["SummerHouseId"]),
+                        StartDate = Convert.ToDateTime(reader["StartDate"]),
+                        EndDate = Convert.ToDateTime(reader["EndDate"]),
+                        StreetName = Convert.ToString(reader["StreetName"]),
+                        HouseNumber = Convert.ToInt32(reader["HouseNumber"]),
+                        City = Convert.ToString(reader["City"]),
+                        PostalCode = Convert.ToInt32(reader["Postalcode"]),
+                        Price = Convert.ToDecimal(reader["Price"]),
+                        Picture = Convert.ToString(reader["Picture"]),
+                    };
+
+                    bookings.Add(b);
+                }
+
+                reader.Close();
+            }
+
+            return bookings;
+        }
     }
 }

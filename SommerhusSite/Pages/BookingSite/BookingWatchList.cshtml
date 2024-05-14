@@ -1,0 +1,90 @@
+﻿@page
+@model SommerhusSite.Pages.BookingSite.BookingWatchListModel
+@{
+    ViewData["Title"] = "WatchList";
+}
+<div class="container SortByBox">
+    <div class="SortByBoxHeader">
+        <h4>Velkommen tilbage til dine Bookninger, @Model.LoggedInUser.FirstName</h4>
+    </div>
+</div>
+
+@if (Model.UserBookings != null)
+{
+    <div class="row d-flex justify-content-center">
+        @foreach (var UserBookings in Model.UserBookings)
+        {
+            <div class="col-lg-12 WatchListBox row">
+        <div class="col-lg-4 align-content-center">
+            <div class="justify-content-center d-flex">
+                <div class="card p-2 d-flex WatchListIMGBox">
+                    <div class="col-md-12 justify-content-center">
+                        <img src="@UserBookings.Picture" class="card-img-top cardSpecialIMG" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="container WatchListInfoBox">
+                <div class="row d-flex align-content-center">
+                    <div class="col-8">
+                        <output class="form-control" >@UserBookings.City</output>
+                    </div>
+                    <div class="col-4">
+                        <output class="form-control">@UserBookings.PostalCode</output>
+                    </div>
+                    <div class="col-8">
+                        <output class="form-control">@UserBookings.StreetName</output>
+                    </div>
+                    <div class="col-4">
+                        <output class="form-control">@UserBookings.HouseNumber</output>
+                    </div>
+                        <div class="col-12">
+                            <output class="form-control">Pris pr. Dag: @UserBookings.Price Kr.</output>
+                        </div>
+                    <div class="col-12 d-flex">
+                        <div class="col-6" style="padding-right: 10px;">
+                            <label>Dato Fra</label>
+                            <output type="date" class="form-control">@UserBookings.StartDate</output>
+                        </div>
+                        <div class="col-6" style="padding-left: 10px;">
+                            <label>Dato Til</label><br />
+                            <output type="date" class="form-control">@UserBookings.EndDate</output>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="col-6" style="margin-bottom: 5px; padding-right: 10px;">
+                                <output class="form-control">Booking Id: @UserBookings.Id</output>
+                        </div>
+                        <div class="col-6 justify-content-center align-content-center" style="padding-top: 5px; margin-bottom: 5px;">
+                             @if (DateTime.Now.AddDays(14) < UserBookings.StartDate)
+                            { 
+                                <form method="post">
+                                    <input type="hidden" name="bookingId"  value="@UserBookings.Id"/>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på du vil annullere')">Afbestil</button>
+                                </form>
+                             }
+                            else if (DateTime.Now < UserBookings.StartDate)
+                            {
+                                <form method="post">
+                                    <input type="hidden" name="bookingId" value="@UserBookings.Id" />
+                                    <button type="submit" class="btn btn-danger WatchListDeleteBTN" onclick="return confirm('Er du sikker på du vil annullere, du mister dit depositum')">Afbestil</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Vi håber det var hyggeligt</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+    </div>
+}
+else
+{
+    <p>@TempData["Message"]</p>
+}

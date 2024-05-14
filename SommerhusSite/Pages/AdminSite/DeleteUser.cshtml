@@ -1,0 +1,26 @@
+﻿@page
+@model SommerhusSite.Pages.AdminSite.DeleteUserModel
+@{
+}
+
+<h1> Slet en kunde </h1>
+
+@* Display af valgte kunde som skal slettes, og 2 knappper, en til at fortyde og en anden til at slette *@
+
+<form method="post">
+    <div class="form-group>">
+        <label>Kunde nummer</label> : @Model.User.Id<br />
+        <br />
+        <label>Kunde fornavn</label> : @Model.User.FirstName<br />
+        <br />
+        <label>Kunde efternavn</label>  : @Model.User.LastName<br />
+        <br />
+        <label>Kunde email</label>  : @Model.User.Email<br />
+        <br />
+        <label>Kunde telefon</label>  : @Model.User.Phone<br />
+        <br />
+        <input type="submit" value="Slet Kunde" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@Model.User.Id" />
+        <input type="submit" value="Fortryd" class="btn btn-warning" asp-page-handler="Cancel" />
+    </div>
+</form>
+

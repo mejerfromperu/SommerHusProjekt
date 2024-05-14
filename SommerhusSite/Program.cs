@@ -9,6 +9,10 @@ builder.Services.AddSingleton<IUserRepository>(new UserRepository());
 
 builder.Services.AddSingleton<ISummerHouseRepository>(new SummerHouseRepository());
 
+builder.Services.AddSingleton<IBookingRepository>(new BookingRepository());
+
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,7 +25,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
