@@ -14,7 +14,6 @@ namespace SommerHusProjekt.Repository07
     {
         public SummerHouse Add(SummerHouse s)
         {
-            //HEJ
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
@@ -116,7 +115,7 @@ namespace SommerHusProjekt.Repository07
             s.Picture = reader.IsDBNull(7) ? null : reader.GetString(7);
             s.DateFrom = reader.GetDateTime(8);
             s.DateTo = reader.GetDateTime(9);
-            s.AmountSleepingSpace = reader.GetInt32(10);
+            s.AmountSleepingSpace = reader.IsDBNull(10) ? 0 : reader.GetInt32(10);
 
             return s;
         }
@@ -165,7 +164,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo, AmountSleepingSpace = @AmountSleepingSpace WHERE Id = @Id";
+            string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo, AmountSleepingSpace = @AmountSleepingSpace, WHERE Id = @Id";
 
             SqlCommand cmd = new SqlCommand(updateSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);

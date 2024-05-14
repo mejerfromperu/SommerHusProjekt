@@ -57,23 +57,24 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
             get { return _newSummerHouseFromDate; }
             set
             {
-                if (value <= DateTime.Now.AddDays(-1))
+                if (value < DateTime.Today)
                 {
-                _newSummerHouseFromDate = value;
-                    throw new ArgumentException("Dato Fra skal være efter nuværende tidspunkt");
+                    throw new ArgumentException("Dato Fra kan ikke være før dagens dato");
                 }
+                _newSummerHouseFromDate = value;
             }
         }
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Til skal udfyldes")]
-        public DateTime NewSummerHouseToDate {
+        public DateTime NewSummerHouseToDate
+        {
             get { return _newSummerHouseToDate; }
             set
             {
-                if (value < _newSummerHouseFromDate)
+                if (value <= DateTime.Today)
                 {
-                    throw new ArgumentException("Dato Til skal være efter Dato Fra");
+                    throw new ArgumentException("Dato Til kan ikke være før dagens dato");
                 }
                 _newSummerHouseToDate = value;
             }
