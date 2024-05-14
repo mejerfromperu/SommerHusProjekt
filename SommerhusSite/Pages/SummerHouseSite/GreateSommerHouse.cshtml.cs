@@ -47,8 +47,8 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         public string NewSummerHousePicture { get; set ; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Antal Besøgende skal udfyldes")]
-        public decimal NewSummerHouseAmountVisitors { get; set; }
+        [Required(ErrorMessage = "Antal Sovepladser skal udfyldes")]
+        public int NewSummerHouseAmountSleepingSpace { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Fra skal udfyldes")]
@@ -106,7 +106,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
                 NewSummerHousePicture = "/css/Images/Sommer&SOLPlaceHolder.png";
             }
 
-            SummerHouse newsummerhouse = new SummerHouse(NewSummerHouseStreetName, NewSummerHouseHouseNumber, postalCode, NewSummerHouseFloor, NewSummerHouseDescription, NewSummerHousePrice, NewSummerHousePicture, NewSummerHouseFromDate, NewSummerHouseToDate);
+            SummerHouse newsummerhouse = new SummerHouse(NewSummerHouseStreetName, NewSummerHouseHouseNumber, postalCode, NewSummerHouseFloor, NewSummerHouseDescription, NewSummerHousePrice, NewSummerHousePicture, NewSummerHouseFromDate, NewSummerHouseToDate, NewSummerHouseAmountSleepingSpace);
 
             try
             {
