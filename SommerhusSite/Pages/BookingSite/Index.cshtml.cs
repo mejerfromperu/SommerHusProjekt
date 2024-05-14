@@ -43,6 +43,19 @@ namespace SommerhusSite.Pages.BookingSite
 
             SummerHouse selectedSummerhouse = _summerList.GetById(summerhouseId);
 
+            try
+            {
+                if (Booking.StartDate < selectedSummerhouse.DateFrom || Booking.EndDate > selectedSummerhouse.DateTo)
+                {
+                    throw new ArgumentException("Sorry, the booking dates are not within the available period for the selected summer house.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("An error occurred while validating booking dates.", ex);
+            }
+
+
             var newBooking = new Booking
             {
                 UserId = loggedInUser.Id,
