@@ -47,6 +47,10 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         public string NewSummerHousePicture { get; set ; }
 
         [BindProperty]
+        [Required(ErrorMessage = "Antal Besøgende skal udfyldes")]
+        public decimal NewSummerHouseAmountVisitors { get; set; }
+
+        [BindProperty]
         [Required(ErrorMessage = "Dato Fra skal udfyldes")]
         public DateTime NewSummerHouseFromDate
         {
@@ -55,9 +59,9 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
             {
                 if (value <= DateTime.Now.AddDays(-1))
                 {
-                    throw new ArgumentOutOfRangeException("Dato Fra skal være efter nuværende tidspunkt");
-                }
                 _newSummerHouseFromDate = value;
+                    throw new ArgumentException("Dato Fra skal være efter nuværende tidspunkt");
+                }
             }
         }
 
