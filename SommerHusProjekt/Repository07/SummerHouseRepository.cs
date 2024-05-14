@@ -14,6 +14,7 @@ namespace SommerHusProjekt.Repository07
     {
         public SummerHouse Add(SummerHouse s)
         {
+            //HEJ
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
