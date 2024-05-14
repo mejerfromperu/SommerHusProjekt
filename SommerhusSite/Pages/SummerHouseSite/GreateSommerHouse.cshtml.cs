@@ -9,6 +9,8 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
     public class GreateSommerHouseModel : PageModel
     {
         private ISummerHouseRepository _repo;
+        private DateTime _newSummerHouseFromDate;
+        private DateTime _newSummerHouseToDate;
 
         // dependency injection
         public GreateSommerHouseModel(ISummerHouseRepository sommerhouserepo)
@@ -46,11 +48,32 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Fra skal udfyldes")]
-        public DateTime NewSummerHouseFromDate { get; set; }
+        public DateTime NewSummerHouseFromDate
+        {
+            get { return _newSummerHouseFromDate; }
+            set
+            {
+                if (value <= DateTime.Now.AddDays(-1))
+                {
+                    throw new ArgumentOutOfRangeException("Dato Fra skal være efter nuværende tidspunkt");
+                }
+                _newSummerHouseFromDate = value;
+            }
+        }
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Til skal udfyldes")]
-        public DateTime NewSummerHouseToDate { get; set; }
+        public DateTime NewSummerHouseToDate {
+            get { return _newSummerHouseToDate; }
+            set
+            {
+                if (value < _newSummerHouseFromDate)
+                {
+                    throw new ArgumentException("Dato Til skal være efter Dato Fra");
+                }
+                _newSummerHouseToDate = value;
+            }
+        }
 
         public string ErrorMessage { get; private set; }
 
