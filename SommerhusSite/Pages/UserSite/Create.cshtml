@@ -1,0 +1,78 @@
+﻿@page
+@model SommerhusHjemmeside.Pages.UserSite.CreateModel
+@{
+    ViewData["Title"] = "Create Profile";
+}
+
+
+<form method="post">
+    <div class="container CreateBox justify-content-center">
+        <div class="row d-flex justify-content-center">
+            <div class="Create-header">
+                <span class="gradient-text">
+                    Create Profile
+                </span>
+            </div>
+            <div class="col-6">
+                <label>Navn</label><br />
+                <span  asp-validation-for="@Model.NewUserFirstName"  class="text-danger"></span>
+                <input class="form-control"  asp-for="@Model.NewUserFirstName" /><br />
+            </div>
+            <div class="col-6">
+                <label>Efter Navn</label><br />
+                <span  asp-validation-for="@Model.NewUserLastName"  class="text-danger"></span>
+                <input class="form-control"  asp-for="@Model.NewUserLastName"  /><br />
+            </div>
+            <div class="col-12">
+                <label>Email</label><br />
+                <span  asp-validation-for="@Model.NewUserEmail"  class="text-danger"></span>
+                <input class="form-control"  asp-for="@Model.NewUserEmail"  /><br />
+            </div>
+            <div class="col-12">
+                <label>Password</label><br />
+                <span  asp-validation-for="@Model.NewUserPassword"  class="text-danger"></span>
+                <input type="password" id="password" class="form-control" asp-for="@Model.NewUserPassword" /><br />
+            </div>
+            <div class="col-12">
+                <label>Vej Navn</label><br />
+                <span  asp-validation-for="@Model.NewUserStreetName"  class="text-danger"></span>
+                <input class="form-control"  asp-for="@Model.NewUserStreetName"/><br />
+            </div>
+            <div class="col-4">
+                <label>Post Nummer</label><br />
+                <span asp-validation-for="@Model.NewUserPostalCode" class="text-danger"></span>
+                <input class="form-control" asp-for="@Model.NewUserPostalCode" /><br />
+            </div>
+            <div class="col-4">
+                <label>Vej Nr.</label><br />
+                <span  asp-validation-for="@Model.NewUserHouseNumber"  class="text-danger"></span>
+                <input class="form-control"  asp-for="@Model.NewUserHouseNumber"  /><br />
+            </div>
+            <div class="col-4">
+                <label>Etage</label><br />
+                <input class="form-control"  asp-for="@Model.NewUserFloor"  /><br />
+            </div>
+            <div class="col-9">
+                <label>Telefon Nummer</label><br />
+                <span  asp-validation-for="@Model.NewUserPhone" class="text-danger"></span>
+                <input class="form-control"  asp-for="@Model.NewUserPhone" /><br />
+            </div>
+            <div class="col-3 form-check d-flex justify-content-evenly align-items-center">
+                <label></label><br />
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="@Model.NewUserIsLandLord" type="radio" value="False" >Udlejer
+                    <input class="form-check-input" asp-for="@Model.NewUserIsLandLord" type="radio" value="True" >
+                </label>
+            </div>
+
+            <div class="row">
+                <div class="col-6 d-flex justify-content-center">
+                    <input type="submit" value="Opret User" class="btn btn-primary" />
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                <input type="submit" value="Fortryd" class="btn btn-outline-danger" asp-page-handler="Cancel"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

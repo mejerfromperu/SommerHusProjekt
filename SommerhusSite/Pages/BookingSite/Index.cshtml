@@ -1,0 +1,112 @@
+﻿@page
+@using SommerHusProjekt.Model07
+@using SommerhusSite.Services
+@model SommerhusSite.Pages.BookingSite.IndexModel
+@{
+    User loggedInUser = SessionHelper.Get<User>(HttpContext);
+}
+<h1 style="text-align: center;">Bestil din næste drøm</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <div class="justify-content-center d-flex" style="padding-bottom: 1.5em;">
+                <div class="card my-2 p-2 d-flex cardSpecial">
+                    <div>
+                        <div class="col-12 justify-content-center">
+                            <img class="card-img-top cardSpecialIMG" src="@Model.SelectedSummerhouse.Picture">
+                        </div>
+                    <div class="card-subtitle my-2">
+                        <h2 id="outputLocation">@Model.SelectedSummerhouse.City</h2>
+                        <h4 id="outputPrice">@Model.SelectedSummerhouse.StreetName</h4>
+                        <h4 id="outputPrice">@Model.SelectedSummerhouse.DateFrom</h4>
+                        <h4 id="outputPrice">@Model.SelectedSummerhouse.DateTo</h4>
+                    <h4 id="outputPrice">@Model.SelectedSummerhouse.Price</h4>
+                    </div>
+                    <div class="card-body text-black">
+                        <h5>@Model.SelectedSummerhouse.Description</h5>
+                        <p id="outputText"></p>
+                        <div class="d-flex justify-content-around text-white">
+                            <a asp-page="/BookingSite/Index" asp-route-summerhouseId="@Model.SelectedSummerhouse.Id" class="btn btn-outline-dark rounded-pill" style="background: #DEE50F; border: 2px dimgrey; width: 50%;">Se Mere</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <form method="post"> 
+        <div class="container CreateBox justify-content-center" style="padding-top: 15px; padding-left: 15px;">
+            <div class="Application-header">
+                <span class=" d-flex justify-content-center">Bestil Sommerhus</span>
+            </div>
+            <h4 class="d-flex justify-content-center" style="padding-top: 40px;">Kort Information</h4>
+            <div class="d-flex justify-content-center">
+                <div class="row CreditInfoCard" style="padding-top: 15px;">
+                    <div class="col-8">
+                        <span class="text-danger"></span>
+                        <input id="Kort Nummer" placeholder="Kort Nummer" class="form-control"/><br />
+                    </div>
+                    <div class="col-4">
+                        <span class="text-danger"></span>
+                        <input id="CVC" placeholder="CVC" class="form-control" type="text"/><br />
+                    </div>
+                    <div class="col-7">
+                        <span class="text-danger"></span>
+                        <input id="Kortholders Navn" placeholder="Kortholders Navn" class="form-control"/><br />
+                    </div>
+                    <div class="col-2">
+                        <span class="text-danger"></span>
+                        <input id="Udløbs Dato Månede" type="text" value="Månede" class="form-control"/><br />
+                    </div>
+                    <div class="col-1">
+                        <p style="font-size: 22px;">/</p>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-danger"></span>
+                        <input id="Udløbs Dato År" type="text" value="År" class="form-control"/><br />
+                    </div>
+                    <div class="CreditInfoCardBottom">
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-6 flex-column">
+                    <h4 class="d-grid justify-content-center">Bestillings Periode</h4>
+                    <input type="hidden" name="summerhouseId" value="@Model.SelectedSummerhouse.Id" />
+                    <div class="mb-3">
+                        <label>Dato Fra</label><br />
+                        <input type="date" class="form-control" asp-for="Booking.StartDate" required value="@DateTime.Now">
+                    </div>
+                    <h4 class="d-gridjustify-content-center"></h4>
+                    <div class="mb-3">
+                        <label>Dato Til</label><br />
+                        <input type="date" class="form-control" asp-for="Booking.EndDate" required value="@DateTime.Now"><br />
+                    </div>
+                </div>
+                <div class="col-6 flex-column">
+                    <h4 class="d-grid justify-content-center">Bruger Info</h4>
+                    <p name="summerhouseId" hidden>@loggedInUser.Id</p>
+                    <div class="mb-3">
+                        <label>Brugerens Navn</label><br />
+                        <p class="form-control">@loggedInUser.FirstName @loggedInUser.LastName</p>
+                    </div>
+                        <h4 class="d-gridjustify-content-center"></h4>
+                    <div class="mb-3">
+                        <label>Brugerens Email</label><br />
+                        <p class="form-control">@loggedInUser.Email</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-evenly" style="padding-bottom: 15px;">
+                    <div class="col-6 d-flex justify-content-center">
+                        <input type="submit" value="Lej Nu" class="btn btn-primary" />
+                    </div>
+                    <div class="col-6 d-flex justify-content-center">
+                        <input type="submit" value="Fortryd" class="btn btn-outline-danger" asp-page-handler="Cancel" />
+                    </div>
+                </div>
+            </div>
+        </div>
+            </form>
+        </div>
+    </div>
+</div>

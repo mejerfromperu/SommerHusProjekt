@@ -1,20 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SommerHusProjekt.Model07;
+using SommerHusProjekt.Repository07;
 
 namespace SommerhusSite.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private ISummerHouseRepository _list;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ISummerHouseRepository list)
         {
-            _logger = logger;
+            _list = list;
         }
+
+        public List<SummerHouse> Huse { get; set; }
+
 
         public void OnGet()
         {
-
+            Huse = _list.GetAll();
         }
+
+        public void OnPost() { }
+
     }
 }
