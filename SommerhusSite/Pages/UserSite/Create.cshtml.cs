@@ -39,7 +39,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
         [BindProperty]
         [Required(ErrorMessage = "Email skal udfyldes")]
         [StringLength(100, ErrorMessage = "Dette er ikke en gyldig email")]
-        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Emailen skal indeholde '@' tegnet")]
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Emailen skal indeholde '@' tegnet, noget før @ og mellem @ og .")]
         public string NewUserEmail { get; set; }
 
         [BindProperty]
