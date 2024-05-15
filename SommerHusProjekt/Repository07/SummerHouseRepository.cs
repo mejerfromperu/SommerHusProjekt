@@ -17,7 +17,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price, Picture, DateFrom, DateTo) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price, @Picture, @DateFrom, @DateTo)";
+            string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price, Picture, DateFrom, DateTo, AmountSleepingSpace) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price, @Picture, @DateFrom, @DateTo, @AmountSleepingSpace)";
 
             SqlCommand cmd = new SqlCommand(insertSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
@@ -29,6 +29,7 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@Picture", s.Picture);
             cmd.Parameters.AddWithValue("@DateFrom", s.DateFrom);
             cmd.Parameters.AddWithValue("@DateTo", s.DateTo);
+            cmd.Parameters.AddWithValue("@AmountSleepingSpace", s.AmountSleepingSpace);
 
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);
@@ -114,6 +115,7 @@ namespace SommerHusProjekt.Repository07
             s.Picture = reader.IsDBNull(7) ? null : reader.GetString(7);
             s.DateFrom = reader.GetDateTime(8);
             s.DateTo = reader.GetDateTime(9);
+            s.AmountSleepingSpace = reader.IsDBNull(10) ? 0 : reader.GetInt32(10);
 
             return s;
         }
@@ -162,7 +164,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo WHERE Id = @Id";
+            string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo, AmountSleepingSpace = @AmountSleepingSpace, WHERE Id = @Id";
 
             SqlCommand cmd = new SqlCommand(updateSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
@@ -175,6 +177,7 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@DateFrom", s.DateFrom);
             cmd.Parameters.AddWithValue("@DateTo", s.DateTo);
             cmd.Parameters.AddWithValue("@Id", id);
+            cmd.Parameters.AddWithValue("@AmountSleepingSpace", s.AmountSleepingSpace);
 
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);

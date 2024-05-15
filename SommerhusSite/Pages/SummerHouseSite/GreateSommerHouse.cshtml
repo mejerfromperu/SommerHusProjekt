@@ -79,7 +79,7 @@
                             <h4 class="d-flex justify-content-center">Antal Sovepladser</h4>
                         <div class="col-12" style="margin-top: 21px;">
                             <span class="text-danger"></span>
-                            <input class="form-control col-6" placeholder="Antal Sovepladser" type="number" id="inputSleepPlace" oninput="displaySleepPlaces()" /><br />
+                            <input class="form-control col-6" placeholder="Antal Sovepladser" type="number" id="inputSleepPlace" oninput="displaySleepPlaces()"  asp-for="@Model.NewSummerHouseAmountSleepingSpace"/><br />
                         </div>
                     </div>
                     <div class="col-6 flex-column">
@@ -87,13 +87,13 @@
                         <div class="mb-3">
                             <label>Dato Fra</label><br />
                             <span asp-validation-for="@Model.NewSummerHouseFromDate" class="text-danger"></span>
-                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseFromDate" value="@DateTime.Now"><br />
+                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseFromDate" value="@DateTime.Today"><br />
                         </div>
                         <h4 class="d-gridjustify-content-center"></h4>
                         <div class="mb-3">
                             <label>Dato Til</label><br />
                             <span asp-validation-for="@Model.NewSummerHouseToDate" class="text-danger"></span>
-                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseToDate" value="@DateTime.Now"><br />
+                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseToDate" value="@DateTime.Today"><br />
                         </div>
                     </div>
                     <h4 class="d-flex justify-content-center" style="margin-top: 10px;">Beskrivelse</h4>
