@@ -22,6 +22,7 @@ namespace SommerHusProjekt.Model07
         public string Picture { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
+        public int AmountSleepingSpace { get; set; }
 
         // Constructor 
         public SummerHouse()
@@ -37,9 +38,10 @@ namespace SommerHusProjekt.Model07
             Picture = string.Empty;
             DateFrom = DateTime.MinValue;
             DateTo = DateTime.MinValue;
+            AmountSleepingSpace = 0;
         }
 
-        public SummerHouse(int id, string streetName, string houseNumber, int postalCode, string city, string floor, string description, decimal price, string picture, DateTime dateFrom, DateTime dateTo)
+        public SummerHouse(int id, string streetName, string houseNumber, int postalCode, string city, string floor, string description, decimal price, string picture, DateTime dateFrom, DateTime dateTo, int amountSleepingSpace)
         {
             Id = id;
             StreetName = streetName;
@@ -52,9 +54,10 @@ namespace SommerHusProjekt.Model07
             Picture = picture;
             DateFrom = dateFrom;
             DateTo = dateTo;
+            AmountSleepingSpace = amountSleepingSpace;
         }
 
-        public SummerHouse(string streetName, string houseNumber, int postalCode, string floor, string description, decimal price, string picture, DateTime dateFrom, DateTime dateTo)
+        public SummerHouse(string streetName, string houseNumber, int postalCode, string floor, string description, decimal price, string picture, DateTime dateFrom, DateTime dateTo, int amountSleepingSpace)
         {
             StreetName = streetName;
             HouseNumber = houseNumber;
@@ -65,11 +68,12 @@ namespace SommerHusProjekt.Model07
             Picture= picture;
             DateFrom = dateFrom;
             DateTo = dateTo;
+            AmountSleepingSpace = amountSleepingSpace;
         }
 
         public override string ToString()
         {
-            return $"{{{nameof(Id)}={Id.ToString()}, {nameof(StreetName)}={StreetName}, {nameof(HouseNumber)}={HouseNumber}, {nameof(PostalCode)}={PostalCode.ToString()}, {nameof(City)}={City}, {nameof(Floor)}={Floor}, {nameof(Description)}={Description}, {nameof(Price)}={Price.ToString()}, {nameof(Picture)}={Picture}, {nameof(DateFrom)}={DateFrom.ToString()}, {nameof(DateTo)}={DateTo.ToString()}}}";
+            return $"{{{nameof(Id)}={Id.ToString()}, {nameof(StreetName)}={StreetName}, {nameof(HouseNumber)}={HouseNumber}, {nameof(PostalCode)}={PostalCode.ToString()}, {nameof(City)}={City}, {nameof(Floor)}={Floor}, {nameof(Description)}={Description}, {nameof(Price)}={Price.ToString()}, {nameof(Picture)}={Picture}, {nameof(DateFrom)}={DateFrom.ToString()}, {nameof(DateTo)}={DateTo.ToString()}, {nameof(AmountSleepingSpace)}={AmountSleepingSpace.ToString()}}}";
         }
     }
 
