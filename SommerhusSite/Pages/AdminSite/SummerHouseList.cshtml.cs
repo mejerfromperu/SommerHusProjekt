@@ -32,6 +32,12 @@ namespace SommerhusSite.Pages.AdminSite
         public int? SearchPostalCode { get; set; }
         [BindProperty]
         public decimal? SearchPrice { get; set; }
+        [BindProperty]
+        public int? SearchAmountSleepingSpace { get; set; }
+        [BindProperty]
+        public DateTime? SearchDateFrom { get; set; }
+        [BindProperty]
+        public DateTime? SearchDateTo { get; set; }
 
 
         //Hent alle kunder når siden læses
@@ -43,7 +49,7 @@ namespace SommerhusSite.Pages.AdminSite
         //Gør at man søger når man trykker på knappen
         public IActionResult OnPostSearch()
         {
-            SummerHouses = _summerHouseRepo.Search(SearchId, SearchStreetName, SearchHouseNumber, SearchFloor, SearchPostalCode, SearchPrice);
+            SummerHouses = _summerHouseRepo.Search(SearchId, SearchStreetName, SearchHouseNumber, SearchFloor, SearchPostalCode, SearchPrice, SearchAmountSleepingSpace, SearchDateFrom, SearchDateTo);
             return Page();
         }
 

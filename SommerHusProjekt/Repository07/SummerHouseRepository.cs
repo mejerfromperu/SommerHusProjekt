@@ -191,7 +191,7 @@ namespace SommerHusProjekt.Repository07
             return null;
         }
 
-        public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, string? floor, int? postalCode, decimal? price)
+        public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, string? floor, int? postalCode, decimal? price, int? amountSleepingSpace, DateTime? dateFrom, DateTime? dateTo)
         {
             List<SummerHouse> retSummerHouses = new List<SummerHouse>(GetSomething());
 
@@ -223,6 +223,21 @@ namespace SommerHusProjekt.Repository07
             if (price != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.Price == price);
+            }
+
+            if (dateFrom != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.AmountSleepingSpace == amountSleepingSpace);
+            }
+
+            if (amountSleepingSpace != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.DateFrom == dateFrom);
+            }
+
+            if (dateTo != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.DateTo == dateTo);
             }
 
             return retSummerHouses;
