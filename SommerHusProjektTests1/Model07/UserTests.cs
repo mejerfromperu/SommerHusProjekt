@@ -11,23 +11,30 @@ namespace SommerHusProjekt.Model07.Tests
     [TestClass()]
     public class UserTests
     {
-        [TestMethod()]
-        public void UserTest()
+        private User _user;
+
+        [TestInitialize]
+
+        public void BeforeEachTest()
         {
-            Assert.Fail();
+            _user = new User(5, "Chris", "Chris", "25624716", "Chris@gmail.com", "88888888", "ChrisStreet", "3", "3", "Roskilde", 23, false, false);
         }
 
         [TestMethod()]
-        public void UserTest1()
+        public void UserConstructerTest()
         {
-            Assert.Fail();
+            Assert.AreEqual(true, _user.IsAdmin);
         }
 
         [TestMethod()]
-        public void UserTest2()
+        public void UserIdTest()
         {
-            Assert.Fail();
+
+            int expectedUserID = 0;
+
+            Assert.AreEqual(expectedUserID, _user.Id);
         }
+
 
     }
 }
