@@ -39,11 +39,11 @@ namespace SommerhusSite.Pages
             Huse = _list.GetAll();
         }
 
-        public IActionResult OnPostSearch()
-        {
-            Huse = _list.Search(SearchStreetName, SearchHouseNumber, SearchFloor, SearchPostalCode, SearchPrice, SearchAmountGuest, SearchDateFrom, SearchDateTo);
-            return Page();
-        }
+        //public IActionResult OnPostSearch()
+        //{
+        //    Huse = _list.Search(SearchStreetName, SearchHouseNumber, SearchFloor, SearchPostalCode, SearchPrice, SearchAmountGuest, SearchDateFrom, SearchDateTo);
+        //    return Page();
+        //}
 
         public void OnPost() { }
 

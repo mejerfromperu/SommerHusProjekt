@@ -46,7 +46,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string deleteSql = "DELETE FROM SommerBookings WHERE UserId IN (SELECT Id FROM SommerUser WHERE Id = @Id); DELETE FROM SommerUser WHERE Id = @Id;";
+            string deleteSql = "DELETE FROM SommerUser WHERE Id = @Id;";
 
             SqlCommand cmd = new SqlCommand(deleteSql, connection);
             cmd.Parameters.AddWithValue("@Id", id);
