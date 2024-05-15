@@ -37,24 +37,16 @@ namespace SommerhusSite.Pages.BookingSite
                 return Page();
             }
 
-
             User loggedInUser = SessionHelper.Get<User>(HttpContext);
-
 
             SummerHouse selectedSummerhouse = _summerList.GetById(summerhouseId);
 
-            try
+            // Validate booking dates
+            if (Booking.StartDate < selectedSummerhouse.DateFrom || Booking.EndDate > selectedSummerhouse.DateTo)
             {
-                if (Booking.StartDate < selectedSummerhouse.DateFrom || Booking.EndDate > selectedSummerhouse.DateTo)
-                {
-                    throw new ArgumentException("Sorry, the booking dates are not within the available period for the selected summer house.");
-                }
+                ModelState.AddModelError("", "Sorry, the booking dates are not within the available period for the selected summer house.");
+                return Page();
             }
-            catch (Exception ex)
-            {
-                throw new ArgumentException("An error occurred while validating booking dates.", ex);
-            }
-
 
             var newBooking = new Booking
             {
