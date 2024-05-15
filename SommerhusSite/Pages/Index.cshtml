@@ -4,7 +4,19 @@
     ViewData["Title"] = "";
 }
 
-
+<div class="form-selectt rounded-2">
+    <form method="post" class="border border-success rounded">
+        <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-success" />
+        Vejnavn <input type="text" asp-for="@Model.SearchStreetName" />
+        Husnummer <input type="text" asp-for="@Model.SearchHouseNumber" />
+        Etage <input type="text" asp-for="@Model.SearchFloor" />
+        Postnummer  <input type="text" asp-for="@Model.SearchPostalCode" />
+        Pris <input type="text" asp-for="@Model.SearchPrice" />
+        Antal Gæster <input type="text" asp-for="@Model.SearchAmountGuest" />
+        Dato Fra <input type="text" asp-for="@Model.SearchDateFrom" />
+        Dato Til <input type="text" asp-for="@Model.SearchDateTo" />
+    </form>
+</div>
 
 <div class="row d-flex justify-content-evenly gap-5">
 

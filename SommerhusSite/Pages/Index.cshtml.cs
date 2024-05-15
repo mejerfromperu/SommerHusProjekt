@@ -16,11 +16,34 @@ namespace SommerhusSite.Pages
 
         public List<SummerHouse> Huse { get; set; }
 
+        [BindProperty]
+        public string? SearchStreetName { get; set; }
+        [BindProperty]
+        public string? SearchHouseNumber { get; set; }
+        [BindProperty]
+        public string? SearchFloor { get; set; }
+        [BindProperty]
+        public int? SearchPostalCode { get; set; }
+        [BindProperty]
+        public decimal? SearchPrice { get; set; }
+        [BindProperty]
+        public int? SearchAmountGuest { get; set; }
+        [BindProperty]
+        public DateTime? SearchDateFrom { get; set; }
+        [BindProperty]
+        public DateTime? SearchDateTo { get; set; }
+
 
         public void OnGet()
         {
             Huse = _list.GetAll();
         }
+
+        //public IActionResult OnPostSearch()
+        //{
+        //    Huse = _list.Search(SearchStreetName, SearchHouseNumber, SearchFloor, SearchPostalCode, SearchPrice, SearchAmountGuest, SearchDateFrom, SearchDateTo);
+        //    return Page();
+        //}
 
         public void OnPost() { }
 
