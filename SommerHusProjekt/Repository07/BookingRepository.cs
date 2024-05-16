@@ -49,6 +49,7 @@ namespace SommerHusProjekt.Repository07
 
             return null;
         }
+
         public List<Booking> GetAll()
         {
             List<Booking> list = new List<Booking>();

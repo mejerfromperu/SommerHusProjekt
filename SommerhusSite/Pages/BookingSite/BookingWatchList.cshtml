@@ -57,24 +57,20 @@
                                 <output class="form-control">Booking Id: @UserBookings.Id</output>
                         </div>
                         <div class="col-6 justify-content-center align-content-center" style="padding-top: 5px; margin-bottom: 5px;">
-                             @if (DateTime.Now.AddDays(14) < UserBookings.StartDate)
-                            { 
-                                <form method="post">
-                                    <input type="hidden" name="bookingId"  value="@UserBookings.Id"/>
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på du vil annullere')">Afbestil</button>
-                                </form>
-                             }
-                            else if (DateTime.Now < UserBookings.StartDate)
-                            {
-                                <form method="post">
-                                    <input type="hidden" name="bookingId" value="@UserBookings.Id" />
-                                    <button type="submit" class="btn btn-danger WatchListDeleteBTN" onclick="return confirm('Er du sikker på du vil annullere, du mister dit depositum')">Afbestil</button>
-                                </form>
-                            }
-                            else
-                            {
-                                <span class="text-muted">Vi håber det var hyggeligt</span>
-                            }
+                            <form method="post">
+                                @if (DateTime.Now.AddDays(14) < UserBookings.StartDate)
+                                {
+                                    <input type="submit" class="btn btn-danger" value="Afbestil" asp-page-handler="Delete" asp-route-id="@UserBookings.Id" />
+                                }
+                                else if (DateTime.Now < UserBookings.StartDate)
+                                {
+                                    <input type="submit" class="btn btn-danger" value="Afbestil" asp-page-handler="Delete" asp-route-id="@UserBookings.Id" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Vi håber det var hyggeligt</span>
+                                }
+                            </form>
                         </div>
                     </div>
                 </div>
