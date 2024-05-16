@@ -59,5 +59,11 @@ namespace SommerhusSite.Pages
             return Page();
         }
 
+        public IActionResult OnPostSortStreetName()
+        {
+            Huse = _list.SortStreetName();
+            return Page();
+        }
+
     }
 }
