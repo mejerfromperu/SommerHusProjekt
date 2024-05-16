@@ -28,7 +28,7 @@ namespace SommerHusProjekt.Repository07.Tests
         {
 
             int numberOfUserBefore = _userRepository.GetAll().Count;
-            User newuser = new User();
+            User newuser = new User("alex", "alex", "88625364", "Alex@gmail.com", "44988232", "streetname", "2", 4000, false, false);
 
             _userRepository.Add(newuser);
 
