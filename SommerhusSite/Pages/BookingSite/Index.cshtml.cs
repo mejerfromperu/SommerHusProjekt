@@ -18,6 +18,10 @@ namespace SommerhusSite.Pages.BookingSite
 
         public User LoggedInUser { get; set; } 
 
+
+        
+
+
         public IndexModel(ISummerHouseRepository summerlist, IBookingRepository bookinglist)
         {
             _summerList = summerlist;
@@ -28,6 +32,8 @@ namespace SommerhusSite.Pages.BookingSite
         {
             SelectedSummerhouse = _summerList.GetById(summerhouseId);
             LoggedInUser = SessionHelper.Get<User>(HttpContext);
+
+            SessionHelper.Set(SelectedSummerhouse, HttpContext);
         }
 
         public IActionResult OnPost(int summerhouseId)
@@ -37,11 +43,16 @@ namespace SommerhusSite.Pages.BookingSite
                 return Page();
             }
 
-
             User loggedInUser = SessionHelper.Get<User>(HttpContext);
 
-
             SummerHouse selectedSummerhouse = _summerList.GetById(summerhouseId);
+
+            // Validate booking dates
+            if (Booking.StartDate < selectedSummerhouse.DateFrom || Booking.EndDate > selectedSummerhouse.DateTo)
+            {
+                ModelState.AddModelError("", "Sorry, the booking dates are not within the available period for the selected summer house.");
+                return Page();
+            }
 
             var newBooking = new Booking
             {
