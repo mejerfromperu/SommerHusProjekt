@@ -14,10 +14,13 @@ namespace SommerhusSite.Pages.AdminSite
         // instans af bil repository
         private ISummerHouseRepository _summerHouseRepo;
 
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
         //Dependency Injection
-        public UpdateSummerHouseModel(ISummerHouseRepository repository)
+        public UpdateSummerHouseModel(ISummerHouseRepository repository, IWebHostEnvironment webHostEnvironment)
         {
             _summerHouseRepo = repository;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         //Property til nye værdier
@@ -52,7 +55,7 @@ namespace SommerhusSite.Pages.AdminSite
        
         [BindProperty]
         [Required(ErrorMessage = "Picture skal udfyldes")]
-        public string NewSummerHousePicture { get; set; }
+        public IFormFile NewSummerHousePicture { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Til skal udfyldes")]
@@ -79,7 +82,6 @@ namespace SommerhusSite.Pages.AdminSite
                 NewSummerHousePrice = summerHouse.Price;
                 NewSummerHouseFromDate = summerHouse.DateFrom;
                 NewSummerHouseToDate = summerHouse.DateTo;
-                NewSummerHousePicture = summerHouse.Picture;
                 NewSummerHouseId = summerHouse.Id;
             }
             catch (KeyNotFoundException knfe)
@@ -90,7 +92,7 @@ namespace SommerhusSite.Pages.AdminSite
         }
 
         //Gør vi kan lave værdierne om til de nye ændrede værdier
-        public IActionResult OnPostChange(int id)
+        public async Task<IActionResult> OnPostChangeAsync(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -105,9 +107,28 @@ namespace SommerhusSite.Pages.AdminSite
             summerHouse.PostalCode = NewSummerHousePostalCode;
             summerHouse.Description = NewSummerHouseDescription;
             summerHouse.Price = NewSummerHousePrice;
-            summerHouse.Picture = NewSummerHousePicture;
             summerHouse.DateFrom = NewSummerHouseFromDate;
             summerHouse.DateTo = NewSummerHouseToDate;
+
+            if (NewSummerHousePicture != null)
+            {
+                var fileName = Path.GetFileName(NewSummerHousePicture.FileName);
+                var filePath = Path.Combine("wwwroot/images", NewSummerHousePicture.FileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await NewSummerHousePicture.CopyToAsync(fileStream);
+                }
+                summerHouse.Picture = NewSummerHousePicture.FileName;
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    await NewSummerHousePicture.CopyToAsync(memoryStream);
+                    var fileBytes = memoryStream.ToArray();
+                    summerHouse.Picture = Convert.ToBase64String(fileBytes);
+                }
+            }
+
 
             _summerHouseRepo.Update(id, summerHouse);
 

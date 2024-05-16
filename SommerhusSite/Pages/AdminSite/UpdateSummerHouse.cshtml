@@ -4,7 +4,7 @@
 @{
 }
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-4">
@@ -14,9 +14,8 @@
                             <span>Preview Card</span>
                         </div>
                         <div class="col-md-12 justify-content-center">
-                            <span asp-validation-for="@Model.NewSummerHousePicture" class="text-danger"></span>
-                            <input type="text" asp-for="@Model.NewSummerHousePicture" hidden />
-                            <img src="/images/sommer&solplaceholder.png" class="card-img-top cardSpecialIMG" />
+                            <span asp-validation-for="NewSummerHousePicture" class="text-danger"></span>
+                            <img src="/images/@Model.NewSummerHousePicture" class="card-img-top cardSpecialIMG" />
                         </div>
                         <div class="card-subtitle my-2">
                             <h2 id="outputLocation"></h2>
@@ -31,8 +30,8 @@
                         </div>
                         <h4 class="d-flex justify-content-center">Indsæt Billede Fil</h4>
                         <div class="col-12">
-                            <span asp-validation-for="@Model.NewSummerHousePicture" class="text-danger"></span>
-                            <input class="card-img-top rounded-2" style="width: 100%; height: 14em; justify-content: center;" type="file" id="imageInput" onchange="displayImage(this)" asp-for="@Model.NewSummerHousePicture" />
+                            <span asp-validation-for="NewSummerHousePicture" class="text-danger"></span>
+                            <input class="card-img-top rounded-2" style="width: 100%; height: 14em; justify-content: center;" type="file" id="imageInput" asp-for="NewSummerHousePicture" />
                         </div>
                     </div>
                 </div>
@@ -48,32 +47,32 @@
                             <input id="inputCity" placeholder="By" class="form-control" oninput="displayLocation()" /><br />
                         </div>
                         <div class="col-4">
-                            <span asp-validation-for="@Model.NewSummerHousePostalCode" class="text-danger"></span>
-                            <input class="form-control" placeholder="Postnummer" id="inputPostalcode" type="text" oninput="displayLocation()" asp-for="@Model.NewSummerHousePostalCode" /><br />
+                            <span asp-validation-for="NewSummerHousePostalCode" class="text-danger"></span>
+                            <input class="form-control" placeholder="Postnummer" id="inputPostalcode" type="text" oninput="displayLocation()" asp-for="NewSummerHousePostalCode" /><br />
                         </div>
                         <div class="col-6">
-                            <span asp-validation-for="@Model.NewSummerHouseStreetName" class="text-danger"></span>
-                            <input class="form-control" placeholder="Vej Navn" asp-for="@Model.NewSummerHouseStreetName" /><br />
+                            <span asp-validation-for="NewSummerHouseStreetName" class="text-danger"></span>
+                            <input class="form-control" placeholder="Vej Navn" asp-for="NewSummerHouseStreetName" /><br />
                         </div>
                         <div class="col-3">
-                            <span asp-validation-for="@Model.NewSummerHouseHouseNumber" class="text-danger"></span>
-                            <input class="form-control" placeholder="Vej Nr." asp-for="@Model.NewSummerHouseHouseNumber" /><br />
+                            <span asp-validation-for="NewSummerHouseHouseNumber" class="text-danger"></span>
+                            <input class="form-control" placeholder="Vej Nr." asp-for="NewSummerHouseHouseNumber" /><br />
                         </div>
                         <div class="col-3">
-                            <span asp-validation-for="@Model.NewSummerHouseFloor" class="text-danger"></span>
-                            <input class="form-control" placeholder="Etage" asp-for="@Model.NewSummerHouseFloor" /><br />
+                            <span asp-validation-for="NewSummerHouseFloor" class="text-danger"></span>
+                            <input class="form-control" placeholder="Etage" asp-for="NewSummerHouseFloor" /><br />
                         </div>
                     </div>
                     <div class="row d-flex">
                         <div class="col-6">
                             <h4 class="d-flex justify-content-center">Pris Pr. Dag</h4>
                             <div class="col-12" style="margin-top: 32px;">
-                                <span asp-validation-for="@Model.NewSummerHousePrice" class="text-danger"></span>
-                                <input class="form-control" placeholder="Pris Pr. Dag" type="number" id="inputPrice" oninput="displayPrice()" asp-for="@Model.NewSummerHousePrice" /><br />
+                                <span asp-validation-for="NewSummerHousePrice" class="text-danger"></span>
+                                <input class="form-control" placeholder="Pris Pr. Dag" type="number" id="inputPrice" oninput="displayPrice()" asp-for="NewSummerHousePrice" /><br />
                             </div>
                             <h4 class="d-flex justify-content-center" style="margin-top: 10px;">Beskrivelse</h4>
                             <div class="col-12">
-                                <span asp-validation-for="@Model.NewSummerHouseDescription" class="text-danger"></span>
+                                <span asp-validation-for="NewSummerHouseDescription" class="text-danger"></span>
                                 <input class="form-control" placeholder="Beskrivelse" id="inputText" type="text" oninput="displayText()" asp-for="@Model.NewSummerHouseDescription" /><br />
                             </div>
                         </div>
