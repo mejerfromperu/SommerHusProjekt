@@ -35,6 +35,7 @@ namespace SommerhusSite.Pages.BookingSite
             sommerhuse = _summerhouse.GetAll();
             User? user = SessionHelper.Get<User>(HttpContext);
             newuserid = user.Id;
+            SessionHelper.Clear<SummerHouse>(HttpContext);
         }
     }
 }
