@@ -191,9 +191,9 @@ namespace SommerHusProjekt.Repository07
             return null;
         }
 
-        public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, string? floor, int? postalCode, decimal? price)
+        public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, int? postalCode, decimal? price, int? amountSleepingSpace, DateTime? dateFrom, DateTime? dateTo)
         {
-            List<SummerHouse> retSummerHouses = new List<SummerHouse>(GetSomething());
+            List<SummerHouse> retSummerHouses = new List<SummerHouse>(GetAll());
 
             if (id != null)
             {
@@ -202,17 +202,12 @@ namespace SommerHusProjekt.Repository07
 
             if (streetName != null)
             {
-                retSummerHouses = retSummerHouses.FindAll(s => s.StreetName.Contains(streetName));
+                retSummerHouses = retSummerHouses.FindAll(s => s.StreetName.Contains(streetName, StringComparison.OrdinalIgnoreCase));
             }
 
             if (houseNumber != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.HouseNumber.Contains(houseNumber));
-            }
-
-            if (floor != null)
-            {
-                retSummerHouses = retSummerHouses.FindAll(s => s.Floor.Contains(floor));
             }
 
             if (postalCode != null)
@@ -222,7 +217,28 @@ namespace SommerHusProjekt.Repository07
 
             if (price != null)
             {
-                retSummerHouses = retSummerHouses.FindAll(s => s.Price == price);
+                retSummerHouses = retSummerHouses.FindAll(s => s.Price <= price);
+            }
+
+            if (amountSleepingSpace != null)
+            {
+                retSummerHouses = retSummerHouses.FindAll(s => s.AmountSleepingSpace >= amountSleepingSpace);
+            }
+
+            if (dateFrom != null || dateTo != null)
+            {
+                if (dateFrom != null && dateTo != null)
+                {
+                    retSummerHouses = retSummerHouses.FindAll(s => s.DateFrom >= dateFrom && s.DateTo <= dateTo);
+                }
+                else if (dateFrom != null)
+                {
+                    retSummerHouses = retSummerHouses.FindAll(s => s.DateFrom >= dateFrom);
+                }
+                else if (dateTo != null)
+                {
+                    retSummerHouses = retSummerHouses.FindAll(s => s.DateTo <= dateTo);
+                }
             }
 
             return retSummerHouses;
@@ -274,7 +290,7 @@ namespace SommerHusProjekt.Repository07
             return retSummerHouses;
         }
 
-        private class SortByFirstName : IComparer<SummerHouse>
+        private class SortByStreetName : IComparer<SummerHouse>
         {
             public int Compare(SummerHouse? x, SummerHouse? y)
             {
@@ -315,6 +331,71 @@ namespace SommerHusProjekt.Repository07
             }
         }
 
-        
+        public List<SummerHouse> SortAmountSleepingSpace()
+        {
+            List<SummerHouse> retSummerHouses = GetAll();
+
+            retSummerHouses.Sort(new SortByAmountSleepingSpace());
+
+            if (!NumberASC)
+            {
+                retSummerHouses.Reverse();
+            }
+            NumberASC = !NumberASC;
+
+            return retSummerHouses;
+        }
+
+        private class SortByAmountSleepingSpace: IComparer<SummerHouse>
+        {
+            public int Compare(SummerHouse? x, SummerHouse? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+
+                return x.AmountSleepingSpace - y.AmountSleepingSpace;
+            }
+        }
+
+        public List<SummerHouse> SortPrice()
+        {
+            List<SummerHouse> retSummerHouses = GetAll();
+
+            retSummerHouses.Sort(new SortByPrice());
+
+            if (!NumberASC)
+            {
+                retSummerHouses.Reverse();
+            }
+            NumberASC = !NumberASC;
+
+            return retSummerHouses;
+        }
+
+        private class SortByPrice : IComparer<SummerHouse>
+        {
+            public int Compare(SummerHouse? x, SummerHouse? y)
+            {
+                if (x == null && y == null)
+                {
+                    return 0;
+                }
+                if (x == null)
+                {
+                    return -1; 
+                }
+                if (y == null)
+                {
+                    return 1; 
+                }
+
+                return x.Price.CompareTo(y.Price);
+            }
+
+        }
+
+
     }
 }
