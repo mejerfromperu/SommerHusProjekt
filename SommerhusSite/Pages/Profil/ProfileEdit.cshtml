@@ -11,7 +11,7 @@
         <div class="ProfileBoxHeader">
             <h2 class="textv1">Din Profil</h2>
         </div>
-        <div class="ProfileUserInfo justify-content-center">
+        <div class="ProfileUserInfo align-content-center justify-content-center">
             <div class="col-12 row d-flex">
                 <div class="col-12 row d-flex">
                     <div class="col-12 ProfileUserTextBox">
@@ -19,10 +19,10 @@
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
                         <div class="col-6">
-                            <output>@loggedInUser.FirstName</output>
+                            <input type="text" asp-for="@Model.UpdatedFirstName"/>
                         </div>
                         <div class="col-6">
-                            <output>@loggedInUser.LastName</output>
+                            <input type="text" asp-for="@Model.UpdatedLastName"/>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,30 @@
                         <p>Email: </p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
-                        <output>@loggedInUser.Email</output>
+                        <input id="inputEmail" type="email" asp-for="@Model.UpdatedEmail" />
+                    </div>
+                    <div class="col-12 ProfileUserTextBox">
+                        <p>Gentag Email: </p>
+                    </div>
+                    <div class="col-12 ProfileUserForm d-flex">
+                        <input id="confirmEmail" type="email" />
+                    </div><div class="col-12 ProfileUserTextBox">
+                        <p>Din Nuværende Adgangskode: </p>
+                    </div>
+                    <div class="col-12 ProfileUserForm d-flex">
+                        <input id="oldPassword" type="password" />
+                    </div>
+                    <div class="col-12 ProfileUserTextBox">
+                        <p>Det Nye Adgangskode: </p>
+                    </div>
+                    <div class="col-12 ProfileUserForm d-flex">
+                        <input id="inputPassword" type="password" asp-for="@Model.UpdatedPassword" />
+                    </div>
+                    <div class="col-12 ProfileUserTextBox">
+                        <p>Gentag Det Nye Adgangskode: </p>
+                    </div>
+                    <div class="col-12 ProfileUserForm d-flex">
+                        <input id="confirmPassword" type="password" />
                     </div>
                 </div>
                 <div class="col-12 row d-flex">
@@ -39,7 +62,7 @@
                         <p>Telefon: </p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
-                        <output>@loggedInUser.Phone</output>
+                        <input type="number" asp-for="@Model.UpdatedPhone"/>
                     </div>
                 </div>
                 <div class="col-lg-6 row d-flex" style="margin-right: 10px;">
@@ -48,27 +71,27 @@
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
                         <div class="col-12">
-                            <output>@loggedInUser.StreetName</output>
+                            <input type="text" asp-for="@Model.UpdatedStreetName"/>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 row d-flex" style="margin-right: 10px;">
                     <div class="col-12 ProfileUserTextBox">
-                        <p>By:</p>
+                        <p>Etage:</p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
                         <div class="col-12">
-                            <output>@loggedInUser.City</output>
+                            <input type="number" asp-for="@Model.UpdatedFloor"/>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 row d-flex" style="margin-right: 10px;">
                     <div class="col-12 ProfileUserTextBox">
-                        <p>Vej Nr: </p>
+                        <p>Hus Nr: </p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
                         <div class="col-12">
-                            <output>@loggedInUser.HouseNumber</output>
+                            <input type="number" asp-for="@Model.UpdatedHouseNumber"/>
                         </div>
                     </div>
                 </div>
@@ -78,7 +101,7 @@
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
                         <div class="col-12">
-                            <output>@loggedInUser.PostalCode</output>
+                            <input asp-for="@Model.UpdatedPostalCode"/>
                         </div>
                     </div>
                 </div>
@@ -98,14 +121,14 @@
                         <p>Udlejer:</p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
-                        <div class="col-12">
-                            <output>@(loggedInUser.IsLandlord ? "Ja" : "Nej")</output>
+                        <div class="col-12 align-content-center">
+                            <input type="checkbox" asp-for="@Model.UpdatedIsLandLord"/>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 row d-flex justify-content-center">
                     <div class="col-6">
-                        <input type="submit" value="Update" class="btn btn-outline-dark btnSpecial rounded-pill" style="margin-top: 15px; width: 100%;" />
+                        <input id="submitButton" type="submit" value="Update" class="btn btn-outline-dark btnSpecial rounded-pill" style="margin-top: 15px; width: 100%;" asp-page-handler="Update" asp-route-id="@loggedInUser.Id"/>
                     </div>
                     <div class="col-6">
                         <input type="submit" value="Cancel" class="btn btn-danger btn-outline-dark rounded-pill" style="margin-top: 15px; width: 100%;" asp-page-handler="Cancel" />
@@ -115,3 +138,29 @@
         </div>
     </div>
 </form>
+
+
+
+<script>
+    document.getElementById('submitButton').addEventListener('click', function () {
+        var inputEmail = document.getElementById('inputEmail').value;
+        var confirmEmail = document.getElementById('confirmEmail').value;
+        var inputPassword = document.getElementById('inputPassword').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (inputEmail !== confirmEmail) {
+            alert("Emails matcher ikke.");
+            return;
+        }
+
+        if (inputPassword !== confirmPassword) {
+            alert("Passwords matcher ikke.");
+            return;
+        }
+
+        if (oldPassword !== "@loggedInUser.Password") {
+            alert("Den gamle adgangskode er forkert.");
+            return;
+        }
+    });
+</script>

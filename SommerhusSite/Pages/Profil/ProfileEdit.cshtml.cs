@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SommerHusProjekt.Model07;
 using SommerHusProjekt.Repository07;
+using SommerhusSite.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace SommerhusSite.Pages.Profil
@@ -91,7 +94,10 @@ namespace SommerhusSite.Pages.Profil
 
             _userRepository.Update(id, user);
 
-            return RedirectToPage("Profile");
+            HttpContext.Session.Clear();
+            SessionHelper.Set(user, HttpContext);
+
+            return RedirectToPage("/Profil/Index");
         }
 
         public IActionResult OnPostCancel()
