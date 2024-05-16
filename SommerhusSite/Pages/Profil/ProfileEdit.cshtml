@@ -44,18 +44,6 @@
                     <div class="col-12 ProfileUserForm d-flex">
                         <input id="oldPassword" type="password" />
                     </div>
-                    <div class="col-12 ProfileUserTextBox">
-                        <p>Det Nye Adgangskode: </p>
-                    </div>
-                    <div class="col-12 ProfileUserForm d-flex">
-                        <input id="inputPassword" type="password" asp-for="@Model.UpdatedPassword" />
-                    </div>
-                    <div class="col-12 ProfileUserTextBox">
-                        <p>Gentag Det Nye Adgangskode: </p>
-                    </div>
-                    <div class="col-12 ProfileUserForm d-flex">
-                        <input id="confirmPassword" type="password" />
-                    </div>
                 </div>
                 <div class="col-12 row d-flex">
                     <div class="col-12 ProfileUserTextBox">
@@ -145,18 +133,6 @@
     document.getElementById('submitButton').addEventListener('click', function () {
         var inputEmail = document.getElementById('inputEmail').value;
         var confirmEmail = document.getElementById('confirmEmail').value;
-        var inputPassword = document.getElementById('inputPassword').value;
-        var confirmPassword = document.getElementById('confirmPassword').value;
-
-        if (inputEmail !== confirmEmail) {
-            alert("Emails matcher ikke.");
-            return;
-        }
-
-        if (inputPassword !== confirmPassword) {
-            alert("Passwords matcher ikke.");
-            return;
-        }
 
         if (oldPassword !== "@loggedInUser.Password") {
             alert("Den gamle adgangskode er forkert.");
