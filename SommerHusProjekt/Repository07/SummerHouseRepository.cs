@@ -247,7 +247,7 @@ namespace SommerHusProjekt.Repository07
         private bool NumberASC = true;
         public List<SummerHouse> SortId()
         {
-            List<SummerHouse> retSummerHouses = GetSomething();
+            List<SummerHouse> retSummerHouses = GetAll();
 
             retSummerHouses.Sort(new SortById());
 
@@ -277,7 +277,7 @@ namespace SommerHusProjekt.Repository07
 
         public List<SummerHouse> SortStreetName()
         {
-            List<SummerHouse> retSummerHouses = GetSomething();
+            List<SummerHouse> retSummerHouses = GetAll();
 
             retSummerHouses.Sort((x, y) => x.StreetName.CompareTo(y.StreetName));
 
@@ -305,7 +305,7 @@ namespace SommerHusProjekt.Repository07
 
         public List<SummerHouse> SortPostalCode()
         {
-            List<SummerHouse> retSummerHouses = GetSomething();
+            List<SummerHouse> retSummerHouses = GetAll();
 
             retSummerHouses.Sort(new SortByPostalCode());
 
