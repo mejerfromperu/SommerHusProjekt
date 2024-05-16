@@ -8,9 +8,20 @@ using System.Threading.Tasks;
 
 namespace SommerHusProjekt.Repository07.Tests
 {
+
     [TestClass()]
     public class BookingRepositoryTests
     {
+
+        private IBookingRepository _bookingrepo;
+
+        [TestInitialize]
+        public void Init()
+        {
+            _bookingrepo = new BookingRepository();
+        }
+
+
         [TestMethod()]
         public void AddTest()
         {
