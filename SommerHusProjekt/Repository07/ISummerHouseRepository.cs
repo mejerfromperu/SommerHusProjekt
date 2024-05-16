@@ -20,6 +20,8 @@ namespace SommerHusProjekt.Repository07
         List<SummerHouse> SortId();
         List<SummerHouse> SortStreetName();
         List<SummerHouse> SortPostalCode();
+        List<SummerHouse> SortPrice();
+        List<SummerHouse> SortAmountSleepingSpace();
 
         //  public List<SommerHouse> Search(int? id, string? name, string? team);
     }

@@ -290,7 +290,7 @@ namespace SommerHusProjekt.Repository07
             return retSummerHouses;
         }
 
-        private class SortByFirstName : IComparer<SummerHouse>
+        private class SortByStreetName : IComparer<SummerHouse>
         {
             public int Compare(SummerHouse? x, SummerHouse? y)
             {
@@ -331,6 +331,71 @@ namespace SommerHusProjekt.Repository07
             }
         }
 
-        
+        public List<SummerHouse> SortAmountSleepingSpace()
+        {
+            List<SummerHouse> retSummerHouses = GetAll();
+
+            retSummerHouses.Sort(new SortByAmountSleepingSpace());
+
+            if (!NumberASC)
+            {
+                retSummerHouses.Reverse();
+            }
+            NumberASC = !NumberASC;
+
+            return retSummerHouses;
+        }
+
+        private class SortByAmountSleepingSpace: IComparer<SummerHouse>
+        {
+            public int Compare(SummerHouse? x, SummerHouse? y)
+            {
+                if (x == null || y == null)
+                {
+                    return 0;
+                }
+
+                return x.AmountSleepingSpace - y.AmountSleepingSpace;
+            }
+        }
+
+        public List<SummerHouse> SortPrice()
+        {
+            List<SummerHouse> retSummerHouses = GetAll();
+
+            retSummerHouses.Sort(new SortByPrice());
+
+            if (!NumberASC)
+            {
+                retSummerHouses.Reverse();
+            }
+            NumberASC = !NumberASC;
+
+            return retSummerHouses;
+        }
+
+        private class SortByPrice : IComparer<SummerHouse>
+        {
+            public int Compare(SummerHouse? x, SummerHouse? y)
+            {
+                if (x == null && y == null)
+                {
+                    return 0;
+                }
+                if (x == null)
+                {
+                    return -1; 
+                }
+                if (y == null)
+                {
+                    return 1; 
+                }
+
+                return x.Price.CompareTo(y.Price);
+            }
+
+        }
+
+
     }
 }

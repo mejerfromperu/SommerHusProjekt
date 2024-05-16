@@ -47,7 +47,17 @@ namespace SommerhusSite.Pages
             return Page();
         }
 
-        public void OnPost() { }
+        public IActionResult OnPostSortPrice()
+        {
+            Huse = _list.SortPrice();
+            return Page();
+        }
+
+        public IActionResult OnPostSortAmountSleepingSpace()
+        {
+            Huse = _list.SortAmountSleepingSpace();
+            return Page();
+        }
 
     }
 }
