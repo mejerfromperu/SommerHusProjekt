@@ -4,6 +4,7 @@ using SommerHusProjekt.Repository07;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,9 +17,10 @@ namespace SommerHusProjekt.Repository07.Tests
         private IUserRepository _userRepository;
 
         [TestInitialize]
-        public void Init()
+        public void Init(IUserRepository repo)
         {
-            _userRepository = new UserRepository();
+            _userRepository = repo;
+
         }
 
         [TestMethod()]
@@ -26,12 +28,11 @@ namespace SommerHusProjekt.Repository07.Tests
         {
 
             int numberOfUserBefore = _userRepository.GetAll().Count;
-            User newuser = new User("chris", "mejer", "292929292", "Chris@gmail.com", "99999999", "street", "housenumber", 4000, false, false);
+            User newuser = new User();
 
             _userRepository.Add(newuser);
 
-
-            Assert.AreEqual(_userRepository.GetAll().Count, numberOfUserBefore + 1);
+            Assert.AreEqual(numberOfUserBefore + 1, _userRepository.GetAll().Count);
         }
 
         [TestMethod()]

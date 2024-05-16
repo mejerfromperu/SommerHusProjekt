@@ -33,6 +33,18 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@PostalCode", user.PostalCode);
             cmd.Parameters.AddWithValue("@IsAdmin", user.IsAdmin);
             cmd.Parameters.AddWithValue("@IsLandlord", user.IsLandlord);
+            Console.WriteLine("Attempting to insert the following values into SommerUser table:");
+            Console.WriteLine($"FirstName: {user.FirstName}");
+            Console.WriteLine($"LastName: {user.LastName}");
+            Console.WriteLine($"Phone: {user.Phone}");
+            Console.WriteLine($"Email: {user.Email}");
+            Console.WriteLine($"Password: {user.Password}");
+            Console.WriteLine($"StreetName: {user.StreetName}");
+            Console.WriteLine($"HouseNumber: {user.HouseNumber}");
+            Console.WriteLine($"Floor: {user.Floor}");
+            Console.WriteLine($"PostalCode: {user.PostalCode}");
+            Console.WriteLine($"IsAdmin: {user.IsAdmin}");
+            Console.WriteLine($"IsLandlord: {user.IsLandlord}");
 
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);
@@ -123,9 +135,9 @@ namespace SommerHusProjekt.Repository07
             user.StreetName = reader.GetString(6);
             user.HouseNumber = reader.GetString(7);
             user.Floor = reader.GetString(8);
-            user.PostalCode = reader.GetInt32(9);
-            user.IsAdmin = reader.GetBoolean(10);
-            user.IsLandlord = reader.GetBoolean(11);
+            user.IsAdmin = reader.GetBoolean(9);
+            user.IsLandlord = reader.GetBoolean(10);
+            user.PostalCode = reader.GetInt32(11);
 
 
 

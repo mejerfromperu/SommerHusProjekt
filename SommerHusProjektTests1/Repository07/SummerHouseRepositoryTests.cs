@@ -11,6 +11,16 @@ namespace SommerHusProjekt.Repository07.Tests
     [TestClass()]
     public class SummerHouseRepositoryTests
     {
+        private ISummerHouseRepository _summerepo;
+
+        //[TestInitialize]
+        //public void Init()
+        //{
+        //    _summerepo = new UserRepository();
+
+        //}
+
+
         [TestMethod()]
         public void AddTest()
         {
