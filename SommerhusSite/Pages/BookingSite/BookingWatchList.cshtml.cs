@@ -42,24 +42,14 @@ namespace SommerhusSite.Pages.BookingSite
             else
             {
                 TempData["Message"] = "Please log in to view your bookings.";
-                RedirectToPage("/Index");
+                RedirectToPage("Index");
             }
         }
 
-        public IActionResult OnPostDelete(int bookingId)
+        public IActionResult OnPostDelete(int Id)
         {
-            Booking bookingToDelete = _bookingRepository.GetById(bookingId);
-
-            if (bookingToDelete != null)
-            {
-                    _bookingRepository.Delete(bookingId);
-            }
-            else
-            {
-                TempData["Message"] = "Booking not found.";
-            }
-
-            return RedirectToPage();
+            _bookingRepository.Delete(Id);
+            return RedirectToPage("BookingWatchList");
         }
 
     }
