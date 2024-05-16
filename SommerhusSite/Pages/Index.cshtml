@@ -9,16 +9,18 @@
         <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-success" />
         Vejnavn <input type="text" asp-for="@Model.SearchStreetName" />
         Husnummer <input type="text" asp-for="@Model.SearchHouseNumber" />
-        Etage <input type="text" asp-for="@Model.SearchFloor" />
-        Postnummer  <input type="text" asp-for="@Model.SearchPostalCode" />
+        Postnummer  <input type="number" asp-for="@Model.SearchPostalCode" />
         Pris <input type="text" asp-for="@Model.SearchPrice" />
-        Antal Gæster <input type="text" asp-for="@Model.SearchAmountGuest" />
-        Dato Fra <input type="text" asp-for="@Model.SearchDateFrom" />
-        Dato Til <input type="text" asp-for="@Model.SearchDateTo" />
+        Antal Gæster <input type="number" asp-for="@Model.SearchAmountSleepingSpace" />
+        Dato Fra <input type="date" asp-for="@Model.SearchDateFrom" />
+        Dato Til <input type="date" asp-for="@Model.SearchDateTo" />
     </form>
 </div>
 
+
 <div class="row d-flex justify-content-evenly gap-5">
+    @* <th><input type="submit" asp-page-handler="SortAmountSleepingSpace" value="Pris" class="btn btn-success" /></th>
+    <th><input type="submit" asp-page-handler="SortPrice" value="Antal Gæster" class="btn btn-success" /></th> *@
 
     @foreach (var SommerHuse in Model.Huse)
     {

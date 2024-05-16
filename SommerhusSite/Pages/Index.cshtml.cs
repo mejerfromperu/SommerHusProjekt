@@ -17,6 +17,8 @@ namespace SommerhusSite.Pages
         public List<SummerHouse> Huse { get; set; }
 
         [BindProperty]
+        public int? SearchId { get; set; }
+        [BindProperty]
         public string? SearchStreetName { get; set; }
         [BindProperty]
         public string? SearchHouseNumber { get; set; }
@@ -27,7 +29,7 @@ namespace SommerhusSite.Pages
         [BindProperty]
         public decimal? SearchPrice { get; set; }
         [BindProperty]
-        public int? SearchAmountGuest { get; set; }
+        public int? SearchAmountSleepingSpace { get; set; }
         [BindProperty]
         public DateTime? SearchDateFrom { get; set; }
         [BindProperty]
@@ -39,13 +41,23 @@ namespace SommerhusSite.Pages
             Huse = _list.GetAll();
         }
 
-        //public IActionResult OnPostSearch()
-        //{
-        //    Huse = _list.Search(SearchStreetName, SearchHouseNumber, SearchFloor, SearchPostalCode, SearchPrice, SearchAmountGuest, SearchDateFrom, SearchDateTo);
-        //    return Page();
-        //}
+        public IActionResult OnPostSearch()
+        {
+            Huse = _list.Search(SearchId,SearchStreetName, SearchHouseNumber, SearchPostalCode, SearchPrice, SearchAmountSleepingSpace, SearchDateFrom, SearchDateTo);
+            return Page();
+        }
 
-        public void OnPost() { }
+        public IActionResult OnPostSortPrice()
+        {
+            Huse = _list.SortPrice();
+            return Page();
+        }
+
+        public IActionResult OnPostSortAmountSleepingSpace()
+        {
+            Huse = _list.SortAmountSleepingSpace();
+            return Page();
+        }
 
     }
 }

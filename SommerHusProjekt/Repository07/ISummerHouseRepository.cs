@@ -16,10 +16,12 @@ namespace SommerHusProjekt.Repository07
         SummerHouse GetById(int id);
         string? ToString();
         SummerHouse Update(int id, SummerHouse summerHouse);
-        public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, string? floor, int? postalCode, decimal? price);
+        List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, int? postalCode, decimal? price, int? amountSleepingSpace, DateTime? dateFrom, DateTime? dateTo);
         List<SummerHouse> SortId();
         List<SummerHouse> SortStreetName();
         List<SummerHouse> SortPostalCode();
+        List<SummerHouse> SortPrice();
+        List<SummerHouse> SortAmountSleepingSpace();
 
         //  public List<SommerHouse> Search(int? id, string? name, string? team);
     }
