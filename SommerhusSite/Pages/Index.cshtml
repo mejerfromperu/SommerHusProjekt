@@ -9,12 +9,11 @@
         <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-success" />
         Vejnavn <input type="text" asp-for="@Model.SearchStreetName" />
         Husnummer <input type="text" asp-for="@Model.SearchHouseNumber" />
-        Etage <input type="text" asp-for="@Model.SearchFloor" />
-        Postnummer  <input type="text" asp-for="@Model.SearchPostalCode" />
+        Postnummer  <input type="number" asp-for="@Model.SearchPostalCode" />
         Pris <input type="text" asp-for="@Model.SearchPrice" />
-        Antal Gæster <input type="text" asp-for="@Model.SearchAmountSleepingSpace" />
-        Dato Fra <input type="text" asp-for="@Model.SearchDateFrom" />
-        Dato Til <input type="text" asp-for="@Model.SearchDateTo" />
+        Antal Gæster <input type="number" asp-for="@Model.SearchAmountSleepingSpace" />
+        Dato Fra <input type="date" asp-for="@Model.SearchDateFrom" />
+        Dato Til <input type="date" asp-for="@Model.SearchDateTo" />
     </form>
 </div>
 

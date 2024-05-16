@@ -191,9 +191,9 @@ namespace SommerHusProjekt.Repository07
             return null;
         }
 
-        public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, string? floor, int? postalCode, decimal? price, int? amountSleepingSpace, DateTime? dateFrom, DateTime? dateTo)
+        public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, int? postalCode, decimal? price, int? amountSleepingSpace, DateTime? dateFrom, DateTime? dateTo)
         {
-            List<SummerHouse> retSummerHouses = new List<SummerHouse>(GetSomething());
+            List<SummerHouse> retSummerHouses = new List<SummerHouse>(GetAll());
 
             if (id != null)
             {
@@ -202,17 +202,12 @@ namespace SommerHusProjekt.Repository07
 
             if (streetName != null)
             {
-                retSummerHouses = retSummerHouses.FindAll(s => s.StreetName.Contains(streetName));
+                retSummerHouses = retSummerHouses.FindAll(s => s.StreetName.Contains(streetName, StringComparison.OrdinalIgnoreCase));
             }
 
             if (houseNumber != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.HouseNumber.Contains(houseNumber));
-            }
-
-            if (floor != null)
-            {
-                retSummerHouses = retSummerHouses.FindAll(s => s.Floor.Contains(floor));
             }
 
             if (postalCode != null)
@@ -222,22 +217,28 @@ namespace SommerHusProjekt.Repository07
 
             if (price != null)
             {
-                retSummerHouses = retSummerHouses.FindAll(s => s.Price == price);
-            }
-
-            if (dateFrom != null)
-            {
-                retSummerHouses = retSummerHouses.FindAll(s => s.AmountSleepingSpace == amountSleepingSpace);
+                retSummerHouses = retSummerHouses.FindAll(s => s.Price <= price);
             }
 
             if (amountSleepingSpace != null)
             {
-                retSummerHouses = retSummerHouses.FindAll(s => s.DateFrom == dateFrom);
+                retSummerHouses = retSummerHouses.FindAll(s => s.AmountSleepingSpace >= amountSleepingSpace);
             }
 
-            if (dateTo != null)
+            if (dateFrom != null || dateTo != null)
             {
-                retSummerHouses = retSummerHouses.FindAll(s => s.DateTo == dateTo);
+                if (dateFrom != null && dateTo != null)
+                {
+                    retSummerHouses = retSummerHouses.FindAll(s => s.DateFrom >= dateFrom && s.DateTo <= dateTo);
+                }
+                else if (dateFrom != null)
+                {
+                    retSummerHouses = retSummerHouses.FindAll(s => s.DateFrom >= dateFrom);
+                }
+                else if (dateTo != null)
+                {
+                    retSummerHouses = retSummerHouses.FindAll(s => s.DateTo <= dateTo);
+                }
             }
 
             return retSummerHouses;

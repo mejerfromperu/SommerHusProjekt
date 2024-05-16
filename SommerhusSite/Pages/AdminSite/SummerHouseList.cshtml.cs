@@ -49,7 +49,7 @@ namespace SommerhusSite.Pages.AdminSite
         //Gør at man søger når man trykker på knappen
         public IActionResult OnPostSearch()
         {
-            SummerHouses = _summerHouseRepo.Search(SearchId, SearchStreetName, SearchHouseNumber, SearchFloor, SearchPostalCode, SearchPrice, SearchAmountSleepingSpace, SearchDateFrom, SearchDateTo);
+            SummerHouses = _summerHouseRepo.Search(SearchId, SearchStreetName, SearchHouseNumber, SearchPostalCode, SearchPrice, SearchAmountSleepingSpace, SearchDateFrom, SearchDateTo);
             return Page();
         }
 

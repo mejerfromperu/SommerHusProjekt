@@ -43,7 +43,7 @@ namespace SommerhusSite.Pages
 
         public IActionResult OnPostSearch()
         {
-            Huse = _list.Search(SearchId,SearchStreetName, SearchHouseNumber, SearchFloor, SearchPostalCode, SearchPrice, SearchAmountSleepingSpace, SearchDateFrom, SearchDateTo);
+            Huse = _list.Search(SearchId,SearchStreetName, SearchHouseNumber, SearchPostalCode, SearchPrice, SearchAmountSleepingSpace, SearchDateFrom, SearchDateTo);
             return Page();
         }
 
