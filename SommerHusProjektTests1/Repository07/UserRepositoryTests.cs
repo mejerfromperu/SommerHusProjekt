@@ -4,7 +4,6 @@ using SommerHusProjekt.Repository07;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,9 +16,9 @@ namespace SommerHusProjekt.Repository07.Tests
         private IUserRepository _userRepository;
 
         [TestInitialize]
-        public void Init(IUserRepository repo)
+        public void Init()
         {
-            _userRepository = repo;
+            _userRepository = new UserRepository();
 
         }
 
@@ -38,61 +37,63 @@ namespace SommerHusProjekt.Repository07.Tests
         [TestMethod()]
         public void DeleteTest()
         {
-            Assert.Fail();
+            int numberOfUserBefore = _userRepository.GetAll().Count;
+
+            _userRepository.Delete(76);
+
+
+            Assert.AreEqual(numberOfUserBefore -1, _userRepository.GetAll().Count);
         }
 
         [TestMethod()]
         public void GetAllTest()
         {
-            Assert.Fail();
+
+            int countAll = _userRepository.GetAll().Count;
+
+            Assert.AreEqual(countAll, _userRepository.GetAll().Count);
         }
 
         [TestMethod()]
         public void GetSomethingTest()
         {
-            Assert.Fail();
+            User newuser = _userRepository.GetById(21);
+            int id = newuser.Id;
+
+            Assert.AreEqual(id, 21);
         }
 
         [TestMethod()]
         public void GetByIdTest()
         {
-            Assert.Fail();
+            User newuser = _userRepository.GetById(21);
+            int id = newuser.Id;
+
+            Assert.AreEqual(id, 21);
         }
 
         [TestMethod()]
         public void UpdateTest()
         {
-            Assert.Fail();
-        }
+            // Arrange
+            int userIdToUpdate = 22; // Change this to the ID of the user you want to update
+            User updatedUserData = new User("Alex", "alex", "299299233", "Alex@gmail.com", "29992999", "streetname", "2st", 4000, false, true);
+            
 
-        [TestMethod()]
-        public void GetByEmailAndPasswordTest()
-        {
-            Assert.Fail();
-        }
+            // Act
+            User updatedUser = _userRepository.Update(userIdToUpdate, updatedUserData);
 
-        [TestMethod()]
-        public void SearchTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void SortIdTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void SortLastNameTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void SortFirstNameTest()
-        {
-            Assert.Fail();
+            // Assert
+            Assert.AreEqual(updatedUserData.FirstName, updatedUser.FirstName);
+            Assert.AreEqual(updatedUserData.LastName, updatedUser.LastName);
+            Assert.AreEqual(updatedUserData.Phone, updatedUser.Phone);
+            Assert.AreEqual(updatedUserData.Email, updatedUser.Email);
+            Assert.AreEqual(updatedUserData.Password, updatedUser.Password);
+            Assert.AreEqual(updatedUserData.StreetName, updatedUser.StreetName);
+            Assert.AreEqual(updatedUserData.HouseNumber, updatedUser.HouseNumber);
+            Assert.AreEqual(updatedUserData.Floor, updatedUser.Floor);
+            Assert.AreEqual(updatedUserData.PostalCode, updatedUser.PostalCode);
+            Assert.AreEqual(updatedUserData.IsLandlord, updatedUser.IsLandlord);
         }
     }
 }

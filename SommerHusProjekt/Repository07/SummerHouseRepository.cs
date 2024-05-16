@@ -164,7 +164,7 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
-            string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo, AmountSleepingSpace = @AmountSleepingSpace, WHERE Id = @Id";
+            string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo, AmountSleepingSpace = @AmountSleepingSpace WHERE Id = @Id";
 
             SqlCommand cmd = new SqlCommand(updateSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
