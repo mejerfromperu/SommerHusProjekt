@@ -65,6 +65,11 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.btnSpecial {
+    background: #DEE50F;
+    border: solid 2px dimgrey;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -262,7 +267,7 @@ body {
     border: solid 3px var(--Color1);
     border-radius: 20px 20px 20px 20px;
     max-width: 45em;
-    max-height: 47em;
+    max-height: 50em;
     margin-top: 2em;
     padding-bottom: 1.5em;
 }
