@@ -21,7 +21,14 @@
                 <div class="card my-2 p-2 d-flex cardSpecial">
                     <div>
                         <div class="col-12 justify-content-center">
-                            <img class="card-img-top cardSpecialIMG" src="@summerhouse.Picture">
+                            @if (!string.IsNullOrEmpty(summerhouse.Picture))
+                            {
+                                <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@summerhouse.Picture" />
+                            }
+                            else
+                            {
+                                <img class="card-img-top cardSpecialIMG" src="default-placeholder.png" alt="No image available" />
+                            }
                         </div>
 
                         <div class="card-subtitle my-2">

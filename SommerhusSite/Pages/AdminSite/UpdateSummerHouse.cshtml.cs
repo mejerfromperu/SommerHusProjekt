@@ -6,6 +6,7 @@ using SommerHusProjekt.Repository07;
 using System.ComponentModel.DataAnnotations;
 using System.Formats.Asn1;
 using Microsoft.AspNetCore.Hosting;
+using SommerhusSite.Services;
 
 namespace SommerhusSite.Pages.AdminSite
 {
@@ -14,14 +15,13 @@ namespace SommerhusSite.Pages.AdminSite
         // instans af bil repository
         private ISummerHouseRepository _summerHouseRepo;
 
-        private readonly IWebHostEnvironment _webHostEnvironment;
-
         //Dependency Injection
-        public UpdateSummerHouseModel(ISummerHouseRepository repository, IWebHostEnvironment webHostEnvironment)
+        public UpdateSummerHouseModel(ISummerHouseRepository repository)
         {
             _summerHouseRepo = repository;
-            _webHostEnvironment = webHostEnvironment;
         }
+
+        public SummerHouse SelectedSummerhouse { get; set; }
 
         //Property til nye værdier
         [BindProperty]
@@ -89,6 +89,10 @@ namespace SommerhusSite.Pages.AdminSite
                 ErrorMessage = knfe.Message;
                 Error = true;
             }
+
+            SelectedSummerhouse = _summerHouseRepo.GetById(id);
+
+            SessionHelper.Set(SelectedSummerhouse, HttpContext);
         }
 
         //Gør vi kan lave værdierne om til de nye ændrede værdier

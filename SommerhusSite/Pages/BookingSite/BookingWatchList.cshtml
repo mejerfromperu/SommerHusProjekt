@@ -19,7 +19,14 @@
             <div class="justify-content-center d-flex">
                 <div class="card p-2 d-flex WatchListIMGBox">
                     <div class="col-md-12 justify-content-center">
-                        <img src="@UserBookings.Picture" class="card-img-top cardSpecialIMG" />
+                                @if (!string.IsNullOrEmpty(UserBookings.Picture))
+                                {
+                                    <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@UserBookings.Picture" />
+                                }
+                                else
+                                {
+                                    <img class="card-img-top cardSpecialIMG" src="default-placeholder.png" alt="No image available" />
+                                }
                     </div>
                 </div>
             </div>

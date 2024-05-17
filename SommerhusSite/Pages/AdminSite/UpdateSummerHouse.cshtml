@@ -1,7 +1,9 @@
 ﻿@page
 @using SommerHusProjekt.Model07
+@using SommerhusSite.Services
 @model SommerhusSite.Pages.AdminSite.UpdateSummerHouseModel
 @{
+    SummerHouse chosenHouse = SessionHelper.Get<SummerHouse>(HttpContext);
 }
 
 <form method="post" enctype="multipart/form-data">
@@ -15,7 +17,14 @@
                         </div>
                         <div class="col-md-12 justify-content-center">
                             <span asp-validation-for="NewSummerHousePicture" class="text-danger"></span>
-                            <img src="/images/@Model.NewSummerHousePicture" class="card-img-top cardSpecialIMG" />
+                            @if (!string.IsNullOrEmpty(chosenHouse.Picture))
+                            {
+                                <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@chosenHouse.Picture" />
+                            }
+                            else
+                            {
+                                <img class="card-img-top cardSpecialIMG" src="default-placeholder.png" alt="No image available" />
+                            }
                         </div>
                         <div class="card-subtitle my-2">
                             <h2 id="outputLocation"></h2>
