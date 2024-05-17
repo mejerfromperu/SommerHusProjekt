@@ -1,0 +1,35 @@
+﻿@page
+@model SommerhusSite.Pages.AdminSite.DeleteSummerHouseModel
+@{
+}
+
+<h1> Slet et sommerhus </h1>
+
+@* Display af valgte sommerhus som skal slettes, og 2 knappper, en til at fortyde og en anden til at slette *@
+
+<form method="post">
+    <div class="form-group>">
+        <label>Sommerhus id</label> : @Model.SummerHouse.Id<br />
+        <br />
+        <label>Vejnavn</label> : @Model.SummerHouse.StreetName<br />
+        <br />
+        <label>Husnummer</label>  : @Model.SummerHouse.HouseNumber<br />
+        <br />
+        <label>Etage</label>  : @Model.SummerHouse.Floor<br />
+        <br />
+        <label>Postnummer</label>  : @Model.SummerHouse.PostalCode<br />
+        <br />
+        <label>Beskrivelse</label>  : @Model.SummerHouse.Description<br />
+        <br />
+        <label>Pris</label>  : @Model.SummerHouse.Price<br />
+        <br />
+        <label>Dato fra</label>  : @Model.SummerHouse.DateFrom<br />
+        <br />
+        <label>Dato til</label>  : @Model.SummerHouse.DateTo<br />
+        <br />
+        <label>Antal gæster</label>  : @Model.SummerHouse.AmountSleepingSpace<br />
+        <br />
+        <input type="submit" value="Slet Sommerhus" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@Model.SummerHouse.Id" />
+        <input type="submit" value="Fortryd" class="btn btn-warning" asp-page-handler="Cancel" />
+    </div>
+</form>
