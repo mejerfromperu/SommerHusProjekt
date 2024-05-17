@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,6 @@ namespace SommerHusProjekt.Repository07
         {
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
-
             string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord) VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
             if (user.Floor == null) 
             {
@@ -269,6 +269,145 @@ namespace SommerHusProjekt.Repository07
 
             return null; // User not found
         }
+
+        public User GetByEmail(string email)
+        {
+            using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+            {
+                connection.Open();
+
+                string selectSql = "SELECT * FROM SommerUser WHERE Email = @Email";
+
+                using (SqlCommand cmd = new SqlCommand(selectSql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new User
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Password = reader.GetString(reader.GetOrdinal("Password")),
+                                StreetName = reader.GetString(reader.GetOrdinal("StreetName")),
+                                HouseNumber = reader.GetString(reader.GetOrdinal("HouseNumber")),
+                                Floor = reader.GetString(reader.GetOrdinal("Floor")),
+                                PostalCode = reader.GetInt32(reader.GetOrdinal("PostalCode")),
+                                IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
+                                IsLandlord = reader.GetBoolean(reader.GetOrdinal("IsLandlord"))
+                            };
+                        }
+                    }
+                }
+
+            }
+
+            return null; // User not found
+        }
+        public string GeneratePasswordResetToken(User user)
+        {
+            // Generate a secure 4-character token
+            var token = GenerateShortToken();
+
+            using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+            {
+                connection.Open();
+
+                string updateSql = "UPDATE SommerUser SET Token = @Token, TokenExpiry = @Expiry WHERE Id = @Id";
+
+                using (SqlCommand cmd = new SqlCommand(updateSql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Token", token);
+                    cmd.Parameters.AddWithValue("@Expiry", DateTime.UtcNow.AddHours(1));
+                    cmd.Parameters.AddWithValue("@Id", user.Id);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    Console.WriteLine("Rows affected: " + rowsAffected);
+                }
+
+                connection.Close();
+            }
+
+            return token;
+        }
+
+        private string GenerateShortToken()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                var tokenData = new byte[4];
+                rng.GetBytes(tokenData);
+                var token = new char[4];
+
+                for (int i = 0; i < token.Length; i++)
+                {
+                    token[i] = chars[tokenData[i] % chars.Length];
+                }
+
+                return new string(token);
+            }
+        }
+
+        // Method to retrieve user by password reset token and handle expiry
+        public User GetUserByPasswordResetToken(string token)
+        {
+            User user = null;
+
+            using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+            {
+                connection.Open();
+
+                string selectSql = "SELECT * FROM SommerUser WHERE PasswordResetToken = @Token AND PasswordResetTokenExpiry > @CurrentTime";
+
+                using (SqlCommand cmd = new SqlCommand(selectSql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Token", token);
+                    cmd.Parameters.AddWithValue("@CurrentTime", DateTime.UtcNow);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            user = ReadUser(reader);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return user;
+        }
+
+        // Reset password method
+        public void ResetPassword(User user, string newPassword)
+        {
+            using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+            {
+                connection.Open();
+
+                string updateSql = "UPDATE SommerUser SET Password = @Password, PasswordResetToken = NULL, PasswordResetTokenExpiry = NULL WHERE Id = @Id";
+
+                using (SqlCommand cmd = new SqlCommand(updateSql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Password", newPassword);
+                    cmd.Parameters.AddWithValue("@Id", user.Id);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    Console.WriteLine("Rows affected: " + rowsAffected);
+                }
+
+                connection.Close();
+            }
+        }
+
+
 
         public List<User> Search(int? id, string? firstName, string? lastName, string? phone, string? email)
         {

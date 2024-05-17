@@ -16,8 +16,11 @@ namespace SommerHusProjekt.Repository07
         User GetById(int id);
         string? ToString();
         User Update(int id, User User);
-
         User GetByEmailAndPassword(string email, string password);
+        User GetByEmail(string email);
+        string GeneratePasswordResetToken(User user);
+        User GetUserByPasswordResetToken(string token);
+        void ResetPassword(User user, string newPassword);
         public List<User> Search(int? id, string? firstName, string? lastName, string? phone, string? email);
         List<User> SortId();
         List<User> SortFirstName();
