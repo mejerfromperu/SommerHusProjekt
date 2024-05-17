@@ -5,6 +5,7 @@ using SommerHusProjekt.Repository07;
 using System.Data.SqlClient;
 using SommerHusProjekt.Model07;
 using SommerhusSite.Services;
+using System.ComponentModel;
 
 namespace SommerhusHjemmeside.Pages.UserSite
 {
