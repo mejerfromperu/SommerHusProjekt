@@ -20,7 +20,7 @@ namespace SommerhusSite.Pages.BookingSite
 
 
         
-
+        
 
         public IndexModel(ISummerHouseRepository summerlist, IBookingRepository bookinglist)
         {
