@@ -25,15 +25,12 @@ namespace SommerhusSite.Pages.BookingSite
 
             if (LoggedInUser != null)
             {
-                // list to store all the bookings
                 UserBookings = new List<Booking>();
 
-                // Retrieve bookings for the logged-in user
                 int userId = LoggedInUser.Id;
 
                 UserBookings = _bookingRepository.GetBookingByUserId(userId);
 
-                // Check if any bookings
                 if (UserBookings.Count == 0)
                 {
                     TempData["Message"] = "No bookings found for this user.";

@@ -108,6 +108,10 @@ namespace SommerHusProjekt.Model07
             _postalCode = postalCode;
 
         }
+        public User(string password)
+        {
+            _password = password;
+        }
 
         public override string ToString()
         {
