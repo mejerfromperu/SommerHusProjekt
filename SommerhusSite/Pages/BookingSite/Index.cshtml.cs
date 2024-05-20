@@ -70,5 +70,11 @@ namespace SommerhusSite.Pages.BookingSite
             return RedirectToPage("/BookingSite/Confirmation");
         }
 
+        public IActionResult OnPostCancel()
+        {
+            SessionHelper.Clear<SummerHouse>(HttpContext);
+
+            return RedirectToPage("/Index");
+        }
     }
 }
