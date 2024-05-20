@@ -40,11 +40,6 @@ namespace SommerhusSite.Pages.Profil
         public string UpdatedEmail { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Password skal udfyldes")]
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "Der skal være mindst 8 tegn i et password")]
-        public string UpdatedPassword { get; set; }
-
-        [BindProperty]
         [Required(ErrorMessage = "Vejnavn skal udfyldes")]
         public string UpdatedStreetName { get; set; }
 
@@ -85,7 +80,6 @@ namespace SommerhusSite.Pages.Profil
             user.LastName = UpdatedLastName;
             user.Phone = UpdatedPhone;
             user.Email = UpdatedEmail;
-            user.Password = UpdatedPassword;
             user.StreetName = UpdatedStreetName;
             user.HouseNumber = UpdatedHouseNumber;
             user.Floor = UpdatedFloor;
