@@ -60,11 +60,11 @@
                             <form method="post">
                                 @if (DateTime.Now.AddDays(14) < UserBookings.StartDate)
                                 {
-                                    <input type="submit" class="btn btn-danger" value="Afbestil" asp-page-handler="Delete" asp-route-id="@UserBookings.Id" />
+                                    <input type="submit" class="btn btn-danger" value="Afbestil" asp-page-handler="Delete" asp-route-id="@UserBookings.Id" onclick="return confirmCancel();" />
                                 }
                                 else if (DateTime.Now < UserBookings.StartDate)
                                 {
-                                    <input type="submit" class="btn btn-danger" value="Afbestil" asp-page-handler="Delete" asp-route-id="@UserBookings.Id" />
+                                    <input type="submit" class="btn btn-danger" value="Afbestil" asp-page-handler="Delete" asp-route-id="@UserBookings.Id" onclick="return confirmCancel1();" />
                                 }
                                 else
                                 {
@@ -84,3 +84,15 @@ else
 {
     <p>@TempData["Message"]</p>
 }
+
+
+<script>
+    function confirmCancel() {
+        return confirm('Er du sikker på du vil afbestile ?');
+    }
+</script>
+<script>
+    function confirmCancel1() {
+        return confirm('Er du sikker på du vil afbestile?, Du mister dit depositium');
+    }
+</script>
