@@ -27,7 +27,6 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         [Required(ErrorMessage = "Hus nummer skal udfyldes")]
         public string NewSummerHouseHouseNumber { get; set; }
 
-        [BindProperty]
         public string NewSummerHouseFloor { get; set; }
 
         [BindProperty]

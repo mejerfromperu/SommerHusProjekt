@@ -33,17 +33,6 @@
                     <div class="col-12 ProfileUserForm d-flex">
                         <input id="inputEmail" type="email" asp-for="@Model.UpdatedEmail" />
                     </div>
-                    <div class="col-12 ProfileUserTextBox">
-                        <p>Gentag Email: </p>
-                    </div>
-                    <div class="col-12 ProfileUserForm d-flex">
-                        <input id="confirmEmail" type="email" />
-                    </div><div class="col-12 ProfileUserTextBox">
-                        <p>Din Nuværende Adgangskode: </p>
-                    </div>
-                    <div class="col-12 ProfileUserForm d-flex">
-                        <input id="oldPassword" type="password" />
-                    </div>
                 </div>
                 <div class="col-12 row d-flex">
                     <div class="col-12 ProfileUserTextBox">
@@ -126,17 +115,3 @@
         </div>
     </div>
 </form>
-
-
-
-<script>
-    document.getElementById('submitButton').addEventListener('click', function () {
-        var inputEmail = document.getElementById('inputEmail').value;
-        var confirmEmail = document.getElementById('confirmEmail').value;
-
-        if (oldPassword !== "@loggedInUser.Password") {
-            alert("Den gamle adgangskode er forkert.");
-            return;
-        }
-    });
-</script>
