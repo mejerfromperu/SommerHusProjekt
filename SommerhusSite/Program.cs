@@ -13,7 +13,10 @@ builder.Services.AddSingleton<IBookingRepository>(new BookingRepository());
 
 builder.Services.AddSession();
 
+builder.Services.AddScoped<IEmailRepository, EmailRepository>();
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

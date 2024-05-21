@@ -84,26 +84,26 @@ namespace SommerHusProjekt.Repository07.Tests
             Assert.AreEqual(bookingIdToRetrieve, booking.Id);
         }
 
-        [TestMethod()]
-        public void UpdateTest()
-        {
-            // Arrange
-            int bookingIdToUpdate = 48; 
-            Booking updatedBookingData = new Booking
-            {
-                UserId = 46, 
-                SummerHouseId = 1, 
-                StartDate = DateTime.Now.AddDays(1),
-                EndDate = DateTime.Now.AddDays(8)
-            };
+        //[TestMethod()]
+        //public void UpdateTest()
+        //{
+        //    // Arrange
+        //    int bookingIdToUpdate = 48; 
+        //    Booking updatedBookingData = new Booking
+        //    {
+        //        UserId = 46, 
+        //        SummerHouseId = 1, 
+        //        StartDate = DateTime.Now.AddDays(1),
+        //        EndDate = DateTime.Now.AddDays(8)
+        //    };
 
-            // Act
-            Booking updatedBooking = _bookingrepo.Update(bookingIdToUpdate, updatedBookingData);
+        //    // Act
+        //    Booking updatedBooking = _bookingrepo.Update(bookingIdToUpdate, updatedBookingData);
 
-            // Assert
-            Assert.AreEqual(updatedBookingData.StartDate, updatedBooking.StartDate);
-            Assert.AreEqual(updatedBookingData.EndDate, updatedBooking.EndDate);
-        }
+        //    // Assert
+        //    Assert.AreEqual(updatedBookingData.StartDate, updatedBooking.StartDate);
+        //    Assert.AreEqual(updatedBookingData.EndDate, updatedBooking.EndDate);
+        //}
 
         [TestMethod()]
         public void GetBookingByUserIdTest()

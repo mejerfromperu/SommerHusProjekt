@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,6 @@ namespace SommerHusProjekt.Repository07
         {
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
-
             string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord) VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
             if (user.Floor == null) 
             {
@@ -269,6 +269,66 @@ namespace SommerHusProjekt.Repository07
 
             return null; // User not found
         }
+
+        public User GetByEmail(string email)
+        {
+            using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+            {
+                connection.Open();
+
+                string selectSql = "SELECT * FROM SommerUser WHERE Email = @Email";
+
+                using (SqlCommand cmd = new SqlCommand(selectSql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new User
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Password = reader.GetString(reader.GetOrdinal("Password")),
+                                StreetName = reader.GetString(reader.GetOrdinal("StreetName")),
+                                HouseNumber = reader.GetString(reader.GetOrdinal("HouseNumber")),
+                                Floor = reader.GetString(reader.GetOrdinal("Floor")),
+                                PostalCode = reader.GetInt32(reader.GetOrdinal("PostalCode")),
+                                IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
+                                IsLandlord = reader.GetBoolean(reader.GetOrdinal("IsLandlord"))
+                            };
+                        }
+                    }
+                }
+
+            }
+
+            return null; // User not found
+        }
+
+        public void UpdatePassword(string email, string newPassword)
+        {
+            using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+            {
+                connection.Open();
+
+                string updateSql = "UPDATE SommerUser SET Password = @Password WHERE Email = @Email";
+
+                using (SqlCommand cmd = new SqlCommand(updateSql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Password", newPassword);
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
 
         public List<User> Search(int? id, string? firstName, string? lastName, string? phone, string? email)
         {
