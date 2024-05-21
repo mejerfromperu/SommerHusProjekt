@@ -3,6 +3,7 @@ using SommerHusProjekt.Model07;
 using SommerHusProjekt.Repository07;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,25 @@ namespace SommerHusProjekt.Repository07.Tests
             _userRepository.Add(newuser);
 
             Assert.AreEqual(numberOfUserBefore + 1, _userRepository.GetAll().Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SqlException))]
+        public void AddUser_DuplicateEmailTest()
+        {
+            User newuser = new User("alex", "alex", "88625364", "duplicate@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
+
+            _userRepository.Add(newuser); // First add should succeed
+            _userRepository.Add(newuser); // Second add should fail and throw exception due to duplicate email
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void AddUser_InvalidEmailTest()
+        {
+            User newuser = new User("alex", "alex", "88625364", "InvalidEmail", "44988232", "streetname", "2", 4000, false, false);
+
+            _userRepository.Add(newuser);
         }
 
         [TestMethod()]
