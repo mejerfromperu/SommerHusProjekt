@@ -95,7 +95,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
                 TempData["SuccessMessage"] = $"User {newuser} added successfully";
 
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 ErrorMessage = ex.Message;
                 return Page();
