@@ -12,13 +12,17 @@ namespace SommerHusProjekt.Repository07
 {
     public class SummerHouseRepository : ISummerHouseRepository
     {
+        //Add metode til sommerhus
         public SummerHouse Add(SummerHouse s)
         {
+            //Connecter til database via connectionstring
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
+            //Laver en query, det som står i "" og indsætter den i databasen. Så vi kan få indsat alt info på sommerhuset
             string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price, Picture, DateFrom, DateTo, AmountSleepingSpace) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price, @Picture, @DateFrom, @DateTo, @AmountSleepingSpace)";
 
+            //Her kører vi den query til vores database med alle parameterne på sommerhuset
             SqlCommand cmd = new SqlCommand(insertSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
             cmd.Parameters.AddWithValue("@HouseNumber", s.HouseNumber);
@@ -34,39 +38,52 @@ namespace SommerHusProjekt.Repository07
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);
 
+            //Lukker connectionen til database, så vi er sikre på der ikke sker mere.
             connection.Close();
+            //Returnerer sommerhuset s
             return s;
         }
 
+        //Slet metode til sommerhus
         public SummerHouse Delete(int id)
         {
+            //Åbner en connection til database
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
+            //Laver query vi vil bruge som er slet sommerhus med bestemt id
             string deleteSql = "DELETE FROM SommerSommerHouse WHERE Id = @Id";
 
+            //Kører query 
             SqlCommand cmd = new SqlCommand(deleteSql, connection);
             cmd.Parameters.AddWithValue("@Id", id);
 
+            //Ændringerne sker til databasen
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);
 
+            //Lukker connection til databse
             connection.Close();
 
-
+            //Returnerer ikke noget
             return null;
         }
 
+        //Metode til at få en lise på sommerhusene med alt info
         public List<SummerHouse> GetAll()
         {
+            //Laver en ny liste
             List<SummerHouse> list = new List<SummerHouse>();
 
+            //Laver connection til database og åbner den
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
+            //Query hvor vi får alt fra tabelen om sommerhuse
             string sql = "SELECT * FROM SommerSommerHouse";
             SqlCommand cmd = new SqlCommand(sql, connection);
 
+            //En reader som læser hvad der står i databsen og tilføjer den til lisen
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -74,21 +91,26 @@ namespace SommerHusProjekt.Repository07
                 list.Add(sommerHouse);
             }
 
-
+            //Lukker connection til database og returnerer listen
             connection.Close();
             return list;
         }
 
+        //Metode til at få nogle informationer om sommerhus (Brugt til lidt testning)
         public List<SummerHouse> GetSomething()
         {
+            //Laver ny liste
             List<SummerHouse> list = new List<SummerHouse>();
 
+            //Laver connection til databse og åbner den
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
+            //Laver query hvor vi gerne vil have info om id, vejnavn, husnummer, etage, postnummer, pris, datofra og datotil fra sommerhus tabel.
             string sql = "SELECT Id, StreetName, HouseNumber, Floor, PostalCode, Price, DateFrom, DateTo FROM SommerSommerHouse";
             SqlCommand cmd = new SqlCommand(sql, connection);
 
+            //Kører reader som laver infoen og tilføjer den til listen
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -96,15 +118,18 @@ namespace SommerHusProjekt.Repository07
                 list.Add(sommerHouse);
             }
 
-
+            //Lukker databsen og returnerer listen
             connection.Close();
             return list;
         }
 
+        //Metode som er en reader til somemrhus, den skal læse hvad der er i databasen på felterne i tabelen 
         private SummerHouse ReadSommerHouse(SqlDataReader reader)
         {
+            //Laver nyt objekt af sommerhus
             SummerHouse s = new SummerHouse();
 
+            //Vi læser en værdi på hver felt og sætter den til at være s objektets parameter
             s.Id = reader.GetInt32(0);
             s.StreetName = reader.GetString(1);
             s.HouseNumber = reader.GetString(2);
@@ -117,13 +142,17 @@ namespace SommerHusProjekt.Repository07
             s.DateTo = reader.GetDateTime(9);
             s.AmountSleepingSpace = reader.IsDBNull(10) ? 0 : reader.GetInt32(10);
 
+            //Vi returnere objektet s som sommerhus nu med alle værdierne fra databasen
             return s;
         }
 
+        //Metode som er en reader til somemrhus, den skal læse hvad der er i databasen på felterne i tabelen (Lavet til noget testing)
         private SummerHouse ReadSommerHouse2(SqlDataReader reader)
         {
+            //Laver nyt objent af sommerhus
             SummerHouse s = new SummerHouse();
 
+            //Vi læser en værdi på hver felt og sætter den til at være s objektets parameter
             s.Id = reader.GetInt32(0);
             s.StreetName = reader.GetString(1);
             s.HouseNumber = reader.GetString(2);
@@ -131,41 +160,54 @@ namespace SommerHusProjekt.Repository07
             s.PostalCode = reader.GetInt32(4);
             s.Price = reader.GetDecimal(5);
 
+            //Vi returnere objektet s som sommerhus nu med alle værdierne fra databasen
             return s;
         }
 
+        //Metode til at få et specifikt sommerhus udfra id
         public SummerHouse GetById(int id)
-    {
-        SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
-        connection.Open();
-
-        string selectSql = "SELECT * FROM SommerSommerHouse WHERE Id = @Id";
-
-        SqlCommand cmd = new SqlCommand(selectSql, connection);
-        cmd.Parameters.AddWithValue("@Id", id);
-
-        SqlDataReader reader = cmd.ExecuteReader();
-
-        SummerHouse s = null;
-
-        if (reader.Read())
         {
-            s = ReadSommerHouse(reader);
-        }
-
-        reader.Close();
-        connection.Close();
-
-        return s;
-    }
-
-        public SummerHouse Update(int id, SummerHouse s)
-        {
+            //Laver forbindelse til databasen og åbner den
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
+            //Laver query som vælger at fra sommerhus tabel, hvor id er det valgte id
+            string selectSql = "SELECT * FROM SommerSommerHouse WHERE Id = @Id";
+
+            //Kører query og bruger parameter iD 
+            SqlCommand cmd = new SqlCommand(selectSql, connection);
+            cmd.Parameters.AddWithValue("@Id", id);
+
+            //executer en reader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Sætter sommerhus objekt s til null
+            SummerHouse s = null;
+
+            //If statement for at se om vi kan read et sommerhus 
+            if (reader.Read())
+            {
+                s = ReadSommerHouse(reader);
+            }
+            //Lukker reader og connetion til databse
+            reader.Close();
+            connection.Close();
+
+            //Returnere vores sommerhus objekt s
+            return s;
+        }
+
+        //Vores opdater sommerhus metode som går udfra et id og et sommerhus.
+        public SummerHouse Update(int id, SummerHouse s)
+        {
+            //Laver forbindelse til databasen og åbner den
+            SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
+            connection.Open();
+
+            //Laver query til at update sommerhus og sætter værdierne på simmerhuset til de nye værdier man giver, det sker udfra hvilket id man giver
             string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo, AmountSleepingSpace = @AmountSleepingSpace WHERE Id = @Id";
 
+            //Kører query og tilføjer de nye værdier som vi vil give til det specifikke sommerhus
             SqlCommand cmd = new SqlCommand(updateSql, connection);
             cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
             cmd.Parameters.AddWithValue("@HouseNumber", s.HouseNumber);
@@ -179,68 +221,85 @@ namespace SommerHusProjekt.Repository07
             cmd.Parameters.AddWithValue("@Id", id);
             cmd.Parameters.AddWithValue("@AmountSleepingSpace", s.AmountSleepingSpace);
 
+            //Executer det til rækkerne
             int rowsAffected = cmd.ExecuteNonQuery();
             Console.WriteLine("Rows affected: " + rowsAffected);
-
+            
+            //Lukker forbindelse til databse
             connection.Close();
 
+            //Hvis man har påvirket nogle rækker, så kører vi metoden getbyid
             if (rowsAffected > 0)
             {
                 return GetById(id);
             }
+            //Returnerer null
             return null;
         }
 
+        //Her har vi en metode til at søge i en liste af sommerhuse på forskellig information omkring sommerhusene
         public List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, int? postalCode, decimal? price, int? amountSleepingSpace, DateTime? dateFrom, DateTime? dateTo)
         {
+            //Vi laver en ny liste som får alle sommerhusene i sig
             List<SummerHouse> retSummerHouses = new List<SummerHouse>(GetAll());
 
+            //Hvis ID ikke er null, så finder vi alle sommerhuse som har id'er der er lig med det valgte id
             if (id != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.Id == id);
             }
 
+            //Hvis vejnavn ikke er null, så finder vi alle sommerhuse som indenholder de skrevende bogstaver i deres vejnavn, store og små bogstaver begynder ikke noget
             if (streetName != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.StreetName.Contains(streetName, StringComparison.OrdinalIgnoreCase));
             }
 
+            //Hvis husnummer ikke er null, så finder vi alle sommerhuse som indeholder de skrevende bogstaver/tal i deres husnummer
             if (houseNumber != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.HouseNumber.Contains(houseNumber));
             }
 
+            //Hvis postnummer ikke er null, så finder vi alle sommerhuse, hvor det skrevende postnummer er lig det på sommerhusene
             if (postalCode != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.PostalCode == postalCode);
             }
 
+            //Hvis pris ikke er null, så finder vi alle sommerhuse, hvor sommerhusenes pris er lig eller lavere end det skrevet beløb
             if (price != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.Price <= price);
             }
-
+            
+            //Hvis antal gæster ikke er null, så finder vi alle sommerhuse, hvor sommerhusenes antalgæster er lig eller højere end det skrevet antal gæster
             if (amountSleepingSpace != null)
             {
                 retSummerHouses = retSummerHouses.FindAll(s => s.AmountSleepingSpace >= amountSleepingSpace);
             }
 
+            //Hvis dato fra eller dato til ikke er null, så sker en af de 3 nedre muligheder
             if (dateFrom != null || dateTo != null)
             {
+                //Første har vi hvis begge ikke er null, så finder vi alle sommerhuse som er mellem til og fra datoen, hvor vi tæller de valgte datoer med
                 if (dateFrom != null && dateTo != null)
                 {
                     retSummerHouses = retSummerHouses.FindAll(s => s.DateFrom >= dateFrom && s.DateTo <= dateTo);
                 }
+                //Ellers hvis kun fra dato ikke er null, så finder vi alle sommerhuse som er efter eller på den valgte dato
                 else if (dateFrom != null)
                 {
                     retSummerHouses = retSummerHouses.FindAll(s => s.DateFrom >= dateFrom);
                 }
+                //Til sidst hvis dato til ikke er null, så finder vi alle sommerhuse som er på den dato eller før
                 else if (dateTo != null)
                 {
                     retSummerHouses = retSummerHouses.FindAll(s => s.DateTo <= dateTo);
                 }
             }
 
+            //Returner alle sommerhuse som passer iforhold til alle de søgte parameter
             return retSummerHouses;
         }
 
