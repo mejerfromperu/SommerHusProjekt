@@ -92,7 +92,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
             try
             {
                 _repo.Add(newuser);
-                TempData["SuccessMessage"] = $"User {newuser} added successfully";
+
 
             }
             catch (InvalidOperationException ex)
