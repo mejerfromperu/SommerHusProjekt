@@ -3,24 +3,35 @@
 @{
 }
 
-<h1> Slet en kunde </h1>
+<h1> Er du sikker på du vil slette denne kunde? </h1>
 
 @* Display af valgte kunde som skal slettes, og 2 knappper, en til at fortyde og en anden til at slette *@
-
-<form method="post">
-    <div class="form-group>">
-        <label>Kunde nummer</label> : @Model.User.Id<br />
-        <br />
-        <label>Kunde fornavn</label> : @Model.User.FirstName<br />
-        <br />
-        <label>Kunde efternavn</label>  : @Model.User.LastName<br />
-        <br />
-        <label>Kunde email</label>  : @Model.User.Email<br />
-        <br />
-        <label>Kunde telefon</label>  : @Model.User.Phone<br />
-        <br />
+<div class="form-selectt searchform rounded-2">
+    <form method="post">
+        <div class="row">
+            <div class="col">
+                <label>Kunde nummer</label> : @Model.User.Id
+            </div>
+            <div class="col">
+                <label>Fornavn</label> : @Model.User.FirstName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Efternavn</label>  : @Model.User.LastName
+            </div>
+            <div class="col">
+                <label>Email</label>  : @Model.User.Email
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Telefon</label>  : @Model.User.Phone
+            </div>
+        </div>
         <input type="submit" value="Slet Kunde" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@Model.User.Id" />
         <input type="submit" value="Fortryd" class="btn btn-warning" asp-page-handler="Cancel" />
-    </div>
-</form>
+    </form>
+</div>
+
 
