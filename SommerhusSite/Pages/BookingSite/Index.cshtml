@@ -6,7 +6,7 @@
     User loggedInUser = SessionHelper.Get<User>(HttpContext);
     SummerHouse chosenHouse = SessionHelper.Get<SummerHouse>(HttpContext);
 }
-<h1 style="text-align: center;">Bestil din næste drøm</h1>
+<h1 style="text-align: center;">Bestil din næste drømme ferie</h1>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-4">
@@ -26,8 +26,8 @@
                     <div class="card-subtitle my-2">
                         <h2 id="outputLocation">@chosenHouse.City</h2>
                         <h4 id="outputPrice">@chosenHouse.StreetName</h4>
-                            <h4 id="outputPrice">@chosenHouse.DateFrom</h4>
-                            <h4 id="outputPrice">@chosenHouse.DateTo</h4>
+                            <h4 id="outputPrice">@chosenHouse.DateFrom.ToShortDateString()</h4>
+                            <h4 id="outputPrice">@chosenHouse.DateTo.ToShortDateString()</h4>
                             <h4 id="outputPrice">@chosenHouse.Price</h4>
                     </div>
                     <div class="card-body text-black">
@@ -117,7 +117,7 @@
                         <input type="submit" value="Lej Nu" class="btn btn-primary" value="@chosenHouse.Id" />
                     </div>
                     <div class="col-6 d-flex justify-content-center">
-                                <input type="submit" value="Fortryd" class="btn btn-outline-danger" />
+                                
                                 <a href="index" class="btn btn-secondary">Cancel</a>
                     </div>
                 </div>

@@ -3,12 +3,14 @@
 @model SommerhusSite.Pages.BookingSite.ConfirmationModel
 @{
 }
+
 @if (Model.bookings != null && Model.bookings.Any())
 {
     <div class="container ">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h2>Your Last Booking for User ID: @Model.newuserid</h2>
+                <h1>Tillykke! Bookningen gik igennem</h1>
+                <h2>Sidste bookede sommerhus for user med ID: @Model.newuserid</h2>
                 @if (Model.bookings.Any(booking => booking.UserId == Model.newuserid))
                 {
                     var lastBooking = Model.bookings.Last(booking => booking.UserId == Model.newuserid);
@@ -16,7 +18,7 @@
 
                     <div class="card BookingConfBox">
                         <div class="card-body">
-                            <p class="card-text">Summerhouse ID: @summerhouse.Id</p>
+                            <p class="card-text">Sommerhus ID: @summerhouse.Id</p>
                             <div class="text-center">
                                 @if (!string.IsNullOrEmpty(summerhouse.Picture))
                                 {
@@ -29,21 +31,21 @@
                             </div>
                             <h2 class="card-title">@summerhouse.City</h2>
                             <h4>@summerhouse.StreetName</h4>
-                            <h4>From: @summerhouse.DateFrom.ToShortDateString()</h4>
-                            <h4>To: @summerhouse.DateTo.ToShortDateString()</h4>
-                            <h4>Price: @summerhouse.Price</h4>
-                            <h5 class="card-title">Description:</h5>
+                            <h4>Fra: @summerhouse.DateFrom.ToShortDateString()</h4>
+                            <h4>Til: @summerhouse.DateTo.ToShortDateString()</h4>
+                            <h4>Pris: @summerhouse.Price</h4>
+                            <h5 class="card-title">Beskrivelse:</h5>
                             <p class="card-text">@summerhouse.Description</p>
-                            <h5 class="card-title">Booking Details:</h5>
+                            <h5 class="card-title">Booking Detaljer:</h5>
                             <p class="card-text">Booking ID: @lastBooking.Id</p>
-                            <p class="card-text">Start Date: @lastBooking.StartDate.ToShortDateString()</p>
-                            <p class="card-text">End Date: @lastBooking.EndDate.ToShortDateString()</p>
+                            <p class="card-text">Start Dato: @lastBooking.StartDate.ToShortDateString()</p>
+                            <p class="card-text">Slut Dato: @lastBooking.EndDate.ToShortDateString()</p>
                         </div>
                     </div>
                 }
                 else
                 {
-                    <p>No bookings found for User ID: @Model.newuserid</p>
+                    <p>Ingen bookninger med User ID: @Model.newuserid</p>
                 }
             </div>
         </div>
