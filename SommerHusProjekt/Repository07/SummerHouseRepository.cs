@@ -303,153 +303,207 @@ namespace SommerHusProjekt.Repository07
             return retSummerHouses;
         }
 
+        //Boolean vi skal bruge til sorterings metode
         private bool NumberASC = true;
+
+        //Sortering af id metode
         public List<SummerHouse> SortId()
         {
+            //Laver liste som får alt data
             List<SummerHouse> retSummerHouses = GetAll();
 
+            //Beder den sort efter sortbyid metode som vi laver længere nede
             retSummerHouses.Sort(new SortById());
 
+            //Hvis vores boolean ikke er true så reverser den sorteringen 
             if (!NumberASC)
             {
                 retSummerHouses.Reverse();
             }
+            //Gør at booleanen skifter hver gang metoden bliver kaldt
             NumberASC = !NumberASC;
 
+            //Returnerer listen med sommerhusene som så er sorteret
             return retSummerHouses;
         }
 
+        //Vores Icomparer sortbyid metode
         private class SortById : IComparer<SummerHouse>
         {
+            //Compare sommerhus x og somemrhus y
             public int Compare(SummerHouse? x, SummerHouse? y)
             {
+                //hvis en af værdierne er null så returnerer vi ikke noget
                 if (x == null || y == null)
                 {
                     return 0;
                 }
 
+                //Ellers returnerer vi sommerhusene x-y udfra deres Id
                 return x.Id - y.Id;
             }
         }
 
+        //Ny boolean der skal bruges til at sorterer efter vejnavn
         private bool NameASC = true;
 
+        //Metode til at sorterer sommerhuse efter vejnavn
         public List<SummerHouse> SortStreetName()
         {
+            //Laver en liste som får alt info
             List<SummerHouse> retSummerHouses = GetAll();
 
+            //Sætter op så vi kan sorterer x y sommerhus og de compare sig til hinanden
             retSummerHouses.Sort((x, y) => x.StreetName.CompareTo(y.StreetName));
 
+            //Hvis booleanen ikke er true så reverse sorteringen
             if (!NameASC)
             {
                 retSummerHouses.Reverse();
             }
+            //Gør boolean skifter hver gang metoden bliver kaldt
             NameASC = !NameASC;
 
+            //Returnerer listen som er sorteret
             return retSummerHouses;
         }
 
+        //Vores icomparer sortbystreetname metode
         private class SortByStreetName : IComparer<SummerHouse>
         {
+            //Sætter de sommerhuse op med en int hvor de kan se hinanden
             public int Compare(SummerHouse? x, SummerHouse? y)
             {
+                //Hvis x eller y er null så returnerer vi ikke noget
                 if (x == null || y == null)
                 {
                     return 0;
                 }
 
+                //Returerer hvor vi comparer x vejnavn med y vejnavn
                 return x.StreetName.CompareTo(y.StreetName);
             }
         }
 
+        //sortering efter postnummer metode
         public List<SummerHouse> SortPostalCode()
         {
+            //Laver en liste som henter alt info på sommerhsue
             List<SummerHouse> retSummerHouses = GetAll();
 
+            //Kalder sorterings metode sortbypostalcode
             retSummerHouses.Sort(new SortByPostalCode());
 
+            //Hvis boolean er false så reverse listen
             if (!NumberASC)
             {
                 retSummerHouses.Reverse();
             }
+            //Skift boolean værdier hver gang metoden bliver kaldt
             NumberASC = !NumberASC;
 
+            //returnerer liste med sommerhuse sorteret
             return retSummerHouses;
         }
 
+        //Vores icomparer sortbypostalcode metode
         private class SortByPostalCode : IComparer<SummerHouse>
         {
+            //compare sommerhus x og sommerhus y
             public int Compare(SummerHouse? x, SummerHouse? y)
             {
+                //Hvis en er null så returner ikke noget
                 if (x == null || y == null)
                 {
                     return 0;
                 }
-
+                //returner sommerhus x og y sorteret
                 return x.PostalCode - y.PostalCode;
             }
         }
 
+        //Metode til at sorter efter antal gæster
         public List<SummerHouse> SortAmountSleepingSpace()
         {
+            //Laver en liste som får alt info på sommerhuse
             List<SummerHouse> retSummerHouses = GetAll();
 
+            //Kalder sorterings metode sortbyamountsleepingspace for at sorterer sommerhuse
             retSummerHouses.Sort(new SortByAmountSleepingSpace());
 
+            //Hvis Boolean er false reverse sorteringen
             if (!NumberASC)
             {
                 retSummerHouses.Reverse();
             }
+            //Skifter boolean værdier hver gang metode bliver kaldt
             NumberASC = !NumberASC;
 
+            //Returner sorteret liste
             return retSummerHouses;
         }
 
+        //Vores icomparer sortbyamountsleepingspace metode
         private class SortByAmountSleepingSpace: IComparer<SummerHouse>
         {
+            //Compare sommerhus x og sommerhus y
             public int Compare(SummerHouse? x, SummerHouse? y)
             {
+                //Hvis en af sommerhusene er null, så returnerer vi intet
                 if (x == null || y == null)
                 {
                     return 0;
                 }
 
+                //Ellers bliver sommerhusene sorteret 
                 return x.AmountSleepingSpace - y.AmountSleepingSpace;
             }
         }
 
+        //Vores metode til at sorterer sommerhuse efter pris
         public List<SummerHouse> SortPrice()
         {
+            //Laver liste af sommerhuse som får alt info
             List<SummerHouse> retSummerHouses = GetAll();
 
+            //Kalder sort metode sortbyprice på alle sommerhuse i listen
             retSummerHouses.Sort(new SortByPrice());
 
+            //Hvis booleanen er false så reverse listen
             if (!NumberASC)
             {
                 retSummerHouses.Reverse();
             }
+            //Hver gang metode bliver kaldt så skifter boolean værdi
             NumberASC = !NumberASC;
 
+            //returnerer liste med sorteret sommerhuse
             return retSummerHouses;
         }
 
+        //Vores icomparer sortbyprice metode
         private class SortByPrice : IComparer<SummerHouse>
         {
+            //Compare sommerhus x og sommerhus y
             public int Compare(SummerHouse? x, SummerHouse? y)
             {
+                //Hvis x og y er null så returnerer vi intet
                 if (x == null && y == null)
                 {
                     return 0;
                 }
+                //Hvis x kun er null, så returnerer vi -1
                 if (x == null)
                 {
                     return -1; 
                 }
+                //Hvis y kun er null så returnerer vi 1
                 if (y == null)
                 {
                     return 1; 
                 }
 
+                //Returnerer at x pris og y pris er compared
                 return x.Price.CompareTo(y.Price);
             }
 
