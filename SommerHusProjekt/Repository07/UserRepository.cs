@@ -19,7 +19,8 @@ namespace SommerHusProjekt.Repository07
                 using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
                 {
                     connection.Open();
-                    string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord) VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
+                    string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord)" +
+                        " VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
                     if (user.Floor == null)
                     {
                         user.Floor = string.Empty;

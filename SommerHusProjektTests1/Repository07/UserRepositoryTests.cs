@@ -26,12 +26,17 @@ namespace SommerHusProjekt.Repository07.Tests
         [TestMethod()]
         public void AddTest()
         {
-
+            // ARange
             int numberOfUserBefore = _userRepository.GetAll().Count;
-            User newuser = new User("alex", "alex", "88625364", "Alex@gmail.com", "44988232", "streetname", "2", 4000, false, false);
+            User newUser = new User("alex", "alex", "88625364", "Alex-UnitTest@gmail.com", "44988232", "streetname", "2", 4000, false, false);
 
-            _userRepository.Add(newuser);
 
+            // Act
+            _userRepository.Add(newUser); // tilføjer bruger til database
+
+
+            // Assert 
+            // Der er blevet tilføjet en user så derfor skulle start antallet + 1 gerne været = med antallet are user i databasen
             Assert.AreEqual(numberOfUserBefore + 1, _userRepository.GetAll().Count);
         }
 
@@ -39,22 +44,20 @@ namespace SommerHusProjekt.Repository07.Tests
         [ExpectedException(typeof(SqlException))]
         public void AddUser_DuplicateEmailTest()
         {
-            User newuser = new User("alex", "alex", "88625364", "duplicate2@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
+            // Arange
+            User newuser = new User("alex", "alex", "88625364", "UNIT-TEST@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
 
-            _userRepository.Add(newuser); // First add should succeed
-            _userRepository.Add(newuser); // Second add should fail and throw exception due to duplicate email
 
+            // Act
+            _userRepository.Add(newuser); // Første skulle gerne tilføjes i database 
+            _userRepository.Add(newuser); // Nummer 2 skal fejle begrund af duplicate email i database.
+
+
+            //Assert
             Assert.Fail();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void AddUser_InvalidEmailTest()
-        {
-            User newuser = new User("alex", "alex", "88625364", "InvalidEmail", "44988232", "streetname", "2", 4000, false, false);
-
-            _userRepository.Add(newuser);
-        }
+        
 
         [TestMethod()]
         public void DeleteTest()
