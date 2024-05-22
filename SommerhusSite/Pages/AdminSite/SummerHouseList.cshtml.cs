@@ -43,7 +43,7 @@ namespace SommerhusSite.Pages.AdminSite
         //Hent alle kunder når siden læses
         public void OnGet()
         {
-            SummerHouses = _summerHouseRepo.GetSomething();
+            SummerHouses = _summerHouseRepo.GetAll();
         }
 
         //Gør at man søger når man trykker på knappen
