@@ -63,8 +63,8 @@
                     <td>@s.Floor</td>
                     <td>@s.PostalCode</td>
                     <td>@s.Price</td>
-                    <td>@s.DateFrom</td>
-                    <td>@s.DateTo</td>
+                    <td>@s.DateFrom.ToShortDateString()</td>
+                    <td>@s.DateTo.ToShortDateString()</td>
                     <td><a asp-page="DeleteSummerHouse" asp-route-id="@s.Id" style="background-color: #ff0000;" class="btn btn-Danger">Slet</a></td>
                     <td><a asp-page="UpdateSummerHouse" asp-route-id="@s.Id" style="background-color: green;" class="btn btn-Danger">Update</a></td>
                 </tr>
