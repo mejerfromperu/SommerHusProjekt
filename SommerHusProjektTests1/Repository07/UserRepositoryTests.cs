@@ -39,10 +39,12 @@ namespace SommerHusProjekt.Repository07.Tests
         [ExpectedException(typeof(SqlException))]
         public void AddUser_DuplicateEmailTest()
         {
-            User newuser = new User("alex", "alex", "88625364", "duplicate@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
+            User newuser = new User("alex", "alex", "88625364", "duplicate2@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
 
             _userRepository.Add(newuser); // First add should succeed
             _userRepository.Add(newuser); // Second add should fail and throw exception due to duplicate email
+
+            Assert.Fail();
         }
 
         [TestMethod]
@@ -57,9 +59,10 @@ namespace SommerHusProjekt.Repository07.Tests
         [TestMethod()]
         public void DeleteTest()
         {
+            int idToDelete = _userRepository.GetAll().Last().Id;
             int numberOfUserBefore = _userRepository.GetAll().Count;
 
-            _userRepository.Delete(76);
+            _userRepository.Delete(idToDelete);
 
 
             Assert.AreEqual(numberOfUserBefore -1, _userRepository.GetAll().Count);
