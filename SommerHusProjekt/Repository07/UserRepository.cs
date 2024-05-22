@@ -43,8 +43,8 @@ namespace SommerHusProjekt.Repository07
             }
             catch (SqlException ex)
             {
-                // Check for unique constraint violation
-                if (ex.Number == 2627 || ex.Number == 2601) // SQL Server error codes for unique constraint violations
+
+                if (ex.Number == 2627) // specifik exception kode for duplicate key i ms sql
                 {
                     throw new InvalidOperationException("A user with the same email address already exists.", ex);
                 }
