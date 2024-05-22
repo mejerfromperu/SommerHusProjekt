@@ -107,6 +107,24 @@ html {
 
 }
 
+.cardSpecial1 {
+    justify-content: center;
+    justify-items: center;
+    width: 22em;
+    max-height: 36.5em;
+    background: var(--Color4);
+    border: var(--Color1) 3px solid;
+    border-radius: 20px;
+    cursor: default;
+    transition: box-shadow 0.03s ease;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+    .cardSpecial:hover {
+        box-shadow: 0px 0px 20px var(--Color1);
+    }
+
 .cardSpecialInfoBox{
     width: 100%;
     position: relative;
@@ -183,9 +201,8 @@ body {
 
 /*All CSS to The preview card*/
 .PreviewCardBox-Header {
-    position: absolute;
-    top: 0%;
-    left: 50%;
+    position: relative;
+    margin-left: 47%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -196,7 +213,7 @@ body {
     border-radius: 0 0 20px 20px;
 }
     .PreviewCardBox-Header span {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 600;
     }
 

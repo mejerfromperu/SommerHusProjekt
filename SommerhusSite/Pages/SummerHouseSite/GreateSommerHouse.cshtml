@@ -6,42 +6,62 @@
 <form method="post">
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-4">
-            <div class="justify-content-center d-flex" style="padding-bottom: 1.5em;">
-                <div class="card p-2 d-flex cardSpecial">
-                    <div class="PreviewCardBox-Header">
-                        <span>Preview Card</span>
-                    </div>
-                    <div class="col-md-12 justify-content-center">
+            <div class="col-lg-4">
+                <div class="row d-flex justify-content-center justify-content-evenly">
+                    <div class="col-12 row d-flex cardSpecial1">
+                        <div class="col-12 PreviewCardBox-Header">
+                            <span>Preview Card</span>
+                        </div>
+                        <div class="col-12 justify-content-center align-content-center">
                         <span asp-validation-for="@Model.NewSummerHousePicture" class="text-danger"></span>
                         <input type="text" asp-for="@Model.NewSummerHousePicture" hidden/>
                         <img src="/images/sommer&solplaceholder.png" class="card-img-top cardSpecialIMG" />
-                    </div>
-                    <div class="card-subtitle my-2">
-                        <h2 id="outputLocation"></h2>
-                        <h4 id="outputPrice"></h4>
-                        <div class="col-12 d-flex">
-                            <div class="col-3 d-grid align-content-around justify-content-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                                </svg>
-                            </div>
-                            <div class="col-9 d-grid">
-                                <h4 id="outputSleepPlace"></h4>
+                        </div>
+                        <div class="col-12 justify-content-center">
+                            <div class="cardSpecialInfoBox d-flex row">
+                                <div class="col-12 d-flex row">
+                                    <div class="col-12 d-flex row">
+                                        <h4 class="col-4 cardSpecialForm" style="overflow: hidden;" id="outputPostalcode"></h4>
+                                        <h4 class="col-8 cardSpecialForm" style="overflow: hidden;" id="outputCity"></h4>
+                                    </div>
+                                    <div class="col-12 d-flex row">
+                                        <h4 class="col-9 cardSpecialForm" style="overflow: hidden;" id="outputStreetName"></h4>
+                                        <h4 class="col-3 cardSpecialForm" style="overflow: hidden;" id="outputHouseNumber"></h4>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex row">
+                                    <div class="col-12 d-flex row">
+                                        <h4 class="col-6 cardSpecialForm" style="text-align: center;">Pris dagligt</h4>
+                                        <h4 class="col-6 cardSpecialForm" style="text-align: center;">Antal gæster</h4>
+                                        <h4 class="col-6 cardSpecialForm" id="outputPrice"> Kr.</h4>
+                                        <div class="col-2" style="padding-bottom: 12px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                            </svg>
+                                        </div>
+                                        <h4 class="col-4 cardSpecialForm" style="text-align: left;" id="outputSleepPlace"></h4>
+                                    </div>
+                                    <div class="col-12 d-flex row justify-content-center" style="text-align:center;">
+                                        <h4 class="col-12 cardSpecialForm">Udlejnings Perioden</h4>
+                                        <h4 class="col-6 cardSpecialForm" id="outputDateFrom"></h4>
+                                        <h4 class="col-6 cardSpecialForm" id="outputDateTo"></h4>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="col-12">
+                                        <p class="cardSpecialDescriptionBox" id="outputText">
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body text-black">
-                        <h5>Beskrivelse:</h5>
-                        <p id ="outputText"></p>
-                        <div class="d-flex justify-content-around text-white">
-                            <a class="btn btn-outline-dark rounded-pill btnSpecial" style="width: 50%;">Se Mere</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+
+
+
         <div class="col-lg-8">
             <div class="container CreateBox" style="padding-top: 15px; padding-left: 15px;">
                 <div class="Application-header">
@@ -50,19 +70,19 @@
                     <h4 class="d-flex justify-content-center" style="padding-top: 40px;">Sommerhuset Lokation</h4>
                 <div class="row d-flex" style="padding-top: 15px;">
                     <div class="col-8">
-                        <input id="inputCity" placeholder="By" class="form-control" oninput="displayLocation()" /><br />
+                        <input id="inputCity" placeholder="By" class="form-control" oninput="displayCity()" /><br />
                     </div>
                     <div class="col-4">
                         <span asp-validation-for="@Model.NewSummerHousePostalCode" class="text-danger"></span>
-                        <input class="form-control" placeholder="Postnummer" id="inputPostalcode" type="text" oninput="displayLocation()" asp-for="@Model.NewSummerHousePostalCode" /><br />
+                        <input class="form-control" placeholder="Postnummer" id="inputPostalcode" type="text" oninput="displayPostalcode()" asp-for="@Model.NewSummerHousePostalCode" /><br />
                     </div>
                     <div class="col-6">
                         <span asp-validation-for="@Model.NewSummerHouseStreetName" class="text-danger"></span>
-                        <input class="form-control" placeholder="Vej Navn" asp-for="@Model.NewSummerHouseStreetName" /><br />
+                        <input class="form-control" id="inputStreetName" oninput="displayStreet()" placeholder="Vej Navn" asp-for="@Model.NewSummerHouseStreetName" /><br />
                     </div>
                     <div class="col-3">
                         <span asp-validation-for="@Model.NewSummerHouseHouseNumber" class="text-danger"></span>
-                        <input class="form-control" placeholder="Vej Nr." asp-for="@Model.NewSummerHouseHouseNumber" /><br />
+                        <input class="form-control" id="inputHouseNumber" oninput="displayHouseNumber()" placeholder="Vej Nr." asp-for="@Model.NewSummerHouseHouseNumber" /><br />
                     </div>
                     <div class="col-3">
                         <span asp-validation-for="@Model.NewSummerHouseFloor" class="text-danger"></span>
@@ -87,13 +107,13 @@
                         <div class="mb-3">
                             <label>Dato Fra</label><br />
                             <span asp-validation-for="@Model.NewSummerHouseFromDate" class="text-danger"></span>
-                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseFromDate" value="@DateTime.Today"><br />
+                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseFromDate" id="inputDateFrom" oninput="displayDateFrom()" value="@DateTime.Today"><br />
                         </div>
                         <h4 class="d-gridjustify-content-center"></h4>
                         <div class="mb-3">
                             <label>Dato Til</label><br />
                             <span asp-validation-for="@Model.NewSummerHouseToDate" class="text-danger"></span>
-                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseToDate" value="@DateTime.Today"><br />
+                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseToDate" id="inputDateTo" oninput="displayDateTo()" value="@DateTime.Today"><br />
                         </div>
                     </div>
                     <h4 class="d-flex justify-content-center" style="margin-top: 10px;">Beskrivelse</h4>
@@ -118,45 +138,74 @@
 
 
 
-
-
 <script>
     function displayText() {
         var inputText = document.getElementById("inputText").value;
-
         var outputElement = document.getElementById("outputText");
-
-        outputElement.innerHTML = inputText;
+        outputElement.textContent = inputText;
     }
 </script>
 
 <script>
-    function displayLocation() {
+    function displayCity() {
         var city = document.getElementById("inputCity").value;
+        var outputElement = document.getElementById("outputCity");
+        outputElement.textContent = city;
+    }
+</script>
+
+<script>
+    function displayPostalcode() {
         var postalCode = document.getElementById("inputPostalcode").value;
-
-        var outputElement = document.getElementById("outputLocation");
-
-        outputElement.textContent = postalCode + " " + city;
+        var outputElement = document.getElementById("outputPostalcode");
+        outputElement.textContent = postalCode;
     }
 </script>
 
 <script>
     function displayPrice() {
         var inputPrice = parseFloat(document.getElementById("inputPrice").value);
-
         var outputElement = document.getElementById("outputPrice");
-
-        outputElement.textContent = "Kr. " + inputPrice.toFixed(2) + " Pr. Dag";
+        outputElement.textContent = inputPrice + " Kr.";
     }
 </script>
 
 <script>
     function displaySleepPlaces() {
         var inputSleepPlace = parseInt(document.getElementById("inputSleepPlace").value);
-
         var outputElement = document.getElementById("outputSleepPlace");
-
         outputElement.textContent = inputSleepPlace;
+    }
+</script>
+
+<script>
+    function displayStreet() {
+        var inputStreetName = document.getElementById("inputStreetName").value;
+        var outputElement = document.getElementById("outputStreetName");
+        outputElement.textContent = inputStreetName;
+    }
+</script>
+
+<script>
+    function displayHouseNumber() {
+        var inputHouseNumber = document.getElementById("inputHouseNumber").value;
+        var outputElement = document.getElementById("outputHouseNumber");
+        outputElement.textContent = inputHouseNumber;
+    }
+</script>
+
+<script>
+    function displayDateFrom() {
+        var inputDateFrom = document.getElementById("inputDateFrom").value;
+        var outputElement = document.getElementById("outputDateFrom");
+        outputElement.textContent = inputDateFrom;
+    }
+</script>
+
+<script>
+    function displayDateTo() {
+        var inputDateTo = document.getElementById("inputDateTo").value;
+        var outputElement = document.getElementById("outputDateTo");
+        outputElement.textContent = inputDateTo;
     }
 </script>
