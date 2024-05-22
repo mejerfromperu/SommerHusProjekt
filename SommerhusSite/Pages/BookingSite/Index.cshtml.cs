@@ -49,7 +49,7 @@ namespace SommerhusSite.Pages.BookingSite
             // Validate booking dates
             if (Booking.StartDate < chosenHouse.DateFrom || Booking.EndDate > chosenHouse.DateTo || Booking.EndDate < Booking.StartDate)
             {
-                ModelState.AddModelError("", "Sorry, the booking dates are not within the available period for the selected summer house or the end date is before the start date.");
+                ModelState.AddModelError("", "Undskyld, men de valgte datoer passer dsv ikke med den ledige periode for sommerhuset ;/");
                 return Page();
             }
 
