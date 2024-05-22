@@ -41,24 +41,111 @@ html {
     --Color4: WhiteSmoke;
 }
 
+.sortCardsWrapper{
+    margin-top: 3em;
+    width: 92%;
+    border: solid 2px var(--Color1);
+    border-radius: 20px;
+    background: var(--Color4);
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+    .sortCardsWrapper p {
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 2px;
+    }
+
+.sortCardsWrapper1 {
+    margin-top: 10px;
+    width: 92%;
+    border: solid 2px var(--Color1);
+    border-radius: 20px;
+    background: var(--Color4);
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    align-content: center;
+}
+    .sortCardsWrapper1 p {
+        text-align: center;
+        font-weight: 500;
+    }
+
 .cardSpecial {
-    width: 20em;
-    height: 32em;
+    justify-content: center;
+    justify-items: center;
+    width: 22em;
+    max-height: 36.5em;
     background: var(--Color4);
     border: var(--Color1) 3px solid;
     border-radius: 20px;
     cursor: default;
     transition: box-shadow 0.03s ease;
+    margin-top: 3em;
 }
     .cardSpecial:hover {
         box-shadow: 0px 0px 20px var(--Color1);
     }
 
-.cardSpecialIMG {
+@media (min-width: 992px) {
+    .cardSpecial {
+        width: 90%;
+    }
+
+    .cardSpecialInfoBox{
+        padding-left: 2em;
+    }
+    .cardSpecialIMG{
+        margin-bottom: 1.5em;
+    }
+
+}
+
+.cardSpecialInfoBox{
     width: 100%;
-    height: 14em;
+    position: relative;
+    min-height: 13em;
+    justify-content: right;
+    align-items: center;
+    margin: revert-layer;
+    margin-top: 10px;
+}
+
+.cardSpecialDescriptionBox{
+    overflow-y: scroll;
+    height: 60px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.cardSpecialForm{
+    max-height: 26px;
+    font-size: 14px;
+    font-weight: 500;
+    align-content: center;
+}
+
+.cardSpecialForm h4{
+    font-size: 16px;
+}
+
+.cardSpecialIMG {
     justify-content: center;
+    align-content: center;
+    width: 18.6em;
+    height: 14em;
     border-radius: 16px;
+    margin-top: 1.5em;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -68,6 +155,7 @@ html {
 .btnSpecial {
     background: #DEE50F;
     border: solid 2px dimgrey;
+    font-weight: 600;
 }
 
 html {
