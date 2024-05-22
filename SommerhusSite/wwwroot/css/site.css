@@ -417,3 +417,17 @@ body {
     border: 2px solid dimgrey;
     background-color: var(--Color2);
 }
+/*all CSS to admin tables*/
+.tablelist {
+    border: 2px solid var(--Color1);
+    width: 100%;
+    align-content: center;
+    overflow-x: scroll;
+}
+
+.searchform {
+    border: 2px solid var(--Color1);
+    width: 100%;
+    align-content: center;
+    padding: 10px;
+}
