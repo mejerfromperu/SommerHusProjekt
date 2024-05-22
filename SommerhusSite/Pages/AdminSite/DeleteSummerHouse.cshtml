@@ -36,12 +36,12 @@
                 <label>Pris</label>  : @Model.SummerHouse.Price
             </div>
             <div class="col">
-                <label>Dato fra</label>  : @Model.SummerHouse.DateFrom
+                <label>Dato fra</label>  : @Model.SummerHouse.DateFrom.ToShortDateString()
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <label>Dato til</label>  : @Model.SummerHouse.DateTo
+                <label>Dato til</label>  : @Model.SummerHouse.DateTo.ToShortDateString()
             </div>
             <div class="col">
                 <label>Antal gæster</label>  : @Model.SummerHouse.AmountSleepingSpace
