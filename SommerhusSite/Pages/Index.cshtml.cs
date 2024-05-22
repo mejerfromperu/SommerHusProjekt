@@ -41,6 +41,9 @@ namespace SommerhusSite.Pages
         {
             Huse = _list.GetAll();
             SessionHelper.Clear<SummerHouse>(HttpContext);
+            
+
+
         }
 
         public IActionResult OnPostSearch()

@@ -10,7 +10,7 @@ namespace SommerhusSite.Services
             string s = context.Session.GetString(sessionName);
             if (string.IsNullOrEmpty(s))
             {
-                throw new ArgumentException($"No session data found for {sessionName}");
+                return default(T);
             }
             return JsonSerializer.Deserialize<T>(s);
         }

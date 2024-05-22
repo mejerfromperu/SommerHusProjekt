@@ -1,7 +1,9 @@
 ﻿@page
+@using SommerHusProjekt.Model07
+@using SommerhusSite.Services
 @model IndexModel
 @{
-    ViewData["Title"] = "";
+    bool userLoggedIn = SessionHelper.Get<User>(HttpContext) != null;
 }
 
 <div class="form-selectt rounded-2">
@@ -51,8 +53,24 @@
                         <div class="card-body text-black">
                             <h5>@SommerHuse.Description</h5>
                             <p id="outputText"></p>
+                            
                             <div class="d-flex justify-content-around text-white">
+                            @if (userLoggedIn)
+                            {
                                 <a asp-page="/BookingSite/Index" asp-route-summerhouseId="@SommerHuse.Id" class="btn btn-outline-dark rounded-pill" style="background: #DEE50F; border: 2px dimgrey; width: 50%;">Se Mere</a>
+                            }
+                            else
+                            {
+                                <div class="text text-black" role="alert">
+                                    husk du skal være logget ind for at booke!
+                                    <a asp-page="/UserSite/LogIn"class="btn btn-outline-dark rounded-pill" style="background: #DEE50F; border: 2px dimgrey; width: 50%;">login her</a>
+                                </div>
+                            }
+                            @* @if(loggedinuser is not null)
+                            {
+                                <a asp-page="/BookingSite/Index" asp-route-summerhouseId="@SommerHuse.Id" class="btn btn-outline-dark rounded-pill" style="background: #DEE50F; border: 2px dimgrey; width: 50%;">Se Mere</a>
+
+                            } *@
 
                             </div>
                         </div>
