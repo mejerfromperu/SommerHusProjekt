@@ -46,7 +46,7 @@ namespace SommerHusProjekt.Repository07
 
                 if (ex.Number == 2627) // specifik exception kode for duplicate key i ms sql
                 {
-                    throw new InvalidOperationException("A user with the same email address already exists.", ex);
+                    throw new InvalidOperationException("Email er allerede i brug", ex);
                 }
                 throw;
             }
