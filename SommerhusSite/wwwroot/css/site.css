@@ -161,6 +161,14 @@ body {
         font-weight: 600;
     }
 
+/*All CSS to BookingConfirmationSite*/
+.BookingConfBox {
+    background-color: var(--Color3);
+    border: solid 3px var(--Color1);
+    justify-content: center;
+
+}
+
 /*All CSS to BookingWatchList*/
 .WatchListBox {
     background-color: var(--Color3);
