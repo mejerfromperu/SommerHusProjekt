@@ -199,6 +199,75 @@ body {
     font-family: fantasy, copperplate;
 }
 
+.forgotbox {
+    position: absolute;
+    background-color: var(--Color4);
+    backdrop-filter: blur(50%);
+    border: solid 4px var(--Color1);
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    width: 350px;
+    height: 500px;
+    padding: 3.5em 2.5em 2.5em 2.5em;
+}
+
+.forgotbox-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--Color1);
+    width: 240px;
+    height: 46px;
+    border-radius: 0 0 20px 20px;
+}
+
+    .forgotbox-header span {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+.input-forgotbox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 2px 0;
+    padding-bottom: 2px;
+}
+
+.input-forgotfield {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    background: transparent;
+    padding-inline: 20px 10px;
+    border: 2px solid var(--Color1);
+    border-radius: 0 20px 20px 20px;
+    outline: none;
+    color: black;
+    margin-bottom: 10px;
+}
+
+    .input-forgotfield::placeholder {
+        color: dimgrey;
+    }
+
+    .input-forgotfield ::after {
+        background-color: transparent;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+.forgotlabel {
+    margin-left: 5px;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px 10px 0 0;
+}
+
 /*All CSS to The preview card*/
 .PreviewCardBox-Header {
     position: relative;

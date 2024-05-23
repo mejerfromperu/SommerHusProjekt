@@ -54,5 +54,10 @@ namespace SommerhusSite.Pages.UserSite
             TempData["SuccessMessage"] = "Password has been reset successfully.";
             return RedirectToPage("/UserSite/Login");
         }
+
+        public IActionResult OnPostCancel()
+        {
+            return RedirectToPage("/UserSite/Login");
+        }
     }
 }
