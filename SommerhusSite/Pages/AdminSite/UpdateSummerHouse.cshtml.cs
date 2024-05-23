@@ -14,6 +14,8 @@ namespace SommerhusSite.Pages.AdminSite
     {
         // instans af sommerhus repository
         private ISummerHouseRepository _summerHouseRepo;
+        private DateTime _newSummerHouseFromDate;
+        private DateTime _newSummerHouseToDate;
 
         //Dependency Injection
         public UpdateSummerHouseModel(ISummerHouseRepository repository)
@@ -35,12 +37,15 @@ namespace SommerhusSite.Pages.AdminSite
         public string NewSummerHouseHouseNumber { get; set; }
 
         [BindProperty]
-        [StringLength(100, MinimumLength = 0, ErrorMessage = "Der skal være mindst 0 tegn i et etagefelt")]
         public string NewSummerHouseFloor { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Postnummer skal udfyldes")]
         public int NewSummerHousePostalCode { get; set; }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Antal Sovepladser skal udfyldes")]
+        public int NewSummerHouseAmountSleepingSpace { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Beskrivelse skal udfyldes")]
@@ -52,14 +57,38 @@ namespace SommerhusSite.Pages.AdminSite
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Fra skal udfyldes")]
-        public DateTime NewSummerHouseFromDate { get; set; }
-       
+        public DateTime NewSummerHouseFromDate
+        {
+            get { return _newSummerHouseFromDate; }
+            set
+            {
+                if (value < DateTime.Today)
+                {
+                    throw new ArgumentException("Dato Fra kan ikke være før dagens dato");
+                }
+                _newSummerHouseFromDate = value;
+            }
+        }
+
+
         [BindProperty]
         public IFormFile NewSummerHousePicture { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Til skal udfyldes")]
-        public DateTime NewSummerHouseToDate { get; set; }
+        public DateTime NewSummerHouseToDate
+        {
+            get { return _newSummerHouseToDate; }
+            set
+            {
+                if (value <= DateTime.Today)
+                {
+                    throw new ArgumentException("Dato Til kan ikke være før dagens dato");
+                }
+                _newSummerHouseToDate = value;
+            }
+        }
+
 
         public string ErrorMessage { get; private set; }
         public bool Error { get; private set; }
@@ -82,6 +111,7 @@ namespace SommerhusSite.Pages.AdminSite
                     NewSummerHousePostalCode = summerHouse.PostalCode;
                     NewSummerHouseDescription = summerHouse.Description;
                     NewSummerHousePrice = summerHouse.Price;
+                    NewSummerHouseAmountSleepingSpace = summerHouse.AmountSleepingSpace;
                     NewSummerHouseFromDate = summerHouse.DateFrom;
                     NewSummerHouseToDate = summerHouse.DateTo;
                     NewSummerHouseId = summerHouse.Id;
@@ -122,6 +152,7 @@ namespace SommerhusSite.Pages.AdminSite
             summerHouse.Floor = NewSummerHouseFloor;
             summerHouse.PostalCode = NewSummerHousePostalCode;
             summerHouse.Description = NewSummerHouseDescription;
+            summerHouse.AmountSleepingSpace = NewSummerHouseAmountSleepingSpace;
             summerHouse.Price = NewSummerHousePrice;
             summerHouse.DateFrom = NewSummerHouseFromDate;
             summerHouse.DateTo = NewSummerHouseToDate;
@@ -146,9 +177,6 @@ namespace SommerhusSite.Pages.AdminSite
             }
 
             _summerHouseRepo.Update(id, summerHouse);
-
-            HttpContext.Session.Clear();
-            SessionHelper.Set(SelectedSummerhouse, HttpContext);
 
             return RedirectToPage("SummerHouseList");
         }
