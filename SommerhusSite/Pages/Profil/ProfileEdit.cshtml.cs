@@ -36,6 +36,10 @@ namespace SommerhusSite.Pages.Profil
         public string? UpdatedEmail { get; set; }
 
         [BindProperty]
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "Der skal være mindst 8 tegn i et password")]
+        public string? UpdatedPassword { get; set; }
+
+        [BindProperty]
         public string? UpdatedStreetName { get; set; }
 
         [BindProperty]
@@ -87,6 +91,11 @@ namespace SommerhusSite.Pages.Profil
             if (!string.IsNullOrWhiteSpace(UpdatedEmail))
             {
                 user.Email = UpdatedEmail;
+            }
+
+            if (!string.IsNullOrWhiteSpace(UpdatedPassword))
+            {
+                user.Password = UpdatedPassword;
             }
 
             if (!string.IsNullOrWhiteSpace(UpdatedStreetName))
