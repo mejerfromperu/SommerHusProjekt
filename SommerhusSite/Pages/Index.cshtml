@@ -138,7 +138,18 @@
                     </div>
                     <div class="card-body text-black">
                         <div class="d-flex justify-content-around text-white">
-                            <a asp-page="/BookingSite/Index" asp-route-summerhouseId="@SommerHuse.Id" class="btn btn-outline-dark rounded-pill btnSpecial" style="width: 50%;">Se Mere</a>
+                            @if (userLoggedIn)
+                            {
+                                <a asp-page="/BookingSite/Index" asp-route-summerhouseId="@SommerHuse.Id" class="btn btn-outline-dark btnSpecial rounded-pill" style="background: width: 50%; margin-left: 25%; margin-right: 25%;">Se Mere</a>
+                            }
+                            else
+                            {
+                                <div class="text text-black" role="alert">
+                                    <a asp-page="/UserSite/LogIn" class="btn btn-outline-dark btnSpecial rounded-pill col-12" style="width: 50%; margin-left: 25%; margin-right: 25%;">login her</a>
+
+                                    <p class="col-12" style="margin-top: 10px; text-align: center;">husk du skal være logget ind for at booke!</p>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
