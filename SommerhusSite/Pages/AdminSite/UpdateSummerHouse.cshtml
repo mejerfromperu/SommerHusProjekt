@@ -18,7 +18,6 @@
                             <span>Preview Card</span>
                         </div>
                         <div class="col-md-12 justify-content-center">
-                            <span asp-validation-for="NewSummerHousePicture" class="text-danger"></span>
                             @if (!string.IsNullOrEmpty(chosenHouse.Picture))
                             {
                                 <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@chosenHouse.Picture" />
@@ -41,7 +40,6 @@
                         </div>
                         <h4 class="d-flex justify-content-center">Indsæt Billede Fil</h4>
                         <div class="col-12">
-                            <span asp-validation-for="NewSummerHousePicture" class="text-danger"></span>
                             <input class="card-img-top rounded-2" style="width: 100%; height: 14em; justify-content: center;" type="file" id="imageInput" asp-for="NewSummerHousePicture" />
                         </div>
                     </div>
@@ -70,7 +68,6 @@
                             <input class="form-control" placeholder="Vej Nr." asp-for="NewSummerHouseHouseNumber" /><br />
                         </div>
                         <div class="col-3">
-                            <span asp-validation-for="NewSummerHouseFloor" class="text-danger"></span>
                             <input class="form-control" placeholder="Etage" asp-for="NewSummerHouseFloor" /><br />
                         </div>
                     </div>

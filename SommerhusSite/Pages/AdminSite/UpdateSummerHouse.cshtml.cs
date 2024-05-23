@@ -12,7 +12,7 @@ namespace SommerhusSite.Pages.AdminSite
 {
     public class UpdateSummerHouseModel : PageModel
     {
-        // instans af bil repository
+        // instans af sommerhus repository
         private ISummerHouseRepository _summerHouseRepo;
 
         //Dependency Injection
@@ -23,7 +23,7 @@ namespace SommerhusSite.Pages.AdminSite
 
         public SummerHouse SelectedSummerhouse { get; set; }
 
-        //Property til nye værdier
+        //Properties til nye værdier
         [BindProperty]
         public int NewSummerHouseId { get; set; }
         [BindProperty]
@@ -35,6 +35,7 @@ namespace SommerhusSite.Pages.AdminSite
         public string NewSummerHouseHouseNumber { get; set; }
 
         [BindProperty]
+        [StringLength(100, MinimumLength = 0, ErrorMessage = "Der skal være mindst 0 tegn i et etagefelt")]
         public string NewSummerHouseFloor { get; set; }
 
         [BindProperty]
@@ -54,7 +55,6 @@ namespace SommerhusSite.Pages.AdminSite
         public DateTime NewSummerHouseFromDate { get; set; }
        
         [BindProperty]
-        [Required(ErrorMessage = "Picture skal udfyldes")]
         public IFormFile NewSummerHousePicture { get; set; }
 
         [BindProperty]
@@ -74,15 +74,18 @@ namespace SommerhusSite.Pages.AdminSite
             {
                 SummerHouse summerHouse = _summerHouseRepo.GetById(id);
 
-                NewSummerHouseStreetName = summerHouse.StreetName;
-                NewSummerHouseHouseNumber = summerHouse.HouseNumber;
-                NewSummerHouseFloor = summerHouse.Floor;
-                NewSummerHousePostalCode = summerHouse.PostalCode;
-                NewSummerHouseDescription = summerHouse.Description;
-                NewSummerHousePrice = summerHouse.Price;
-                NewSummerHouseFromDate = summerHouse.DateFrom;
-                NewSummerHouseToDate = summerHouse.DateTo;
-                NewSummerHouseId = summerHouse.Id;
+                if (summerHouse != null)
+                {
+                    NewSummerHouseStreetName = summerHouse.StreetName;
+                    NewSummerHouseHouseNumber = summerHouse.HouseNumber;
+                    NewSummerHouseFloor = summerHouse.Floor;
+                    NewSummerHousePostalCode = summerHouse.PostalCode;
+                    NewSummerHouseDescription = summerHouse.Description;
+                    NewSummerHousePrice = summerHouse.Price;
+                    NewSummerHouseFromDate = summerHouse.DateFrom;
+                    NewSummerHouseToDate = summerHouse.DateTo;
+                    NewSummerHouseId = summerHouse.Id;
+                }
             }
             catch (KeyNotFoundException knfe)
             {
@@ -96,14 +99,23 @@ namespace SommerhusSite.Pages.AdminSite
         }
 
         //Gør vi kan lave værdierne om til de nye ændrede værdier
-        public async Task<IActionResult> OnPostChangeAsync(int id)
+        public IActionResult OnPostChange(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            SummerHouse summerHouse = _summerHouseRepo.GetById(id);
+            //SummerHouse summerHouse = _summerHouseRepo.GetById(id);
+
+            SummerHouse summerHouse = SessionHelper.Get<SummerHouse>(HttpContext);
+
+            if (summerHouse == null)
+            {
+                ErrorMessage = "Summer house not found";
+                Error = true;
+                return Page();
+            }
 
             summerHouse.StreetName = NewSummerHouseStreetName;
             summerHouse.HouseNumber = NewSummerHouseHouseNumber;
@@ -121,20 +133,22 @@ namespace SommerhusSite.Pages.AdminSite
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    await NewSummerHousePicture.CopyToAsync(fileStream);
+                    NewSummerHousePicture.CopyTo(fileStream);
                 }
                 summerHouse.Picture = NewSummerHousePicture.FileName;
 
                 using (var memoryStream = new MemoryStream())
                 {
-                    await NewSummerHousePicture.CopyToAsync(memoryStream);
+                    NewSummerHousePicture.CopyTo(memoryStream);
                     var fileBytes = memoryStream.ToArray();
                     summerHouse.Picture = Convert.ToBase64String(fileBytes);
                 }
             }
 
-
             _summerHouseRepo.Update(id, summerHouse);
+
+            HttpContext.Session.Clear();
+            SessionHelper.Set(SelectedSummerhouse, HttpContext);
 
             return RedirectToPage("SummerHouseList");
         }
