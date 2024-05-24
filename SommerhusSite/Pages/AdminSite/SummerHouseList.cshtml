@@ -46,6 +46,7 @@
                 <th>Etage</th>
                 <th><input type="submit" asp-page-handler="SortPostalCode" value="Postnummer" class="btn btn-info" /></th>
                 <th>Pris</th>
+                <th>Antal Gæster</th>
                 <th>DateFrom</th>
                 <th>DateTo</th>
                 <th></th>
@@ -63,6 +64,7 @@
                     <td>@s.Floor</td>
                     <td>@s.PostalCode</td>
                     <td>@s.Price</td>
+                    <td>@s.AmountSleepingSpace</td>
                     <td>@s.DateFrom.ToShortDateString()</td>
                     <td>@s.DateTo.ToShortDateString()</td>
                     <td><a asp-page="DeleteSummerHouse" asp-route-id="@s.Id" style="background-color: #ff0000;" class="btn btn-Danger">Slet</a></td>

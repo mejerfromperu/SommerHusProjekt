@@ -189,11 +189,13 @@ body {
     background: var(--Color1);
     color: black;
 }
+
 .gradient-text {
     background: linear-gradient(180deg, black, darkblue);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .textv1 {
     color: var(--Color2);
     font-family: fantasy, copperplate;
@@ -237,6 +239,13 @@ body {
     margin: 2px 0;
     padding-bottom: 2px;
 }
+
+    .input-forgotbox span
+    {
+        position: absolute;
+        margin-top: 25px;
+        margin-left: 10px;
+    }
 
 .input-forgotfield {
     width: 100%;
@@ -374,10 +383,12 @@ body {
     padding: 0.5em 0.5em 0.5em 0.5em;
     text-align: center;
 }
+
 .WatchListInfoBox label{
     margin-top: 2px;
     font-weight: 600;
 }
+
 .WatchListInfoBox output{
     height: 35px;
     margin-top: 10px;
@@ -411,6 +422,7 @@ body {
     padding: 5em 0em 1em 0em;
     margin-top: 2em;
 }
+
 .SortByBoxHeader {
     position: absolute;
     background-color: var(--Color3);
@@ -434,6 +446,7 @@ body {
     position: relative;
     margin-bottom: 2em;
 }
+
 .CreditInfoCardBottom{
     width: 100%;
     height: 35px;
@@ -453,6 +466,7 @@ body {
     margin-top: 2em;
     padding-bottom: 1.5em;
 }
+
 .ProfileUserForm{
     position: relative;
     background-color: var(--Color4);
@@ -472,6 +486,7 @@ body {
     margin-left: 5em;
     padding: 2em 1em 1em 1em;
 }
+
 .ProfileUserTextBox{
     top: 0%;
     width: 100%;
@@ -590,6 +605,7 @@ body {
     text-align: center;
     margin-bottom: 30px;
 }
+
 .input-submit {
     width: 100%;
     height: 45px;
