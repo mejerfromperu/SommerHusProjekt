@@ -26,16 +26,13 @@
                     <div class="card-subtitle my-2">
                         <h2 id="outputLocation">@chosenHouse.City</h2>
                         <h4 id="outputPrice">@chosenHouse.StreetName</h4>
-                            <h4 id="outputPrice">@chosenHouse.DateFrom.ToShortDateString()</h4>
-                            <h4 id="outputPrice">@chosenHouse.DateTo.ToShortDateString()</h4>
-                            <h4 id="outputPrice">@chosenHouse.Price</h4>
+                            <h4 id="outputPrice">Ledig Fra: @chosenHouse.DateFrom.ToShortDateString()</h4>
+                            <h4 id="outputPrice">Ledig Til: @chosenHouse.DateTo.ToShortDateString()</h4>
+                            <h4 id="outputPrice">Pris pr. Dag: @chosenHouse.Price Kr.</h4>
                     </div>
                     <div class="card-body text-black">
                             <h5>@chosenHouse.Description</h5>
                         <p id="outputText"></p>
-                        @* <div class="d-flex justify-content-around text-white">
-                            <a asp-page="/BookingSite/Index" asp-route-summerhouseId="@Model.SelectedSummerhouse.Id" class="btn btn-outline-dark rounded-pill" style="background: #DEE50F; border: 2px dimgrey; width: 50%;">Se Mere</a>
-                        </div> *@
                     </div>
                     </div>
                 </div>
@@ -80,7 +77,6 @@
             <div class="row d-flex">
                 <div class="col-6 flex-column">
                     <h4 class="d-grid justify-content-center">Bestillings Periode</h4>
-@*                     <input type="hidden" name="summerhouseId" value="@Model.SelectedSummerhouse.Id" /> *@
                     <div class="mb-3">
                         <label>Dato Fra</label><br />
                         <span>
@@ -94,7 +90,6 @@
                     </div>
                     <h4 class="d-gridjustify-content-center"></h4>
                     <div class="mb-3">
-                        @* @if(DateTime.Now < Model.Booking.StartDate ) *@
                         <label>Dato Til</label><br />
                         <input type="date" class="form-control" asp-for="Booking.EndDate" required  ><br />
                     </div>
@@ -118,7 +113,7 @@
                     </div>
                     <div class="col-6 d-flex justify-content-center">
                                 
-                                <a href="index" class="btn btn-secondary">Cancel</a>
+                                <a href="index" class="btn btn-secondary">Fortryd</a>
                     </div>
                 </div>
             </div>

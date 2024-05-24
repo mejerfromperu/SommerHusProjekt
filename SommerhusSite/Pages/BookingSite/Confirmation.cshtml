@@ -31,15 +31,15 @@
                             </div>
                             <h2 class="card-title">@summerhouse.City</h2>
                             <h4>@summerhouse.StreetName</h4>
-                            <h4>Fra: @summerhouse.DateFrom.ToShortDateString()</h4>
-                            <h4>Til: @summerhouse.DateTo.ToShortDateString()</h4>
-                            <h4>Pris: @summerhouse.Price</h4>
+                            <h4>Ledig Fra: @summerhouse.DateFrom.ToShortDateString()</h4>
+                            <h4>Ledig Til: @summerhouse.DateTo.ToShortDateString()</h4>
+                            <h4>Pris pr. Dag: @summerhouse.Price Kr.</h4>
                             <h5 class="card-title">Beskrivelse:</h5>
                             <p class="card-text">@summerhouse.Description</p>
                             <h5 class="card-title">Booking Detaljer:</h5>
                             <p class="card-text">Booking ID: @lastBooking.Id</p>
-                            <p class="card-text">Start Dato: @lastBooking.StartDate.ToShortDateString()</p>
-                            <p class="card-text">Slut Dato: @lastBooking.EndDate.ToShortDateString()</p>
+                            <p class="card-text">Booket Fra: @lastBooking.StartDate.ToShortDateString()</p>
+                            <p class="card-text">Booket Til: @lastBooking.EndDate.ToShortDateString()</p>
                         </div>
                     </div>
                 }
