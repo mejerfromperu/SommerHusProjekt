@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SommerHusProjekt.Model07;
 using SommerHusProjekt.Repository07;
+using SommerhusSite.Services;
 
 namespace SommerhusSite.Pages
 {
@@ -39,6 +40,10 @@ namespace SommerhusSite.Pages
         public void OnGet()
         {
             Huse = _list.GetAll();
+            SessionHelper.Clear<SummerHouse>(HttpContext);
+            
+
+
         }
 
         public IActionResult OnPostSearch()

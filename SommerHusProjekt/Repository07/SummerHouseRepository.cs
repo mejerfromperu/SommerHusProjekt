@@ -95,6 +95,44 @@ namespace SommerHusProjekt.Repository07
             connection.Close();
             return list;
         }
+        public List<SummerHouse> GetAllWithCity()
+        {
+            List<SummerHouse> list = new List<SummerHouse>();
+
+            SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
+            
+                connection.Open();
+
+                string sql = "SELECT SommerSommerHouse.Id, SommerSommerHouse.StreetName, SommerSommerHouse.HouseNumber, SommerSommerHouse.PostalCode, SommerPostalcode.City, SommerSommerHouse.Floor, SommerSommerHouse.Description, SommerSommerHouse.Price, SommerSommerHouse.Picture, SommerSommerHouse.DateFrom, SommerSommerHouse.DateTo, SommerSommerHouse.AmountSleepingSpace FROM SommerSommerHouse INNER JOIN SommerPostalcode ON SommerSommerHouse.PostalCode = SommerPostalcode.Postalcode";
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            SummerHouse s = new SummerHouse
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                StreetName = reader["StreetName"].ToString(),
+                                HouseNumber = reader["HouseNumber"].ToString(),
+                                PostalCode = Convert.ToInt32(reader["PostalCode"]),
+                                City = reader["City"].ToString(),
+                                Floor = reader["Floor"].ToString(),
+                                Description = reader["Description"].ToString(),
+                                Price = Convert.ToDecimal(reader["Price"]),
+                                Picture = reader["Picture"].ToString(),
+                                DateFrom = Convert.ToDateTime(reader["DateFrom"]),
+                                DateTo = Convert.ToDateTime(reader["DateTo"]),
+                                AmountSleepingSpace = Convert.ToInt32(reader["AmountSleepingSpace"])
+                            };
+                            list.Add(s);
+                        }
+                    }
+                }
+            
+
+            return list;
+        }
 
         //Metode til at få nogle informationer om sommerhus (Brugt til lidt testning)
         public List<SummerHouse> GetSomething()

@@ -14,44 +14,46 @@ namespace SommerHusProjekt.Repository07
     {
         public User Add(User user)
         {
-            SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
-            connection.Open();
-            string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord) VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
-            if (user.Floor == null) 
+            try
             {
-                user.Floor = string.Empty;
+                using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
+                {
+                    connection.Open();
+                    string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord)" +
+                        " VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
+                    if (user.Floor == null)
+                    {
+                        user.Floor = string.Empty;
+                    }
+                    using (SqlCommand cmd = new SqlCommand(insertSql, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+                        cmd.Parameters.AddWithValue("@LastName", user.LastName);
+                        cmd.Parameters.AddWithValue("@Phone", user.Phone);
+                        cmd.Parameters.AddWithValue("@Email", user.Email);
+                        cmd.Parameters.AddWithValue("@Password", user.Password);
+                        cmd.Parameters.AddWithValue("@StreetName", user.StreetName);
+                        cmd.Parameters.AddWithValue("@HouseNumber", user.HouseNumber);
+                        cmd.Parameters.AddWithValue("@Floor", user.Floor);
+                        cmd.Parameters.AddWithValue("@PostalCode", user.PostalCode);
+                        cmd.Parameters.AddWithValue("@IsAdmin", user.IsAdmin);
+                        cmd.Parameters.AddWithValue("@IsLandlord", user.IsLandlord);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
-            SqlCommand cmd = new SqlCommand(insertSql, connection);
-            cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
-            cmd.Parameters.AddWithValue("@LastName", user.LastName);
-            cmd.Parameters.AddWithValue("@Phone", user.Phone);
-            cmd.Parameters.AddWithValue("@Email", user.Email);
-            cmd.Parameters.AddWithValue("@Password", user.Password);
-            cmd.Parameters.AddWithValue("@StreetName", user.StreetName);
-            cmd.Parameters.AddWithValue("@HouseNumber", user.HouseNumber);
-            cmd.Parameters.AddWithValue("@Floor", user.Floor);
-            cmd.Parameters.AddWithValue("@PostalCode", user.PostalCode);
-            cmd.Parameters.AddWithValue("@IsAdmin", user.IsAdmin);
-            cmd.Parameters.AddWithValue("@IsLandlord", user.IsLandlord);
-            Console.WriteLine("Attempting to insert the following values into SommerUser table:");
-            Console.WriteLine($"FirstName: {user.FirstName}");
-            Console.WriteLine($"LastName: {user.LastName}");
-            Console.WriteLine($"Phone: {user.Phone}");
-            Console.WriteLine($"Email: {user.Email}");
-            Console.WriteLine($"Password: {user.Password}");
-            Console.WriteLine($"StreetName: {user.StreetName}");
-            Console.WriteLine($"HouseNumber: {user.HouseNumber}");
-            Console.WriteLine($"Floor: {user.Floor}");
-            Console.WriteLine($"PostalCode: {user.PostalCode}");
-            Console.WriteLine($"IsAdmin: {user.IsAdmin}");
-            Console.WriteLine($"IsLandlord: {user.IsLandlord}");
+            catch (SqlException ex)
+            {
 
-            int rowsAffected = cmd.ExecuteNonQuery();
-            Console.WriteLine("Rows affected: " + rowsAffected);
-
-            connection.Close();
+                if (ex.Number == 2627) // specifik exception kode for duplicate key i ms sql
+                {
+                    throw new InvalidOperationException("Email er allerede i brug", ex);
+                }
+                throw;
+            }
             return user;
         }
+
 
         public User Delete(int id)
         {

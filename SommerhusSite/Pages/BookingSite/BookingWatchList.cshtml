@@ -18,16 +18,14 @@
         <div class="col-lg-4 align-content-center">
             <div class="justify-content-center d-flex">
                 <div class="card p-2 d-flex WatchListIMGBox">
-                    <div class="col-md-12 justify-content-center">
-                                @if (!string.IsNullOrEmpty(UserBookings.Picture))
-                                {
-                                    <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@UserBookings.Picture" />
-                                }
-                                else
-                                {
-                                    <img class="card-img-top cardSpecialIMG" src="default-placeholder.png" alt="No image available" />
-                                }
-                    </div>
+                    @if (!string.IsNullOrEmpty(UserBookings.Picture))
+                    {
+                    <img class="card-img-top  WatchListIMG" src="data:image/jpeg;base64,@UserBookings.Picture" />
+                    }
+                    else
+                    {
+                        <img class="card-img-top WatchListIMG" src="default-placeholder.png" alt="No image available" />
+                    }
                 </div>
             </div>
         </div>
@@ -52,11 +50,11 @@
                     <div class="col-12 d-flex">
                         <div class="col-6" style="padding-right: 10px;">
                             <label>Dato Fra</label>
-                            <output type="date" class="form-control">@UserBookings.StartDate</output>
+                            <output type="date" class="form-control">@UserBookings.StartDate.ToShortDateString()</output>
                         </div>
                         <div class="col-6" style="padding-left: 10px;">
                             <label>Dato Til</label><br />
-                            <output type="date" class="form-control">@UserBookings.EndDate</output>
+                            <output type="date" class="form-control">@UserBookings.EndDate.ToShortDateString()</output>
                         </div>
                     </div>
                     <div class="d-flex">

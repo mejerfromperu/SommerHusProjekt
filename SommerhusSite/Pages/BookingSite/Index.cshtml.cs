@@ -20,7 +20,7 @@ namespace SommerhusSite.Pages.BookingSite
 
 
         
-
+        
 
         public IndexModel(ISummerHouseRepository summerlist, IBookingRepository bookinglist)
         {
@@ -47,9 +47,9 @@ namespace SommerhusSite.Pages.BookingSite
             SummerHouse chosenHouse = SessionHelper.Get<SummerHouse>(HttpContext);
 
             // Validate booking dates
-            if (Booking.StartDate < chosenHouse.DateFrom || Booking.EndDate > chosenHouse.DateTo)
+            if (Booking.StartDate < chosenHouse.DateFrom || Booking.EndDate > chosenHouse.DateTo || Booking.EndDate < Booking.StartDate)
             {
-                ModelState.AddModelError("", "Sorry, the booking dates are not within the available period for the selected summer house.");
+                ModelState.AddModelError("", "Undskyld, men de valgte datoer passer dsv ikke med den ledige periode for sommerhuset ;/");
                 return Page();
             }
 
@@ -68,5 +68,11 @@ namespace SommerhusSite.Pages.BookingSite
             return RedirectToPage("/BookingSite/Confirmation");
         }
 
+        public IActionResult OnPostCancel()
+        {
+            SessionHelper.Clear<SummerHouse>(HttpContext);
+
+            return RedirectToPage("/Index");
+        }
     }
 }

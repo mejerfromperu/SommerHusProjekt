@@ -4,15 +4,14 @@ using SommerHusProjekt.Model07;
 using SommerHusProjekt.Repository07;
 using System.ComponentModel.DataAnnotations;
 
-namespace SommerhusHjemmeside.Pages.UserSite
+namespace SommerhusSite.Pages.AdminSite
 {
-    public class CreateModel : PageModel
+    public class CreateAdminModel : PageModel
     {
-
         private IUserRepository _repo;
 
         // dependency injection
-        public CreateModel(IUserRepository userrepo)
+        public CreateAdminModel(IUserRepository userrepo)
         {
             _repo = userrepo;
         }
@@ -85,7 +84,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
             }
             if (NewUserFloor == null)
             {
-                NewUserFloor = string.Empty;  
+                NewUserFloor = string.Empty;
             }
 
             User newuser = new User(NewUserFirstName, NewUserLastName, NewUserPhone, NewUserEmail, NewUserPassword, NewUserStreetName, NewUserHouseNumber, NewUserFloor, NewUserPostalCode, NewUserIsLandLord, NewUserIsAdmin);
@@ -101,14 +100,13 @@ namespace SommerhusHjemmeside.Pages.UserSite
                 return Page();
             }
 
-            return RedirectToPage("LogIn");
+            return RedirectToPage("Index");
 
         }
 
         public IActionResult OnPostCancel()
         {
-            return RedirectToPage("LogIn");
+            return RedirectToPage("Index");
         }
-
     }
 }
