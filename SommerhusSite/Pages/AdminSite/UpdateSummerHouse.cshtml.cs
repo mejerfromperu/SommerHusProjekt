@@ -102,51 +102,63 @@ namespace SommerhusSite.Pages.AdminSite
             try
             {
                 SummerHouse summerHouse = _summerHouseRepo.GetById(id);
-
-                if (summerHouse != null)
+                if (summerHouse == null)
                 {
-                    NewSummerHouseStreetName = summerHouse.StreetName;
-                    NewSummerHouseHouseNumber = summerHouse.HouseNumber;
-                    NewSummerHouseFloor = summerHouse.Floor;
-                    NewSummerHousePostalCode = summerHouse.PostalCode;
-                    NewSummerHouseDescription = summerHouse.Description;
-                    NewSummerHousePrice = summerHouse.Price;
-                    NewSummerHouseAmountSleepingSpace = summerHouse.AmountSleepingSpace;
-                    NewSummerHouseFromDate = summerHouse.DateFrom;
-                    NewSummerHouseToDate = summerHouse.DateTo;
-                    NewSummerHouseId = summerHouse.Id;
+                    ErrorMessage = "Summer house not found";
+                    Error = true;
+                    return;
                 }
+
+                // Store the summerHouse in the session
+                SessionHelper.Set(summerHouse, HttpContext);
+
+                NewSummerHouseStreetName = summerHouse.StreetName;
+                NewSummerHouseHouseNumber = summerHouse.HouseNumber;
+                NewSummerHouseFloor = summerHouse.Floor;
+                NewSummerHousePostalCode = summerHouse.PostalCode;
+                NewSummerHouseDescription = summerHouse.Description;
+                NewSummerHousePrice = summerHouse.Price;
+                NewSummerHouseFromDate = summerHouse.DateFrom;
+                NewSummerHouseToDate = summerHouse.DateTo;
+                NewSummerHouseAmountSleepingSpace = summerHouse.AmountSleepingSpace;
+                NewSummerHouseId = summerHouse.Id;
             }
             catch (KeyNotFoundException knfe)
             {
                 ErrorMessage = knfe.Message;
                 Error = true;
             }
-
-            SelectedSummerhouse = _summerHouseRepo.GetById(id);
-
-            SessionHelper.Set(SelectedSummerhouse, HttpContext);
         }
 
         //Gør vi kan lave værdierne om til de nye ændrede værdier
         public IActionResult OnPostChange(int id)
         {
+            // Retrieve the summerHouse from the session
+            var summerHouse = SessionHelper.Get<SummerHouse>(HttpContext);
+
             if (!ModelState.IsValid)
             {
+                if (summerHouse != null)
+                {
+                    // Preserve the summerHouse object in the session to retain state across requests
+                    SessionHelper.Set(summerHouse, HttpContext);
+                }
                 return Page();
             }
-
-            //SummerHouse summerHouse = _summerHouseRepo.GetById(id);
-
-            SummerHouse summerHouse = SessionHelper.Get<SummerHouse>(HttpContext);
 
             if (summerHouse == null)
             {
-                ErrorMessage = "Summer house not found";
-                Error = true;
-                return Page();
+                // Fetch the summerHouse from the repository if it's not in the session
+                summerHouse = _summerHouseRepo.GetById(id);
+                if (summerHouse == null)
+                {
+                    ErrorMessage = "Summer house not found";
+                    Error = true;
+                    return Page();
+                }
             }
 
+            // Update the summerHouse properties
             summerHouse.StreetName = NewSummerHouseStreetName;
             summerHouse.HouseNumber = NewSummerHouseHouseNumber;
             summerHouse.Floor = NewSummerHouseFloor;
@@ -157,6 +169,7 @@ namespace SommerhusSite.Pages.AdminSite
             summerHouse.DateFrom = NewSummerHouseFromDate;
             summerHouse.DateTo = NewSummerHouseToDate;
 
+            // Handle the picture file if it has been uploaded
             if (NewSummerHousePicture != null)
             {
                 var fileName = Path.GetFileName(NewSummerHousePicture.FileName);
@@ -166,7 +179,6 @@ namespace SommerhusSite.Pages.AdminSite
                 {
                     NewSummerHousePicture.CopyTo(fileStream);
                 }
-                summerHouse.Picture = NewSummerHousePicture.FileName;
 
                 using (var memoryStream = new MemoryStream())
                 {
@@ -176,7 +188,11 @@ namespace SommerhusSite.Pages.AdminSite
                 }
             }
 
+            // Update the summerHouse in the repository
             _summerHouseRepo.Update(id, summerHouse);
+
+            // Clear the session after a successful update
+            SessionHelper.Clear<SummerHouse>(HttpContext);
 
             return RedirectToPage("SummerHouseList");
         }
