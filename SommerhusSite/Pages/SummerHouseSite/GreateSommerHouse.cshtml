@@ -105,8 +105,15 @@
                         <h4 class="d-grid justify-content-center" >Udlejnings Periode</h4>
                         <div class="mb-3">
                             <label>Dato Fra</label><br />
-                            <span asp-validation-for="@Model.NewSummerHouseFromDate" class="text-danger"></span>
-                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseFromDate" id="inputDateFrom" oninput="displayDateFrom()" value="@DateTime.Today"><br />
+                                <span>
+                                    @if (!ModelState.IsValid)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    }
+                                    </span>
+                            <input type="date" class="form-control" asp-for="@Model.NewSummerHouseFromDate" value="@DateTime.Today"><br />
                         </div>
                         <h4 class="d-gridjustify-content-center"></h4>
                         <div class="mb-3">

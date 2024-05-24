@@ -9,8 +9,6 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
     public class GreateSommerHouseModel : PageModel
     {
         private ISummerHouseRepository _repo;
-        private DateTime _newSummerHouseFromDate;
-        private DateTime _newSummerHouseToDate;
 
         // dependency injection
         public GreateSommerHouseModel(ISummerHouseRepository sommerhouserepo)
@@ -51,33 +49,12 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Fra skal udfyldes")]
-        public DateTime NewSummerHouseFromDate
-        {
-            get { return _newSummerHouseFromDate; }
-            set
-            {
-                if (value < DateTime.Today)
-                {
-                    throw new ArgumentException("Dato Fra kan ikke være før dagens dato");
-                }
-                _newSummerHouseFromDate = value;
-            }
-        }
+        public DateTime NewSummerHouseFromDate { get; set; }
+
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Til skal udfyldes")]
-        public DateTime NewSummerHouseToDate
-        {
-            get { return _newSummerHouseToDate; }
-            set
-            {
-                if (value <= DateTime.Today)
-                {
-                    throw new ArgumentException("Dato Til kan ikke være før dagens dato");
-                }
-                _newSummerHouseToDate = value;
-            }
-        }
+        public DateTime NewSummerHouseToDate { get; set; }
 
         public string ErrorMessage { get; private set; }
 
@@ -92,6 +69,12 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
             ErrorMessage = "fEJL 404 KUNNE IKKE OPRETTE EN USER";
             if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            if (NewSummerHouseFromDate < DateTime.Now || NewSummerHouseToDate < NewSummerHouseFromDate)
+            {
+                ModelState.AddModelError("", "Undskyld datoer udfyldt for sommerhuset er i fortiden eller passer ikke med hinanden.");
                 return Page();
             }
 
