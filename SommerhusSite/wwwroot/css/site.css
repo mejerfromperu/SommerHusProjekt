@@ -41,6 +41,27 @@ html {
     --Color4: WhiteSmoke;
 }
 
+/*CSS to navbar*/
+.navbar-toggler .toggler-icon {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: 4px auto;
+    background-color: #333;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+.navbar-toggler.active .toggler-icon:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+.navbar-toggler.active .toggler-icon:nth-child(2) {
+    opacity: 0;
+}
+.navbar-toggler.active .toggler-icon:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
 .sortCardsWrapper{
     margin-top: 3em;
     width: 92%;
@@ -520,6 +541,18 @@ body {
     align-content: center;
     width: 4em;
     height: 100%;
+}
+
+.input-field1 {
+    width: 90%;
+    height: 35px;
+    font-size: 16px;
+    background: transparent;
+    border: 0px solid var(--Color1);
+    border-radius: 0 0px 0px 0px;
+    outline: none;
+    color: black;
+    margin-bottom: 25px;
 }
 
 /*all CSS to The login box*/
