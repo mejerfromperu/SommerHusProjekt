@@ -9,7 +9,7 @@
 <form method="post">
     <div class="container ProfileBox">
         <div class="ProfileBoxHeader">
-            <h2 class="textv1">Din Profil</h2>
+            <h2 class="textv1">Redigere i Profil</h2>
         </div>
         <div class="ProfileUserInfo align-content-center justify-content-center">
             <div class="col-12 row d-flex">
@@ -18,11 +18,13 @@
                         <p>Navn: </p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
+                        <span asp-validation-for="UpdatedFirstName"></span>
                         <div class="col-6">
-                            <input type="text" asp-for="@Model.UpdatedFirstName"/>
+                            <input type="text" class="input-field1" asp-for="@Model.UpdatedFirstName"/>
                         </div>
+                        <span asp-validation-for="UpdatedLastName"></span>
                         <div class="col-6">
-                            <input type="text" asp-for="@Model.UpdatedLastName"/>
+                            <input type="text" class="input-field1" asp-for="@Model.UpdatedLastName" />
                         </div>
                     </div>
                 </div>
@@ -30,24 +32,27 @@
                     <div class="col-12 ProfileUserTextBox">
                         <p>Email: </p>
                     </div>
+                    <span asp-validation-for="UpdatedEmail"></span>
                     <div class="col-12 ProfileUserForm d-flex">
-                        <input id="inputEmail" type="email" asp-for="@Model.UpdatedEmail" />
+                        <input id="inputEmail" class="input-field1" type="email" asp-for="@Model.UpdatedEmail" />
                     </div>
                 </div>
                 <div class="col-12 row d-flex">
                     <div class="col-12 ProfileUserTextBox">
                         <p>Adgangskode: </p>
                     </div>
+                    <span asp-validation-for="UpdatedPassword"></span>
                     <div class="col-12 ProfileUserForm d-flex">
-                        <input id="inputPassword" type="password" asp-for="@Model.UpdatedPassword" />
+                        <input id="inputPassword" class="input-field1" type="password" asp-for="@Model.UpdatedPassword" />
                     </div>
                 </div>
                 <div class="col-12 row d-flex">
                     <div class="col-12 ProfileUserTextBox">
                         <p>Telefon: </p>
                     </div>
+                    <span asp-validation-for="UpdatedPhone"></span>
                     <div class="col-12 ProfileUserForm d-flex">
-                        <input type="number" asp-for="@Model.UpdatedPhone"/>
+                        <input type="number" class="input-field1" asp-for="@Model.UpdatedPhone" />
                     </div>
                 </div>
                 <div class="col-lg-6 row d-flex" style="margin-right: 10px;">
@@ -55,8 +60,9 @@
                         <p>Vej Navn:</p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
+                        <span asp-validation-for="UpdatedStreetName"></span>
                         <div class="col-12">
-                            <input type="text" asp-for="@Model.UpdatedStreetName"/>
+                            <input type="text" class="input-field1" asp-for="@Model.UpdatedStreetName" />
                         </div>
                     </div>
                 </div>
@@ -65,8 +71,9 @@
                         <p>Etage:</p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
+                        <span asp-validation-for="UpdatedFloor"></span>
                         <div class="col-12">
-                            <input type="number" asp-for="@Model.UpdatedFloor"/>
+                            <input type="number" class="input-field1" asp-for="@Model.UpdatedFloor" />
                         </div>
                     </div>
                 </div>
@@ -75,8 +82,9 @@
                         <p>Hus Nr: </p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
+                        <span asp-validation-for="UpdatedHouseNumber"></span>
                         <div class="col-12">
-                            <input type="number" asp-for="@Model.UpdatedHouseNumber"/>
+                            <input type="number" class="input-field1" asp-for="@Model.UpdatedHouseNumber" />
                         </div>
                     </div>
                 </div>
@@ -85,8 +93,9 @@
                         <p>Post Nr: </p>
                     </div>
                     <div class="col-12 ProfileUserForm d-flex">
+                        <span asp-validation-for="UpdatedPostalCode"></span>
                         <div class="col-12">
-                            <input asp-for="@Model.UpdatedPostalCode"/>
+                            <input type="number" class ="input-field1" asp-for="@Model.UpdatedPostalCode" />
                         </div>
                     </div>
                 </div>
