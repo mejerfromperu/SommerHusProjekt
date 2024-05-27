@@ -67,7 +67,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         public IActionResult OnPost()
         {
 
-            ErrorMessage = "Fejl Kunne ikke oprette bruger";
+            ErrorMessage = "Fejl Kunne ikke oprette sommerhus";
             ModelState.Remove("NewSummerHouseFloor"); // Ignorer validering af NewSummerHouseFloor
             if (!ModelState.IsValid)
             {
