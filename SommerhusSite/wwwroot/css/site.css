@@ -557,6 +557,7 @@ body {
 
 /*all CSS to The login box*/
 .loginbox {
+    margin-top: 4em;
     position: absolute;
     background-color: var(--Color4);
     backdrop-filter: blur(50%);
