@@ -45,9 +45,17 @@ namespace SommerHusProjekt.Repository07
             catch (SqlException ex)
             {
 
-                if (ex.Number == 2627) // specifik exception kode for duplicate key i ms sql
+                if (ex.Number == 2627 || ex.Number == 547) // specifik exception kode for duplicate key i ms sql and invalid input
                 {
-                    throw new InvalidOperationException("Email er allerede i brug", ex);
+                    if(ex.Number == 2627)
+                    {
+                        throw new InvalidOperationException("Email er allerede i brug", ex);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Postnummer findes ikke", ex);
+                    }
+
                 }
                 throw;
             }
