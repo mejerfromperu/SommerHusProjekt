@@ -39,6 +39,7 @@ namespace SommerhusSite.Pages.AdminSite
 
         [BindProperty]
         [Required(ErrorMessage = "Postnummer skal udfyldes")]
+        [Range(1000, 9999, ErrorMessage = "Postnummer skal være mellem 1000 og 9999")]
         public int NewSummerHousePostalCode { get; set; }
 
         [BindProperty]
@@ -171,8 +172,15 @@ namespace SommerhusSite.Pages.AdminSite
             }
 
             // Update the summerHouse in the repository
-            _summerHouseRepo.Update(id, summerHouse);
-
+            try
+            {
+                _summerHouseRepo.Update(id, summerHouse);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ErrorMessage = ex.Message;
+                return Page();
+            }
             // Clear the session after a successful update
             SessionHelper.Clear<SummerHouse>(HttpContext);
 

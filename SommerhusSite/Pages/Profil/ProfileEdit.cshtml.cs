@@ -119,8 +119,16 @@ namespace SommerhusSite.Pages.Profil
             }
 
             user.IsLandlord = UpdatedIsLandLord;
-
-            _userRepository.Update(id, user);
+            try
+            {
+                _userRepository.Update(id, user);
+            }
+            catch ( InvalidOperationException ex)
+            {
+                ErrorMessage = ex.Message;
+                return Page();
+            }
+           
 
             HttpContext.Session.Clear();
             SessionHelper.Set(user, HttpContext);

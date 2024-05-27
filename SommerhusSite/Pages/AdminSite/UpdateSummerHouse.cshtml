@@ -78,6 +78,12 @@
                     <div class="Application-header">
                         <span class=" d-flex justify-content-center">Udlejnings Ansøgning</span>
                     </div>
+                    @if (!ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Html.ValidationSummary()
+                        </div>
+                    }
                     <h4 class="d-flex justify-content-center" style="padding-top: 40px;">Sommerhuset Lokation</h4>
                     <div class="row d-flex" style="padding-top: 15px;">
                         <div class="col-8">
@@ -117,14 +123,6 @@
                             <h4 class="d-grid justify-content-center">Udlejnings Periode</h4>
                             <div class="mb-3">
                                 <label>Dato Fra</label><br />
-                                <span>
-                                    @if (!ModelState.IsValid)
-                                    {
-                                        <div class="alert alert-danger" role="alert">
-                                            @Html.ValidationSummary()
-                                        </div>
-                                    }
-                                </span>
                                 <input type="date" class="form-control" asp-for="@Model.NewSummerHouseFromDate" id="inputDateFrom" oninput="displayDateFrom()" value="@DateTime.Today"><br />
                             </div>
                             <h4 class="d-gridjustify-content-center"></h4>
