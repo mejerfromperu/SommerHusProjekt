@@ -42,7 +42,7 @@ namespace SommerhusSite.Pages.AdminSite
         public string NewUserEmail { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Password skal udfyldes")]
+        [Required(ErrorMessage = "Adgangskode skal udfyldes")]
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Der skal være mindst 8 tegn i et password")]
         public string NewUserPassword { get; set; }
 
@@ -76,7 +76,7 @@ namespace SommerhusSite.Pages.AdminSite
         public IActionResult OnPost()
         {
 
-            ErrorMessage = "fEJL 404 KUNNE IKKE OPRETTE EN USER";
+            ErrorMessage = "Fejl kunne ikke oprette bruger";
             ModelState.Remove("NewUserFloor"); // Ignorer validering af NewUserFloor
             if (!ModelState.IsValid)
             {
