@@ -26,7 +26,7 @@ namespace SommerHusProjekt.Repository07
                 string checkPostalCodeSql = "SELECT COUNT(1) FROM SommerPostalCode WHERE PostalCode = @PostalCode";
                 using (SqlCommand checkCmd = new SqlCommand(checkPostalCodeSql, connection))
                 {
-                    checkCmd.Parameters.AddWithValue("@PostalCode", user.PostalCode);
+                    checkCmd.Parameters.AddWithValue("@PostalCode", s.PostalCode);
                     int postalCodeExists = (int)checkCmd.ExecuteScalar();
 
                     if (postalCodeExists == 0)
