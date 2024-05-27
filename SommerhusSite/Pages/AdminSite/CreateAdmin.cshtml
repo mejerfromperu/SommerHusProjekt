@@ -13,12 +13,12 @@
                 </span>
             </div>
             <div class="col-6">
-                <label>Navn</label><br />
+                <label>Fornavn</label><br />
                 <span asp-validation-for="@Model.NewUserFirstName" class="text-danger"></span>
                 <input class="form-control" asp-for="@Model.NewUserFirstName" /><br />
             </div>
             <div class="col-6">
-                <label>Efter Navn</label><br />
+                <label>Efternavn</label><br />
                 <span asp-validation-for="@Model.NewUserLastName" class="text-danger"></span>
                 <input class="form-control" asp-for="@Model.NewUserLastName" /><br />
             </div>
@@ -34,7 +34,7 @@
                 <input class="form-control" asp-for="@Model.NewUserEmail" /><br />
             </div>
             <div class="col-12">
-                <label>Password</label><br />
+                <label>Adgangskode</label><br />
                 <span asp-validation-for="@Model.NewUserPassword" class="text-danger"></span>
                 <input type="password" id="password" class="form-control" asp-for="@Model.NewUserPassword" /><br />
             </div>
