@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SommerHusProjekt.Model07;
 using SommerHusProjekt.Repository07;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 
 namespace SommerhusHjemmeside.Pages.UserSite
 {
@@ -61,6 +62,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
 
         [BindProperty]
         [Required(ErrorMessage = "Postnummer skal udfyldes")]
+        [Range(1000, 9999, ErrorMessage = "Postnummer skal være mellem 1000 og 9999")]
         public int NewUserPostalCode { get; set; }
 
         [BindProperty]
