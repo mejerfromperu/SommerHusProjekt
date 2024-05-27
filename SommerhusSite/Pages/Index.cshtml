@@ -59,7 +59,10 @@
                 <input class="col-12" type="date" asp-for="@Model.SearchDateTo" />
             </div>
         </div>
-        <div class="col-12 d-flex row">
+        <div class="col-6 d-flex row">
+            <input type="reset" value="Reset" class="btn btn-outline-dark rounded-pill" style="width: 50%; margin-left: 25%; margin-right: 25%; margin-top: 10px; background-color: var(--Color1) " />
+        </div>
+        <div class="col-6 d-flex row">
             <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-outline-dark rounded-pill btnSpecial" style="width: 50%; margin-left: 25%; margin-right: 25%; margin-top: 10px;" />
         </div>
     </div>
