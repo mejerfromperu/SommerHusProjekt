@@ -269,6 +269,19 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
             connection.Open();
 
+            // checker om postnummeret eksitere
+            string checkPostalCodeSql = "SELECT COUNT(1) FROM SommerPostalCode WHERE PostalCode = @PostalCode";
+            using (SqlCommand checkCmd = new SqlCommand(checkPostalCodeSql, connection))
+            {
+                checkCmd.Parameters.AddWithValue("@PostalCode", s.PostalCode);
+                int postalCodeExists = (int)checkCmd.ExecuteScalar();
+
+                if (postalCodeExists == 0)
+                {
+                    throw new InvalidOperationException("Postnummeret findes ikke");
+                }
+            }
+
             //Laver query til at update sommerhus og sætter værdierne på simmerhuset til de nye værdier man giver, det sker udfra hvilket id man giver
             string updateSql = "UPDATE SommerSommerHouse SET StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, PostalCode = @PostalCode, Description = @Description, Price = @Price, Picture = @Picture, DateFrom = @DateFrom, DateTo = @DateTo, AmountSleepingSpace = @AmountSleepingSpace WHERE Id = @Id";
 
