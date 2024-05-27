@@ -94,8 +94,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
             try
             {
                 _repo.Add(newsummerhouse);
-                TempData["SuccessMessage"] = $"User {newsummerhouse} added successfully";
-
+                TempData["SuccessMessage"] = $"Nyt {newsummerhouse} tilføjet";
             }
             catch (ArgumentException ex)
             {

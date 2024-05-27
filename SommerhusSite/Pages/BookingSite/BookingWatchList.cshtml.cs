@@ -33,12 +33,12 @@ namespace SommerhusSite.Pages.BookingSite
 
                 if (UserBookings.Count == 0)
                 {
-                    TempData["Message"] = "No bookings found for this user.";
+                    TempData["Message"] = "Ingen bookinger fundet for denne profil";
                 }
             }
             else
             {
-                TempData["Message"] = "Please log in to view your bookings.";
+                TempData["Message"] = "Login for at se dine bookinger";
                 RedirectToPage("Index");
             }
         }

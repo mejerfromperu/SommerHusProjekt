@@ -43,13 +43,13 @@ namespace SommerhusSite.Pages.UserSite
             var user = _userRepository.GetByEmail(Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Email not found.");
+                ModelState.AddModelError(string.Empty, "Email ikke fundet.");
                 return Page();
             }
 
             _userRepository.UpdatePassword(Email, NewPassword);
 
-            TempData["SuccessMessage"] = "Password has been reset successfully.";
+            TempData["SuccessMessage"] = "Adgangskoden er blevet ændret";
             return RedirectToPage("/UserSite/Login");
         }
 
