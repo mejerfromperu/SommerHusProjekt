@@ -68,9 +68,15 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         {
 
             ErrorMessage = "Fejl Kunne ikke oprette bruger";
+            ModelState.Remove("NewSummerHouseFloor"); // Ignorer validering af NewSummerHouseFloor
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            if (NewSummerHouseFloor == null)
+            {
+                NewSummerHouseFloor = string.Empty;
             }
 
             if (NewSummerHouseFromDate < DateTime.Now || NewSummerHouseToDate < NewSummerHouseFromDate)

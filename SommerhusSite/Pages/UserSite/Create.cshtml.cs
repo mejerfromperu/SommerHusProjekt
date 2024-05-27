@@ -43,7 +43,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
         public string NewUserEmail { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Password skal udfyldes")]
+        [Required(ErrorMessage = "Adgangskode skal udfyldes")]
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Der skal være mindst 8 tegn i et password")]
         public string NewUserPassword { get; set; }
 
