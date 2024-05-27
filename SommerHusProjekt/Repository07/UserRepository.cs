@@ -19,6 +19,19 @@ namespace SommerHusProjekt.Repository07
                 using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
                 {
                     connection.Open();
+                    // Check if the postal code exists
+                    string checkPostalCodeSql = "SELECT COUNT(1) FROM SommerPostalCode WHERE PostalCode = @PostalCode";
+                    using (SqlCommand checkCmd = new SqlCommand(checkPostalCodeSql, connection))
+                    {
+                        checkCmd.Parameters.AddWithValue("@PostalCode", user.PostalCode);
+                        int postalCodeExists = (int)checkCmd.ExecuteScalar();
+
+                        if (postalCodeExists == 0)
+                        {
+                            throw new InvalidOperationException("Postnummeret findes ikke");
+                        }
+                    }
+
                     string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord)" +
                         " VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
                     if (user.Floor == null)
