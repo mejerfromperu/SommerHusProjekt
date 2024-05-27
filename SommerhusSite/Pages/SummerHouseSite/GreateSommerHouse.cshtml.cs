@@ -25,6 +25,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         [Required(ErrorMessage = "Hus nummer skal udfyldes")]
         public string NewSummerHouseHouseNumber { get; set; }
         [BindProperty]
+        [Required(ErrorMessage = "Etage skal udfyldes, men kan udfyldes med 0")]
         public string NewSummerHouseFloor { get; set; }
 
         [BindProperty]
@@ -66,7 +67,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         public IActionResult OnPost()
         {
 
-            ErrorMessage = "fEJL 404 KUNNE IKKE OPRETTE EN USER";
+            ErrorMessage = "Fejl Kunne ikke oprette bruger";
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -80,7 +81,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 
             if (!int.TryParse(NewSummerHousePostalCode, out int postalCode))
             {
-                ErrorMessage = "Invalid postal code format";
+                ErrorMessage = "Ikke gyldig postnummer format";
                 return Page(); 
             }
 
@@ -96,11 +97,12 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
                 _repo.Add(newsummerhouse);
                 TempData["SuccessMessage"] = $"Nyt {newsummerhouse} tilføjet";
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 ErrorMessage = ex.Message;
                 return Page();
             }
+
 
             return RedirectToPage("/Index");
 

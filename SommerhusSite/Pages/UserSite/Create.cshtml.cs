@@ -79,7 +79,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
         public IActionResult OnPost()
         {
 
-            ErrorMessage = "fEJL 404 KUNNE IKKE OPRETTE EN USER";
+            ErrorMessage = "Fejl kunne ikke oprette bruger";
             ModelState.Remove("NewUserFloor"); // Ignorer validering af NewUserFloor
             if (!ModelState.IsValid)
             {
