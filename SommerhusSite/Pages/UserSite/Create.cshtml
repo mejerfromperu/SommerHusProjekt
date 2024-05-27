@@ -11,9 +11,15 @@
         <div class="row d-flex justify-content-center">
             <div class="Create-header">
                 <span class="gradient-text">
-                    Create Profile
+                    Opret Profil
                 </span>
             </div>
+            @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger">
+                    @Model.ErrorMessage
+                </div>
+            }
             <div class="col-6">
                 <label>Navn</label><br />
                 <span  asp-validation-for="@Model.NewUserFirstName"  class="text-danger"></span>
@@ -26,12 +32,7 @@
             </div>
             <div class="col-12">
                 <label>Email</label><br />
-                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-                {
-                    <div class="alert alert-danger">
-                        @Model.ErrorMessage
-                    </div>
-                }
+                
                 <span  asp-validation-for="@Model.NewUserEmail"  class="text-danger"></span>
                 <input class="form-control"  asp-for="@Model.NewUserEmail"  /><br />
             </div>
@@ -47,6 +48,7 @@
             </div>
             <div class="col-4">
                 <label>Post Nummer</label><br />
+                
                 <span asp-validation-for="@Model.NewUserPostalCode" class="text-danger"></span>
                 <input class="form-control" asp-for="@Model.NewUserPostalCode" /><br />
             </div>
