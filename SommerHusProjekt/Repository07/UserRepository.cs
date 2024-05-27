@@ -19,7 +19,7 @@ namespace SommerHusProjekt.Repository07
                 using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
                 {
                     connection.Open();
-                    // Check if the postal code exists
+                    // Checker om postnummer eksitere
                     string checkPostalCodeSql = "SELECT COUNT(1) FROM SommerPostalCode WHERE PostalCode = @PostalCode";
                     using (SqlCommand checkCmd = new SqlCommand(checkPostalCodeSql, connection))
                     {
