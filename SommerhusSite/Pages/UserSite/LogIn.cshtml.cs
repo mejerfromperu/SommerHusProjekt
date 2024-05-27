@@ -19,12 +19,12 @@ namespace SommerhusHjemmeside.Pages.UserSite
         }
 
         [BindProperty]
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
+        [Required(ErrorMessage = "Email skal udfyldes")]
+        [EmailAddress(ErrorMessage = "Forkert email")]
         public string Email { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = "Adgangskode skal udfyldes")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -51,7 +51,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
                 return RedirectToPage("/Index");
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid email or password");
+            ModelState.AddModelError(string.Empty, "forkert email eller adgangskode");
             return Page();
         }
 
