@@ -15,31 +15,45 @@ namespace SommerHusProjekt.Repository07
         //Add metode til sommerhus
         public SummerHouse Add(SummerHouse s)
         {
-            //Connecter til database via connectionstring
-            SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
-            connection.Open();
 
-            //Laver en query, det som står i "" og indsætter den i databasen. Så vi kan få indsat alt info på sommerhuset
-            string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price, Picture, DateFrom, DateTo, AmountSleepingSpace) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price, @Picture, @DateFrom, @DateTo, @AmountSleepingSpace)";
+            try
+            {
+                //Connecter til database via connectionstring
+                SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
+                connection.Open();
 
-            //Her kører vi den query til vores database med alle parameterne på sommerhuset
-            SqlCommand cmd = new SqlCommand(insertSql, connection);
-            cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
-            cmd.Parameters.AddWithValue("@HouseNumber", s.HouseNumber);
-            cmd.Parameters.AddWithValue("@Floor", s.Floor);
-            cmd.Parameters.AddWithValue("@PostalCode", s.PostalCode);
-            cmd.Parameters.AddWithValue("@Description", s.Description);
-            cmd.Parameters.AddWithValue("@Price", s.Price);
-            cmd.Parameters.AddWithValue("@Picture", s.Picture);
-            cmd.Parameters.AddWithValue("@DateFrom", s.DateFrom);
-            cmd.Parameters.AddWithValue("@DateTo", s.DateTo);
-            cmd.Parameters.AddWithValue("@AmountSleepingSpace", s.AmountSleepingSpace);
+                //Laver en query, det som står i "" og indsætter den i databasen. Så vi kan få indsat alt info på sommerhuset
+                string insertSql = "INSERT INTO SommerSommerHouse (StreetName, HouseNumber, Floor, PostalCode, Description, Price, Picture, DateFrom, DateTo, AmountSleepingSpace) VALUES (@StreetName, @HouseNumber, @Floor, @PostalCode, @Description, @Price, @Picture, @DateFrom, @DateTo, @AmountSleepingSpace)";
 
-            int rowsAffected = cmd.ExecuteNonQuery();
-            Console.WriteLine("Rows affected: " + rowsAffected);
+                //Her kører vi den query til vores database med alle parameterne på sommerhuset
+                SqlCommand cmd = new SqlCommand(insertSql, connection);
+                cmd.Parameters.AddWithValue("@StreetName", s.StreetName);
+                cmd.Parameters.AddWithValue("@HouseNumber", s.HouseNumber);
+                cmd.Parameters.AddWithValue("@Floor", s.Floor);
+                cmd.Parameters.AddWithValue("@PostalCode", s.PostalCode);
+                cmd.Parameters.AddWithValue("@Description", s.Description);
+                cmd.Parameters.AddWithValue("@Price", s.Price);
+                cmd.Parameters.AddWithValue("@Picture", s.Picture);
+                cmd.Parameters.AddWithValue("@DateFrom", s.DateFrom);
+                cmd.Parameters.AddWithValue("@DateTo", s.DateTo);
+                cmd.Parameters.AddWithValue("@AmountSleepingSpace", s.AmountSleepingSpace);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                Console.WriteLine("Rows affected: " + rowsAffected);
+                connection.Close();
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 547) // specifik exception for invalid input key i ms sql
+                {
+                    throw new InvalidOperationException("Postnummer findes ikke", ex);
+                }
+                throw;
+            }
 
             //Lukker connectionen til database, så vi er sikre på der ikke sker mere.
-            connection.Close();
+
             //Returnerer sommerhuset s
             return s;
         }

@@ -96,11 +96,12 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
                 _repo.Add(newsummerhouse);
                 TempData["SuccessMessage"] = $"Nyt {newsummerhouse} tilføjet";
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 ErrorMessage = ex.Message;
                 return Page();
             }
+
 
             return RedirectToPage("/Index");
 

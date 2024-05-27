@@ -71,7 +71,14 @@
                     <div class="col-8">
                         <input id="inputCity" placeholder="By" class="form-control" oninput="displayCity()" /><br />
                     </div>
+
                     <div class="col-4">
+                            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                            {
+                                <div class="alert alert-danger">
+                                    @Model.ErrorMessage
+                                </div>
+                            }
                         <span asp-validation-for="@Model.NewSummerHousePostalCode" class="text-danger"></span>
                         <input class="form-control" placeholder="Postnummer" id="inputPostalcode" type="text" oninput="displayPostalcode()" asp-for="@Model.NewSummerHousePostalCode" /><br />
                     </div>
