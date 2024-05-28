@@ -15,7 +15,6 @@ namespace SommerHusProjekt.Repository07
         List<SummerHouse> GetAllWithCity();
         List<SummerHouse> GetSomething();
         SummerHouse GetById(int id);
-        string? ToString();
         SummerHouse Update(int id, SummerHouse summerHouse);
         List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, int? postalCode, decimal? price, int? amountSleepingSpace, DateTime? dateFrom, DateTime? dateTo);
         List<SummerHouse> SortId();

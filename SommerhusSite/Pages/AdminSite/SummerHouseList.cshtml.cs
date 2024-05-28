@@ -27,8 +27,6 @@ namespace SommerhusSite.Pages.AdminSite
         [BindProperty]
         public string? SearchHouseNumber { get; set; }
         [BindProperty]
-        public string? SearchFloor { get; set; }
-        [BindProperty]
         public int? SearchPostalCode { get; set; }
         [BindProperty]
         public decimal? SearchPrice { get; set; }
