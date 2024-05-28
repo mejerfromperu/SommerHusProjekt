@@ -9,14 +9,13 @@ namespace SommerhusSite.Pages.BookingSite
     public class ConfirmationModel : PageModel
     {
 
-
+        public ISummerHouseRepository _summerhouse;
         private IBookingRepository _bookinglist;
         public List<Booking> bookings;
-        public ISummerHouseRepository _summerhouse;
         public List<SummerHouse> sommerhuse;
 
         public int newuserid;
-        public SummerHouse sum;
+     
         public ConfirmationModel (IBookingRepository bookinglist, ISummerHouseRepository summerhouse)
         {
 

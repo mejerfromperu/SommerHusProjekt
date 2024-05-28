@@ -12,7 +12,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
     public class LogInModel : PageModel
     {
         private IUserRepository _repo;
-        private User user;
+
         public LogInModel(IUserRepository userRepo)
         {
             _repo = userRepo;

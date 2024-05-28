@@ -52,8 +52,7 @@ namespace SommerhusSite.Pages.Profil
         [BindProperty]
         public int UpdatedPostalCode { get; set; }
 
-        [BindProperty]
-        public bool UpdatedIsAdmin { get; set; }
+
         [BindProperty]
         public bool UpdatedIsLandLord { get; set; }
 
