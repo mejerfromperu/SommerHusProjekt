@@ -12,9 +12,7 @@ namespace SommerHusProjekt.Repository07
         SummerHouse Add(SummerHouse s);
         SummerHouse Delete(int id);
         List<SummerHouse> GetAll();
-        List<SummerHouse> GetSomething();
         SummerHouse GetById(int id);
-        string? ToString();
         SummerHouse Update(int id, SummerHouse summerHouse);
         List<SummerHouse> Search(int? id, string? streetName, string? houseNumber, int? postalCode, decimal? price, int? amountSleepingSpace, DateTime? dateFrom, DateTime? dateTo);
         List<SummerHouse> SortId();

@@ -14,7 +14,6 @@ namespace SommerHusProjekt.Repository07
         List<User> GetAll();
         List<User> GetSomething();
         User GetById(int id);
-        string? ToString();
         User Update(int id, User User);
         User GetByEmailAndPassword(string email, string password);
         User GetByEmail(string email);
