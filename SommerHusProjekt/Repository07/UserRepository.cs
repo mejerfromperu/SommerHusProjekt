@@ -224,6 +224,19 @@ namespace SommerHusProjekt.Repository07
             SqlConnection connection = new SqlConnection("Data Source=mssql16.unoeuro.com;Initial Catalog=isakgm_dk_db_test;User ID=isakgm_dk;Password=f2t9wHmFRDenbEA53ghp;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             connection.Open();
 
+            // Checker om postnummer eksitere
+            string checkPostalCodeSql = "SELECT COUNT(1) FROM SommerPostalCode WHERE PostalCode = @PostalCode";
+            using (SqlCommand checkCmd = new SqlCommand(checkPostalCodeSql, connection))
+            {
+                checkCmd.Parameters.AddWithValue("@PostalCode", user.PostalCode);
+                int postalCodeExists = (int)checkCmd.ExecuteScalar();
+
+                if (postalCodeExists == 0)
+                {
+                    throw new InvalidOperationException("Postnummeret findes ikke");
+                }
+            }
+
             string updateSql = "UPDATE SommerUser SET FirstName = @FirstName, LastName = @LastName, Phone = @Phone, Email = @Email, Password = @Password, StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, Postalcode = @Postalcode, IsLandlord = @IsLandlord  WHERE Id = @Id";
 
             SqlCommand cmd = new SqlCommand(updateSql, connection);
