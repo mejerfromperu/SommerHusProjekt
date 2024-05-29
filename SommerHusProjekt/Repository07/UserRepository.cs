@@ -427,7 +427,6 @@ namespace SommerHusProjekt.Repository07
             }
         }
 
-
         public List<User> SortLastName()
         {
             List<User> retUsers = GetSomething();
@@ -457,32 +456,6 @@ namespace SommerHusProjekt.Repository07
             NameASC = !NameASC;
 
             return retUsers;
-        }
-
-        private class SortByFirstName : IComparer<User>
-        {
-            public int Compare(User? x, User? y)
-            {
-                if (x == null || y == null)
-                {
-                    return 0;
-                }
-
-                return x.FirstName.CompareTo(y.FirstName);
-            }
-        }
-
-        private class SortByLastName : IComparer<User>
-        {
-            public int Compare(User? x, User? y)
-            {
-                if (x == null || y == null)
-                {
-                    return 0;
-                }
-
-                return x.LastName.CompareTo(y.LastName);
-            }
         }
     }
 }

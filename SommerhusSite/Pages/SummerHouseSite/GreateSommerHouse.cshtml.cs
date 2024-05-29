@@ -10,7 +10,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
     {
         private ISummerHouseRepository _repo;
 
-        // dependency injection
+        //dependency injection
         public GreateSommerHouseModel(ISummerHouseRepository sommerhouserepo)
         {
             _repo = sommerhouserepo;

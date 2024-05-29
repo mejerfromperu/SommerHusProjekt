@@ -122,14 +122,18 @@ namespace SommerHusProjekt.Repository07
             connection.Close();
             return list;
         }
+
+        //Den gør det samme som vores get all den gør det bare muligt at få byer med på vores kort
         public List<SummerHouse> GetAllWithCity()
         {
+            //laver en ny liste på sommerhusene bare med by på
             List<SummerHouse> list = new List<SummerHouse>();
 
-            SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
-            
+                //laver en connection til database og åbner den
+                SqlConnection connection = new SqlConnection(Secret.GetConnectionString);
                 connection.Open();
-
+                
+                //laver en query hvor vi får alt vi vil hente
                 string sql = "SELECT SommerSommerHouse.Id, SommerSommerHouse.StreetName, SommerSommerHouse.HouseNumber, SommerSommerHouse.PostalCode, SommerPostalcode.City, SommerSommerHouse.Floor, SommerSommerHouse.Description, SommerSommerHouse.Price, SommerSommerHouse.Picture, SommerSommerHouse.DateFrom, SommerSommerHouse.DateTo, SommerSommerHouse.AmountSleepingSpace FROM SommerSommerHouse INNER JOIN SommerPostalcode ON SommerSommerHouse.PostalCode = SommerPostalcode.Postalcode";
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
@@ -446,23 +450,6 @@ namespace SommerHusProjekt.Repository07
             return retSummerHouses;
         }
 
-        //Vores icomparer sortbystreetname metode
-        private class SortByStreetName : IComparer<SummerHouse>
-        {
-            //Sætter de sommerhuse op med en int hvor de kan se hinanden
-            public int Compare(SummerHouse? x, SummerHouse? y)
-            {
-                //Hvis x eller y er null så returnerer vi ikke noget
-                if (x == null || y == null)
-                {
-                    return 0;
-                }
-
-                //Returerer hvor vi comparer x vejnavn med y vejnavn
-                return x.StreetName.CompareTo(y.StreetName);
-            }
-        }
-
         //sortering efter postnummer metode
         public List<SummerHouse> SortPostalCode()
         {
@@ -584,9 +571,6 @@ namespace SommerHusProjekt.Repository07
                 //Returnerer at x pris og y pris er compared
                 return x.Price.CompareTo(y.Price);
             }
-
         }
-
-
     }
 }
