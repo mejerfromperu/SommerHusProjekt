@@ -13,35 +13,35 @@
                 <h2>Sidste bookede sommerhus for user med ID: @Model.newuserid</h2>
                 @if (Model.bookings.Any(booking => booking.UserId == Model.newuserid))
                 {
-                    var lastBooking = Model.bookings.Last(booking => booking.UserId == Model.newuserid);
-                    var summerhouse = Model._summerhouse.GetById(lastBooking.SummerHouseId);
+                    Booking lastBooking = Model.bookings.Last(booking => booking.UserId == Model.newuserid);
+                    SummerHouse summerhouse = Model._summerhouse.GetById(lastBooking.SummerHouseId);
 
-                    <div class="card BookingConfBox">
-                        <div class="card-body">
-                            <p class="card-text">Sommerhus ID: @summerhouse.Id</p>
-                            <div class="text-center">
-                                @if (!string.IsNullOrEmpty(summerhouse.Picture))
-                                {
-                                    <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@summerhouse.Picture" />
-                                }
-                                else
-                                {
-                                    <img class="card-img-top cardSpecialIMG" src="default-placeholder.png" alt="No image available" />
-                                }
+                        <div class="card BookingConfBox">
+                            <div class="card-body">
+                                <p class="card-text">Sommerhus ID: @summerhouse.Id</p>
+                                <div class="text-center">
+                                    @if (!string.IsNullOrEmpty(summerhouse.Picture))
+                                    {
+                                        <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@summerhouse.Picture" />
+                                    }
+                                    else
+                                    {
+                                        <img class="card-img-top cardSpecialIMG" src="default-placeholder.png" alt="No image available" />
+                                    }
+                                </div>
+                                <h2 class="card-title">@summerhouse.City</h2>
+                                <h4>@summerhouse.StreetName</h4>
+                                <h4>Ledig Fra: @summerhouse.DateFrom.ToShortDateString()</h4>
+                                <h4>Ledig Til: @summerhouse.DateTo.ToShortDateString()</h4>
+                                <h4>Pris pr. Dag: @summerhouse.Price Kr.</h4>
+                                <h5 class="card-title">Beskrivelse:</h5>
+                                <p class="card-text">@summerhouse.Description</p>
+                                <h5 class="card-title">Booking Detaljer:</h5>
+                                <p class="card-text">Booking ID: @lastBooking.Id</p>
+                                <p class="card-text">Booket Fra: @lastBooking.StartDate.ToShortDateString()</p>
+                                <p class="card-text">Booket Til: @lastBooking.EndDate.ToShortDateString()</p>
                             </div>
-                            <h2 class="card-title">@summerhouse.City</h2>
-                            <h4>@summerhouse.StreetName</h4>
-                            <h4>Ledig Fra: @summerhouse.DateFrom.ToShortDateString()</h4>
-                            <h4>Ledig Til: @summerhouse.DateTo.ToShortDateString()</h4>
-                            <h4>Pris pr. Dag: @summerhouse.Price Kr.</h4>
-                            <h5 class="card-title">Beskrivelse:</h5>
-                            <p class="card-text">@summerhouse.Description</p>
-                            <h5 class="card-title">Booking Detaljer:</h5>
-                            <p class="card-text">Booking ID: @lastBooking.Id</p>
-                            <p class="card-text">Booket Fra: @lastBooking.StartDate.ToShortDateString()</p>
-                            <p class="card-text">Booket Til: @lastBooking.EndDate.ToShortDateString()</p>
                         </div>
-                    </div>
                 }
                 else
                 {

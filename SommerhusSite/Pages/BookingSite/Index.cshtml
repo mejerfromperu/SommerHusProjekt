@@ -74,50 +74,50 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex">
-                <div class="col-6 flex-column">
-                    <h4 class="d-grid justify-content-center">Bestillings Periode</h4>
-                    <div class="mb-3">
-                        <label>Dato Fra</label><br />
-                        <span>
-                                    @if (!ModelState.IsValid)
-                                    {
-                                        <div class="alert alert-danger" role="alert">
-                                            @Html.ValidationSummary()
-                                        </div>
-                                    }
-                        <input type="date" class="form-control" asp-for="Booking.StartDate"  required >
-                    </div>
-                    <h4 class="d-gridjustify-content-center"></h4>
-                    <div class="mb-3">
-                        <label>Dato Til</label><br />
-                        <input type="date" class="form-control" asp-for="Booking.EndDate" required  ><br />
-                    </div>
-                </div>
-                <div class="col-6 flex-column">
-                    <h4 class="d-grid justify-content-center">Bruger Info</h4>
-                    <p name="user Id" hidden>@loggedInUser.Id</p>
-                    <div class="mb-3">
-                        <label>Brugerens Navn</label><br />
-                        <p class="form-control">@loggedInUser.FirstName @loggedInUser.LastName</p>
-                    </div>
+                <div class="row d-flex">
+                    <div class="col-6 flex-column">
+                        <h4 class="d-grid justify-content-center">Bestillings Periode</h4>
+                        <div class="mb-3">
+                            <label>Dato Fra</label><br />
+                            <span>
+                                        @if (!ModelState.IsValid)
+                                        {
+                                            <div class="alert alert-danger" role="alert">
+                                                @Html.ValidationSummary()
+                                            </div>
+                                        }
+                            <input type="date" class="form-control" asp-for="Booking.StartDate"  required >
+                        </div>
                         <h4 class="d-gridjustify-content-center"></h4>
-                    <div class="mb-3">
-                        <label>Brugerens Email</label><br />
-                        <p class="form-control">@loggedInUser.Email</p>
+                        <div class="mb-3">
+                            <label>Dato Til</label><br />
+                            <input type="date" class="form-control" asp-for="Booking.EndDate" required  ><br />
+                        </div>
                     </div>
-                </div>
-                <div class="d-flex justify-content-evenly" style="padding-bottom: 15px;">
-                    <div class="col-6 d-flex justify-content-center">
-                        <input type="submit" value="Lej Nu" class="btn btn-primary" value="@chosenHouse.Id" />
+                    <div class="col-6 flex-column">
+                        <h4 class="d-grid justify-content-center">Bruger Info</h4>
+                        <p name="user Id" hidden>@loggedInUser.Id</p>
+                        <div class="mb-3">
+                            <label>Brugerens Navn</label><br />
+                            <p class="form-control">@loggedInUser.FirstName @loggedInUser.LastName</p>
+                        </div>
+                            <h4 class="d-gridjustify-content-center"></h4>
+                        <div class="mb-3">
+                            <label>Brugerens Email</label><br />
+                            <p class="form-control">@loggedInUser.Email</p>
+                        </div>
                     </div>
-                    <div class="col-6 d-flex justify-content-center">
+                    <div class="d-flex justify-content-evenly" style="padding-bottom: 15px;">
+                        <div class="col-6 d-flex justify-content-center">
+                            <input type="submit" value="Lej Nu" class="btn btn-primary" value="@chosenHouse.Id" />
+                        </div>
+                        <div class="col-6 d-flex justify-content-center">
                                 
-                                <a href="index" class="btn btn-secondary">Fortryd</a>
+                                    <a href="index" class="btn btn-secondary">Fortryd</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
             </form>
         </div>
     </div>
