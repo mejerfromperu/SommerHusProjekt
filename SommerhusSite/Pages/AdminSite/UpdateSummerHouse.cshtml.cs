@@ -155,7 +155,8 @@ namespace SommerhusSite.Pages.AdminSite
             // Handle the picture file if it has been uploaded
             if (NewSummerHousePicture != null)
             {
-                var fileName = Path.GetFileName(NewSummerHousePicture.FileName);
+                
+
                 var filePath = Path.Combine("wwwroot/images", NewSummerHousePicture.FileName);
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
