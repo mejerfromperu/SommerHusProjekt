@@ -3,33 +3,51 @@
 @{
 }
 
-<h1> Slet et sommerhus </h1>
+<h1> Er du sikker på du vil slette dette sommerhus? </h1>
 
-@* Display af valgte sommerhus som skal slettes, og 2 knappper, en til at fortyde og en anden til at slette *@
-
-<form method="post">
-    <div class="form-group>">
-        <label>Sommerhus id</label> : @Model.SummerHouse.Id<br />
-        <br />
-        <label>Vejnavn</label> : @Model.SummerHouse.StreetName<br />
-        <br />
-        <label>Husnummer</label>  : @Model.SummerHouse.HouseNumber<br />
-        <br />
-        <label>Etage</label>  : @Model.SummerHouse.Floor<br />
-        <br />
-        <label>Postnummer</label>  : @Model.SummerHouse.PostalCode<br />
-        <br />
-        <label>Beskrivelse</label>  : @Model.SummerHouse.Description<br />
-        <br />
-        <label>Pris</label>  : @Model.SummerHouse.Price<br />
-        <br />
-        <label>Dato fra</label>  : @Model.SummerHouse.DateFrom<br />
-        <br />
-        <label>Dato til</label>  : @Model.SummerHouse.DateTo<br />
-        <br />
-        <label>Antal gæster</label>  : @Model.SummerHouse.AmountSleepingSpace<br />
-        <br />
+<div class="form-selectt searchform rounded-2">
+    <form method="post">
+        <div class="row">
+            <div class="col">
+                <label>Sommerhus id</label> : @Model.SummerHouse.Id
+            </div>
+            <div class="col">
+                <label>Vejnavn</label> : @Model.SummerHouse.StreetName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Husnummer</label>  : @Model.SummerHouse.HouseNumber
+            </div>
+            <div class="col">
+                <label>Etage</label>  : @Model.SummerHouse.Floor
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Postnummer</label>  : @Model.SummerHouse.PostalCode
+            </div>
+            <div class="col">
+                <label>Beskrivelse</label>  : @Model.SummerHouse.Description
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Pris</label>  : @Model.SummerHouse.Price
+            </div>
+            <div class="col">
+                <label>Dato fra</label>  : @Model.SummerHouse.DateFrom.ToShortDateString()
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Dato til</label>  : @Model.SummerHouse.DateTo.ToShortDateString()
+            </div>
+            <div class="col">
+                <label>Antal gæster</label>  : @Model.SummerHouse.AmountSleepingSpace
+            </div>
+        </div>
         <input type="submit" value="Slet Sommerhus" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@Model.SummerHouse.Id" />
         <input type="submit" value="Fortryd" class="btn btn-warning" asp-page-handler="Cancel" />
-    </div>
-</form>
+    </form>
+</div>

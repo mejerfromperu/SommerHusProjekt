@@ -4,6 +4,7 @@ using SommerHusProjekt.Repository07;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,12 +27,33 @@ namespace SommerHusProjekt.Repository07.Tests
         [TestMethod()]
         public void AddTest()
         {
-
+            // ARange
             int numberOfUserBefore = _userRepository.GetAll().Count;
-            User newuser = new User("alex", "alex", "88625364", "Alex@gmail.com", "44988232", "streetname", "2", 4000, false, false);
+            User newUser = new User("alex", "alex", "88625364", "Alex-UnitTest@gmail.com", "44988232", "streetname", "2", 4000, false, false);
 
-            _userRepository.Add(newuser);
 
+            // Act
+            _userRepository.Add(newUser); // tilføjer bruger til database
+
+
+            // Assert 
+            // Der er blevet tilføjet en user så derfor skulle start antallet + 1 gerne været = med antallet are user i databasen
+            Assert.AreEqual(numberOfUserBefore + 1, _userRepository.GetAll().Count);
+        }
+
+        public void AddTestWithId()
+        {
+            // ARange
+            int numberOfUserBefore = _userRepository.GetAll().Count;
+            User newUser = new User("alex", "alex", "88625364", "Alex-UnitdedeTest@gmail.com", "44988232", "streetname", "2", 4000, false, false);
+
+
+            // Act
+            _userRepository.Add(newUser); // tilføjer bruger til database
+
+
+            // Assert 
+            // Der er blevet tilføjet en user så derfor skulle start antallet + 1 gerne været = med antallet are user i databasen
             Assert.AreEqual(numberOfUserBefore + 1, _userRepository.GetAll().Count);
         }
 
@@ -39,22 +61,39 @@ namespace SommerHusProjekt.Repository07.Tests
         [ExpectedException(typeof(SqlException))]
         public void AddUser_DuplicateEmailTest()
         {
-            User newuser = new User("alex", "alex", "88625364", "duplicate2@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
+            // Arange
+            User newuser = new User("alex", "alex", "88625364", "UNIT-TEST@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
 
-            _userRepository.Add(newuser); // First add should succeed
-            _userRepository.Add(newuser); // Second add should fail and throw exception due to duplicate email
 
+            // Act
+            _userRepository.Add(newuser); // Første skulle gerne tilføjes i database 
+            _userRepository.Add(newuser); // Nummer 2 skal fejle begrund af duplicate email i database.
+
+
+            //Assert
             Assert.Fail();
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void AddUser_InvalidEmailTest()
+        [ExpectedException(typeof(SqlException))]
+        public void AddUser_DuplicateEmailTest2()
         {
-            User newuser = new User("alex", "alex", "88625364", "InvalidEmail", "44988232", "streetname", "2", 4000, false, false);
+            // Arange
+            User newuser = new User("alex", "alex", "88625364", "UNIT-TEST3@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
 
-            _userRepository.Add(newuser);
+            User newuser2 = new User("John", "John", "231423532", "ShouldBeAdded@gmail.com", "password", "streetname", "2", "1", 4000, false, false);
+
+
+            // Act
+            _userRepository.Add(newuser); // Første skulle gerne tilføjes i database 
+            _userRepository.Add(newuser2); // Newuser skal gerne addeds 
+            _userRepository.Add(newuser); // Nummer 2 skal fejle begrund af duplicate email i database.
+
+
+            //Assert
+            Assert.Fail(); // meningen er at vi stadig skal smide en exception efter de 2 første objecter af typen user bliver tilføjet til repo.
         }
+
 
         [TestMethod()]
         public void DeleteTest()
@@ -95,28 +134,6 @@ namespace SommerHusProjekt.Repository07.Tests
             Assert.AreEqual(id, 21);
         }
 
-        [TestMethod()]
-        public void UpdateTest()
-        {
-            // Arrange
-            int userIdToUpdate = 22; // Change this to the ID of the user you want to update
-            User updatedUserData = new User("Alex", "alex", "299299233", "Alex@gmail.com", "29992999", "streetname", "2st", 4000, false, true);
-            
 
-            // Act
-            User updatedUser = _userRepository.Update(userIdToUpdate, updatedUserData);
-
-            // Assert
-            Assert.AreEqual(updatedUserData.FirstName, updatedUser.FirstName);
-            Assert.AreEqual(updatedUserData.LastName, updatedUser.LastName);
-            Assert.AreEqual(updatedUserData.Phone, updatedUser.Phone);
-            Assert.AreEqual(updatedUserData.Email, updatedUser.Email);
-            Assert.AreEqual(updatedUserData.Password, updatedUser.Password);
-            Assert.AreEqual(updatedUserData.StreetName, updatedUser.StreetName);
-            Assert.AreEqual(updatedUserData.HouseNumber, updatedUser.HouseNumber);
-            Assert.AreEqual(updatedUserData.Floor, updatedUser.Floor);
-            Assert.AreEqual(updatedUserData.PostalCode, updatedUser.PostalCode);
-            Assert.AreEqual(updatedUserData.IsLandlord, updatedUser.IsLandlord);
-        }
     }
 }

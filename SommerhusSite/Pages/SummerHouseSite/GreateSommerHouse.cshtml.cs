@@ -9,10 +9,8 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
     public class GreateSommerHouseModel : PageModel
     {
         private ISummerHouseRepository _repo;
-        private DateTime _newSummerHouseFromDate;
-        private DateTime _newSummerHouseToDate;
 
-        // dependency injection
+        //dependency injection
         public GreateSommerHouseModel(ISummerHouseRepository sommerhouserepo)
         {
             _repo = sommerhouserepo;
@@ -27,6 +25,7 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         [Required(ErrorMessage = "Hus nummer skal udfyldes")]
         public string NewSummerHouseHouseNumber { get; set; }
         [BindProperty]
+        [Required(ErrorMessage = "Etage skal udfyldes, men kan udfyldes med 0")]
         public string NewSummerHouseFloor { get; set; }
 
         [BindProperty]
@@ -51,33 +50,12 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Fra skal udfyldes")]
-        public DateTime NewSummerHouseFromDate
-        {
-            get { return _newSummerHouseFromDate; }
-            set
-            {
-                if (value < DateTime.Today)
-                {
-                    throw new ArgumentException("Dato Fra kan ikke være før dagens dato");
-                }
-                _newSummerHouseFromDate = value;
-            }
-        }
+        public DateTime NewSummerHouseFromDate { get; set; }
+
 
         [BindProperty]
         [Required(ErrorMessage = "Dato Til skal udfyldes")]
-        public DateTime NewSummerHouseToDate
-        {
-            get { return _newSummerHouseToDate; }
-            set
-            {
-                if (value <= DateTime.Today)
-                {
-                    throw new ArgumentException("Dato Til kan ikke være før dagens dato");
-                }
-                _newSummerHouseToDate = value;
-            }
-        }
+        public DateTime NewSummerHouseToDate { get; set; }
 
         public string ErrorMessage { get; private set; }
 
@@ -89,15 +67,27 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
         public IActionResult OnPost()
         {
 
-            ErrorMessage = "fEJL 404 KUNNE IKKE OPRETTE EN USER";
+            ErrorMessage = "Fejl Kunne ikke oprette sommerhus";
+            ModelState.Remove("NewSummerHouseFloor"); // Ignorer validering af NewSummerHouseFloor
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            if (NewSummerHouseFloor == null)
+            {
+                NewSummerHouseFloor = string.Empty;
+            }
+
+            if (NewSummerHouseFromDate < DateTime.Now || NewSummerHouseToDate < NewSummerHouseFromDate)
+            {
+                ModelState.AddModelError("", "Undskyld datoer udfyldt for sommerhuset er i fortiden eller passer ikke med hinanden.");
+                return Page();
+            }
+
             if (!int.TryParse(NewSummerHousePostalCode, out int postalCode))
             {
-                ErrorMessage = "Invalid postal code format";
+                ErrorMessage = "Ikke gyldig postnummer format";
                 return Page(); 
             }
 
@@ -111,14 +101,14 @@ namespace SommerhusHjemmeside.Pages.SommerHouseFolder
             try
             {
                 _repo.Add(newsummerhouse);
-                TempData["SuccessMessage"] = $"User {newsummerhouse} added successfully";
-
+                TempData["SuccessMessage"] = $"Nyt {newsummerhouse} tilføjet";
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 ErrorMessage = ex.Message;
                 return Page();
             }
+
 
             return RedirectToPage("/Index");
 

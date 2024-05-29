@@ -19,7 +19,21 @@ namespace SommerHusProjekt.Repository07
                 using (SqlConnection connection = new SqlConnection(Secret.GetConnectionString))
                 {
                     connection.Open();
-                    string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord) VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
+                    // Checker om postnummer eksitere
+                    string checkPostalCodeSql = "SELECT COUNT(1) FROM SommerPostalCode WHERE PostalCode = @PostalCode";
+                    using (SqlCommand checkCmd = new SqlCommand(checkPostalCodeSql, connection))
+                    {
+                        checkCmd.Parameters.AddWithValue("@PostalCode", user.PostalCode);
+                        int postalCodeExists = (int)checkCmd.ExecuteScalar();
+
+                        if (postalCodeExists == 0)
+                        {
+                            throw new InvalidOperationException("Postnummeret findes ikke");
+                        }
+                    }
+
+                    string insertSql = "INSERT INTO SommerUser (FirstName, LastName, Phone, Email, Password, StreetName, HouseNumber, Floor, PostalCode, IsAdmin, IsLandlord)" +
+                        " VALUES (@FirstName, @LastName, @Phone, @Email, @Password, @StreetName, @HouseNumber, @Floor, @PostalCode, @IsAdmin, @IsLandlord)";
                     if (user.Floor == null)
                     {
                         user.Floor = string.Empty;
@@ -44,9 +58,17 @@ namespace SommerHusProjekt.Repository07
             catch (SqlException ex)
             {
 
-                if (ex.Number == 2627) // specifik exception kode for duplicate key i ms sql
+                if (ex.Number == 2627 || ex.Number == 547) // specifik exception kode for duplicate key i ms sql and invalid input
                 {
-                    throw new InvalidOperationException("A user with the same email address already exists.", ex);
+                    if(ex.Number == 2627)
+                    {
+                        throw new InvalidOperationException("Email er allerede i brug", ex);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Postnummer findes ikke", ex);
+                    }
+
                 }
                 throw;
             }
@@ -201,6 +223,19 @@ namespace SommerHusProjekt.Repository07
         {
             SqlConnection connection = new SqlConnection("Data Source=mssql16.unoeuro.com;Initial Catalog=isakgm_dk_db_test;User ID=isakgm_dk;Password=f2t9wHmFRDenbEA53ghp;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             connection.Open();
+
+            // Checker om postnummer eksitere
+            string checkPostalCodeSql = "SELECT COUNT(1) FROM SommerPostalCode WHERE PostalCode = @PostalCode";
+            using (SqlCommand checkCmd = new SqlCommand(checkPostalCodeSql, connection))
+            {
+                checkCmd.Parameters.AddWithValue("@PostalCode", user.PostalCode);
+                int postalCodeExists = (int)checkCmd.ExecuteScalar();
+
+                if (postalCodeExists == 0)
+                {
+                    throw new InvalidOperationException("Postnummeret findes ikke");
+                }
+            }
 
             string updateSql = "UPDATE SommerUser SET FirstName = @FirstName, LastName = @LastName, Phone = @Phone, Email = @Email, Password = @Password, StreetName = @StreetName, HouseNumber = @HouseNumber, Floor = @Floor, Postalcode = @Postalcode, IsLandlord = @IsLandlord  WHERE Id = @Id";
 
@@ -392,7 +427,6 @@ namespace SommerHusProjekt.Repository07
             }
         }
 
-
         public List<User> SortLastName()
         {
             List<User> retUsers = GetSomething();
@@ -422,32 +456,6 @@ namespace SommerHusProjekt.Repository07
             NameASC = !NameASC;
 
             return retUsers;
-        }
-
-        private class SortByFirstName : IComparer<User>
-        {
-            public int Compare(User? x, User? y)
-            {
-                if (x == null || y == null)
-                {
-                    return 0;
-                }
-
-                return x.FirstName.CompareTo(y.FirstName);
-            }
-        }
-
-        private class SortByLastName : IComparer<User>
-        {
-            public int Compare(User? x, User? y)
-            {
-                if (x == null || y == null)
-                {
-                    return 0;
-                }
-
-                return x.LastName.CompareTo(y.LastName);
-            }
         }
     }
 }

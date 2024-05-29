@@ -3,17 +3,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SommerHusProjekt.Model07;
 using SommerHusProjekt.Repository07;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
 
-namespace SommerhusHjemmeside.Pages.UserSite
+namespace SommerhusSite.Pages.AdminSite
 {
-    public class CreateModel : PageModel
+    public class CreateAdminModel : PageModel
     {
-
         private IUserRepository _repo;
 
         // dependency injection
-        public CreateModel(IUserRepository userrepo)
+        public CreateAdminModel(IUserRepository userrepo)
         {
             _repo = userrepo;
         }
@@ -62,7 +60,6 @@ namespace SommerhusHjemmeside.Pages.UserSite
 
         [BindProperty]
         [Required(ErrorMessage = "Postnummer skal udfyldes")]
-        [Range(1000, 9999, ErrorMessage = "Postnummer skal være mellem 1000 og 9999")]
         public int NewUserPostalCode { get; set; }
 
         [BindProperty]
@@ -87,7 +84,7 @@ namespace SommerhusHjemmeside.Pages.UserSite
             }
             if (NewUserFloor == null)
             {
-                NewUserFloor = string.Empty;  
+                NewUserFloor = string.Empty;
             }
 
             User newuser = new User(NewUserFirstName, NewUserLastName, NewUserPhone, NewUserEmail, NewUserPassword, NewUserStreetName, NewUserHouseNumber, NewUserFloor, NewUserPostalCode, NewUserIsLandLord, NewUserIsAdmin);
@@ -103,14 +100,13 @@ namespace SommerhusHjemmeside.Pages.UserSite
                 return Page();
             }
 
-            return RedirectToPage("LogIn");
+            return RedirectToPage("Index");
 
         }
 
         public IActionResult OnPostCancel()
         {
-            return RedirectToPage("LogIn");
+            return RedirectToPage("Index");
         }
-
     }
 }

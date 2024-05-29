@@ -19,44 +19,39 @@ namespace SommerhusSite.Pages.Profil
 
         //properties
         [BindProperty]
-        [Required(ErrorMessage = "Fornavn skal udfyldes")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Der skal være mindst to tegn i et fornavn")]
-        public string UpdatedFirstName { get; set; }
+        public string? UpdatedFirstName { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Efternavn skal udfyldes")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Der skal være mindst to tegn i et efternavn")]
-        public string UpdatedLastName { get; set; }
+        public string? UpdatedLastName { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Telefonnummer skal udfyldes")]
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Der skal være mindst otte cifre i et telefonnummer")]
-        public string UpdatedPhone { get; set; }
+        public string? UpdatedPhone { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Email skal udfyldes")]
         [StringLength(100, ErrorMessage = "Dette er ikke en gyldig email")]
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Emailen skal indeholde '@' tegnet, noget før @ og mellem @ og .")]
-        public string UpdatedEmail { get; set; }
+        public string? UpdatedEmail { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Vejnavn skal udfyldes")]
-        public string UpdatedStreetName { get; set; }
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "Der skal være mindst 8 tegn i et password")]
+        public string? UpdatedPassword { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Hus nummer skal udfyldes")]
-        public string UpdatedHouseNumber { get; set; }
+        public string? UpdatedStreetName { get; set; }
+
+        [BindProperty]
+        public string? UpdatedHouseNumber { get; set; }
 
         [BindProperty]
         [StringLength(100, MinimumLength = 0, ErrorMessage = "Der skal være mindst 0 tegn i et etagefelt")]
-        public string UpdatedFloor { get; set; }
+        public string? UpdatedFloor { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Postnummer skal udfyldes")]
         public int UpdatedPostalCode { get; set; }
 
-        [BindProperty]
-        public bool UpdatedIsAdmin { get; set; }
         [BindProperty]
         public bool UpdatedIsLandLord { get; set; }
 
@@ -76,23 +71,69 @@ namespace SommerhusSite.Pages.Profil
                 return NotFound();
             }
 
-            user.FirstName = UpdatedFirstName;
-            user.LastName = UpdatedLastName;
-            user.Phone = UpdatedPhone;
-            user.Email = UpdatedEmail;
-            user.StreetName = UpdatedStreetName;
-            user.HouseNumber = UpdatedHouseNumber;
-            user.Floor = UpdatedFloor;
-            user.PostalCode = UpdatedPostalCode;
-            user.IsLandlord = UpdatedIsLandLord;
+            if (!string.IsNullOrWhiteSpace(UpdatedFirstName))
+            {
+                user.FirstName = UpdatedFirstName;
+            }
 
-            _userRepository.Update(id, user);
+            if (!string.IsNullOrWhiteSpace(UpdatedLastName))
+            {
+                user.LastName = UpdatedLastName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(UpdatedPhone))
+            {
+                user.Phone = UpdatedPhone;
+            }
+
+            if (!string.IsNullOrWhiteSpace(UpdatedEmail))
+            {
+                user.Email = UpdatedEmail;
+            }
+
+            if (!string.IsNullOrWhiteSpace(UpdatedPassword))
+            {
+                user.Password = UpdatedPassword;
+            }
+
+            if (!string.IsNullOrWhiteSpace(UpdatedStreetName))
+            {
+                user.StreetName = UpdatedStreetName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(UpdatedHouseNumber))
+            {
+                user.HouseNumber = UpdatedHouseNumber;
+            }
+
+            if (!string.IsNullOrWhiteSpace(UpdatedFloor))
+            {
+                user.Floor = UpdatedFloor;
+            }
+
+            if (UpdatedPostalCode != 0)
+            {
+                user.PostalCode = UpdatedPostalCode;
+            }
+
+            user.IsLandlord = UpdatedIsLandLord;
+            try
+            {
+                _userRepository.Update(id, user);
+            }
+            catch ( InvalidOperationException ex)
+            {
+                ErrorMessage = ex.Message;
+                return Page();
+            }
+           
 
             HttpContext.Session.Clear();
             SessionHelper.Set(user, HttpContext);
 
             return RedirectToPage("/Profil/Index");
         }
+
 
         public IActionResult OnPostCancel()
         {

@@ -24,7 +24,7 @@ namespace SommerHusProjekt.Model07
         public DateTime DateTo { get; set; }
         public int AmountSleepingSpace { get; set; }
 
-        // Constructor 
+        // Constructors 
         public SummerHouse()
         {
             Id = 0;
@@ -70,7 +70,7 @@ namespace SommerHusProjekt.Model07
             DateTo = dateTo;
             AmountSleepingSpace = amountSleepingSpace;
         }
-
+        //Tostring metode
         public override string ToString()
         {
             return $"{{{nameof(Id)}={Id.ToString()}, {nameof(StreetName)}={StreetName}, {nameof(HouseNumber)}={HouseNumber}, {nameof(PostalCode)}={PostalCode.ToString()}, {nameof(City)}={City}, {nameof(Floor)}={Floor}, {nameof(Description)}={Description}, {nameof(Price)}={Price.ToString()}, {nameof(Picture)}={Picture}, {nameof(DateFrom)}={DateFrom.ToString()}, {nameof(DateTo)}={DateTo.ToString()}, {nameof(AmountSleepingSpace)}={AmountSleepingSpace.ToString()}}}";

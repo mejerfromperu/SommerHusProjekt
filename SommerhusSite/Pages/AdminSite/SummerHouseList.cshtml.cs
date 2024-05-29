@@ -27,8 +27,6 @@ namespace SommerhusSite.Pages.AdminSite
         [BindProperty]
         public string? SearchHouseNumber { get; set; }
         [BindProperty]
-        public string? SearchFloor { get; set; }
-        [BindProperty]
         public int? SearchPostalCode { get; set; }
         [BindProperty]
         public decimal? SearchPrice { get; set; }
@@ -43,7 +41,7 @@ namespace SommerhusSite.Pages.AdminSite
         //Hent alle kunder når siden læses
         public void OnGet()
         {
-            SummerHouses = _summerHouseRepo.GetSomething();
+            SummerHouses = _summerHouseRepo.GetAll();
         }
 
         //Gør at man søger når man trykker på knappen
