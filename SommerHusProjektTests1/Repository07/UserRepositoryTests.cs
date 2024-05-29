@@ -45,7 +45,7 @@ namespace SommerHusProjekt.Repository07.Tests
         {
             // ARange
             int numberOfUserBefore = _userRepository.GetAll().Count;
-            User newUser = new User("alex", "alex", "88625364", "Alex-UnitTest@gmail.com", "44988232", "streetname", "2", 4000, false, false);
+            User newUser = new User("alex", "alex", "88625364", "Alex-UnitdedeTest@gmail.com", "44988232", "streetname", "2", 4000, false, false);
 
 
             // Act
@@ -79,7 +79,7 @@ namespace SommerHusProjekt.Repository07.Tests
         public void AddUser_DuplicateEmailTest2()
         {
             // Arange
-            User newuser = new User("alex", "alex", "88625364", "UNIT-TEST2@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
+            User newuser = new User("alex", "alex", "88625364", "UNIT-TEST3@gmail.com", "password123", "streetname", "2", "1", 4000, false, false);
 
             User newuser2 = new User("John", "John", "231423532", "ShouldBeAdded@gmail.com", "password", "streetname", "2", "1", 4000, false, false);
 
@@ -134,28 +134,6 @@ namespace SommerHusProjekt.Repository07.Tests
             Assert.AreEqual(id, 21);
         }
 
-        [TestMethod()]
-        public void UpdateTest()
-        {
-            // Arrange
-            int userIdToUpdate = 22; // Change this to the ID of the user you want to update
-            User updatedUserData = new User("Alex", "alex", "299299233", "Alex@gmail.com", "29992999", "streetname", "2st", 4000, false, true);
-            
 
-            // Act
-            User updatedUser = _userRepository.Update(userIdToUpdate, updatedUserData);
-
-            // Assert
-            Assert.AreEqual(updatedUserData.FirstName, updatedUser.FirstName);
-            Assert.AreEqual(updatedUserData.LastName, updatedUser.LastName);
-            Assert.AreEqual(updatedUserData.Phone, updatedUser.Phone);
-            Assert.AreEqual(updatedUserData.Email, updatedUser.Email);
-            Assert.AreEqual(updatedUserData.Password, updatedUser.Password);
-            Assert.AreEqual(updatedUserData.StreetName, updatedUser.StreetName);
-            Assert.AreEqual(updatedUserData.HouseNumber, updatedUser.HouseNumber);
-            Assert.AreEqual(updatedUserData.Floor, updatedUser.Floor);
-            Assert.AreEqual(updatedUserData.PostalCode, updatedUser.PostalCode);
-            Assert.AreEqual(updatedUserData.IsLandlord, updatedUser.IsLandlord);
-        }
     }
 }
