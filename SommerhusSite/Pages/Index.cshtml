@@ -88,6 +88,8 @@
 @foreach (var SommerHuse in Model.Huse)
 {
     {
+        @if(SommerHuse.DateTo > DateTime.Now)
+        {
         <div class="row d-flex justify-content-center justify-content-evenly">
             <div class="col-lg-12 row d-flex cardSpecial">
                 <div class="col-lg-4 justify-content-center align-content-center">
@@ -157,6 +159,7 @@
                 </div>
             </div>
         </div>
+        }
     }
 }
 
