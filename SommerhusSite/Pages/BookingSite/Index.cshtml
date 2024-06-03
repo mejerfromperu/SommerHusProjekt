@@ -1,0 +1,124 @@
+﻿@page
+@using SommerHusProjekt.Model07
+@using SommerhusSite.Services
+@model SommerhusSite.Pages.BookingSite.IndexModel
+@{
+    User loggedInUser = SessionHelper.Get<User>(HttpContext);
+    SummerHouse chosenHouse = SessionHelper.Get<SummerHouse>(HttpContext);
+}
+<h1 style="text-align: center;">Bestil din næste drømme ferie</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <div class="justify-content-center d-flex" style="padding-bottom: 1.5em;">
+                <div class="card my-2 p-2 d-flex cardSpecial">
+                    <div>
+                        <div class="col-12 justify-content-center">
+                            @if (!string.IsNullOrEmpty(chosenHouse.Picture))
+                            {
+                                <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@chosenHouse.Picture" />
+                            }
+                            else
+                            {
+                                <img class="card-img-top cardSpecialIMG" src="default-placeholder.png" alt="No image available" />
+                            }
+                        </div>
+                    <div class="card-subtitle my-2">
+                        <h2 id="outputLocation">@chosenHouse.City</h2>
+                        <h4 id="outputPrice">@chosenHouse.StreetName</h4>
+                            <h4 id="outputPrice">Ledig Fra: @chosenHouse.DateFrom.ToShortDateString()</h4>
+                            <h4 id="outputPrice">Ledig Til: @chosenHouse.DateTo.ToShortDateString()</h4>
+                            <h4 id="outputPrice">Pris pr. Dag: @chosenHouse.Price Kr.</h4>
+                    </div>
+                    <div class="card-body text-black">
+                            <h5>@chosenHouse.Description</h5>
+                        <p id="outputText"></p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <form method="post"> 
+        <div class="container CreateBox justify-content-center" style="padding-top: 15px; padding-left: 15px;">
+            <div class="Application-header">
+                <span class=" d-flex justify-content-center">Bestil Sommerhus</span>
+            </div>
+            <h4 class="d-flex justify-content-center" style="padding-top: 40px;">Kort Information</h4>
+            <div class="d-flex justify-content-center">
+                <div class="row CreditInfoCard" style="padding-top: 15px;">
+                    <div class="col-8">
+                        <span class="text-danger"></span>
+                        <input id="Kort Nummer" placeholder="Kort Nummer" class="form-control"/><br />
+                    </div>
+                    <div class="col-4">
+                        <span class="text-danger"></span>
+                        <input id="CVC" placeholder="CVC" class="form-control" type="text"/><br />
+                    </div>
+                    <div class="col-7">
+                        <span class="text-danger"></span>
+                        <input id="Kortholders Navn" placeholder="Kortholders Navn" class="form-control"/><br />
+                    </div>
+                    <div class="col-2">
+                        <span class="text-danger"></span>
+                        <input id="Udløbs Dato Månede" type="text" value="Månede" class="form-control"/><br />
+                    </div>
+                    <div class="col-1">
+                        <p style="font-size: 22px;">/</p>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-danger"></span>
+                        <input id="Udløbs Dato År" type="text" value="År" class="form-control"/><br />
+                    </div>
+                    <div class="CreditInfoCardBottom">
+                    </div>
+                </div>
+            </div>
+                <div class="row d-flex">
+                    <div class="col-6 flex-column">
+                        <h4 class="d-grid justify-content-center">Bestillings Periode</h4>
+                        <div class="mb-3">
+                            <label>Dato Fra</label><br />
+                            <span>
+                                        @if (!ModelState.IsValid)
+                                        {
+                                            <div class="alert alert-danger" role="alert">
+                                                @Html.ValidationSummary()
+                                            </div>
+                                        }
+                            <input type="date" class="form-control" asp-for="Booking.StartDate"  required >
+                        </div>
+                        <h4 class="d-gridjustify-content-center"></h4>
+                        <div class="mb-3">
+                            <label>Dato Til</label><br />
+                            <input type="date" class="form-control" asp-for="Booking.EndDate" required  ><br />
+                        </div>
+                    </div>
+                    <div class="col-6 flex-column">
+                        <h4 class="d-grid justify-content-center">Bruger Info</h4>
+                        <p name="user Id" hidden>@loggedInUser.Id</p>
+                        <div class="mb-3">
+                            <label>Brugerens Navn</label><br />
+                            <p class="form-control">@loggedInUser.FirstName @loggedInUser.LastName</p>
+                        </div>
+                            <h4 class="d-gridjustify-content-center"></h4>
+                        <div class="mb-3">
+                            <label>Brugerens Email</label><br />
+                            <p class="form-control">@loggedInUser.Email</p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-evenly" style="padding-bottom: 15px;">
+                        <div class="col-6 d-flex justify-content-center">
+                            <input type="submit" value="Lej Nu" class="btn btn-primary" value="@chosenHouse.Id" />
+                        </div>
+                        <div class="col-6 d-flex justify-content-center">
+                                
+                                    <a href="index" class="btn btn-secondary">Fortryd</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

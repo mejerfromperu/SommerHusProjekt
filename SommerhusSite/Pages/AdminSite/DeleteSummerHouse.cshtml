@@ -1,0 +1,53 @@
+﻿@page
+@model SommerhusSite.Pages.AdminSite.DeleteSummerHouseModel
+@{
+}
+
+<h1> Er du sikker på du vil slette dette sommerhus? </h1>
+
+<div class="form-selectt searchform rounded-2">
+    <form method="post">
+        <div class="row">
+            <div class="col">
+                <label>Sommerhus id</label> : @Model.SummerHouse.Id
+            </div>
+            <div class="col">
+                <label>Vejnavn</label> : @Model.SummerHouse.StreetName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Husnummer</label>  : @Model.SummerHouse.HouseNumber
+            </div>
+            <div class="col">
+                <label>Etage</label>  : @Model.SummerHouse.Floor
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Postnummer</label>  : @Model.SummerHouse.PostalCode
+            </div>
+            <div class="col">
+                <label>Beskrivelse</label>  : @Model.SummerHouse.Description
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Pris</label>  : @Model.SummerHouse.Price
+            </div>
+            <div class="col">
+                <label>Dato fra</label>  : @Model.SummerHouse.DateFrom.ToShortDateString()
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Dato til</label>  : @Model.SummerHouse.DateTo.ToShortDateString()
+            </div>
+            <div class="col">
+                <label>Antal gæster</label>  : @Model.SummerHouse.AmountSleepingSpace
+            </div>
+        </div>
+        <input type="submit" value="Slet Sommerhus" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@Model.SummerHouse.Id" />
+        <input type="submit" value="Fortryd" class="btn btn-warning" asp-page-handler="Cancel" />
+    </form>
+</div>

@@ -1,10 +1,175 @@
 ﻿@page
+@using SommerHusProjekt.Model07
+@using SommerhusSite.Services
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    bool userLoggedIn = SessionHelper.Get<User>(HttpContext) != null;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form method="post">
+    <div class="sortCardsWrapper d-flex row">
+        <div class="col-lg-6 d-flex row">
+            <div class="col-12">
+                <p>
+                    Vejnavn
+                </p>
+                <input class="form-control" type="text" asp-for="@Model.SearchStreetName" />
+            </div>
+        </div>
+        <div class="col-lg-6 d-flex row">
+            <div class="col-6">
+                <p>
+                    Husnummer
+                </p>
+                <input class="form-control" type="number" asp-for="@Model.SearchHouseNumber" />
+            </div>
+            <div class="col-6">
+                <p>
+                    Postnummer
+                </p>
+                <input class="form-control" type="number" asp-for="@Model.SearchPostalCode" />
+            </div>
+        </div>
+        <div class="col-lg-5 d-flex row">
+            <div class="col-6">
+                <p>
+                    Maks Antal Gæster
+                </p>
+                <input class="form-control" type="number" asp-for="@Model.SearchAmountSleepingSpace" />
+            </div>
+            <div class="col-6">
+                <p class="col-12">
+                    Pris Pr Dag
+                </p>
+                <input class="col-12" type="range" asp-for="@Model.SearchPrice" id="priceRange" min="0" max="40000" step="100" oninput="updatePriceDisplay(this.value)" />
+                <p class="col-12" style="text-align:center;" id="priceDisplay"></p>
+            </div>
+        </div>
+        <div class="col-lg-7 d-flex row">
+            <div class="col-6 align-content-center">
+                <p>
+                    Dato Fra
+                </p>
+                <input class="col-12" type="date" asp-for="@Model.SearchDateFrom" />
+            </div>
+            <div class="col-6 align-content-center">
+                <p>
+                    Dato Til
+                </p>
+                <input class="col-12" type="date" asp-for="@Model.SearchDateTo" />
+            </div>
+        </div>
+        <div class="col-6 d-flex row">
+            <input type="reset" value="Reset" class="btn btn-outline-dark rounded-pill" style="width: 50%; margin-left: 25%; margin-right: 25%; margin-top: 10px; background-color: var(--Color1) " />
+        </div>
+        <div class="col-6 d-flex row">
+            <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-outline-dark rounded-pill btnSpecial" style="width: 50%; margin-left: 25%; margin-right: 25%; margin-top: 10px;" />
+        </div>
+    </div>
+</form>
+<form method="post">
+    <div class="sortCardsWrapper1 col-lg-12 d-flex justify-content-center">
+        <div class="col-2 align-content-center">
+            <h4>
+                Filtre:
+            </h4>
+        </div>
+        <div class="col-3">
+            <input type="submit" asp-page-handler="SortAmountSleepingSpace" value="Antal Gæster" class="btn btn-outline-dark rounded-pill btnSpecial" style="width: 90%;" />
+        </div>
+        <div class="col-3">
+            <input type="submit" asp-page-handler="SortPrice" value="Pris" class="btn btn-outline-dark rounded-pill btnSpecial" style="width: 90%;" />
+        </div>
+        <div class="col-3">
+            <input type="submit" asp-page-handler="SortStreetName" value="Vejnavn" class="btn btn-outline-dark rounded-pill btnSpecial" style="width: 90%;" />
+        </div>
+    </div>
+</form>
+@foreach (var SommerHuse in Model.Huse)
+{
+    {
+        <div class="row d-flex justify-content-center justify-content-evenly">
+            <div class="col-lg-12 row d-flex cardSpecial">
+                <div class="col-lg-4 justify-content-center align-content-center">
+                    @if (!string.IsNullOrEmpty(SommerHuse.Picture))
+                    {
+                        <img class="card-img-top cardSpecialIMG" src="data:image/jpeg;base64,@SommerHuse.Picture" />
+                    }
+                    else
+                    {
+                        <img class="card-img-top cardSpecialIMG" src="default-placeholder.png" alt="No image available" />
+                    }
+                </div>
+                <div class="col-lg-8 justify-content-center">
+                    <div class="cardSpecialInfoBox d-flex row">
+                        <div class="col-12 d-flex row">
+                            <div class="col-lg-6 d-flex row">
+                                <h4 class="col-4 cardSpecialForm" style="overflow: hidden;" id="Postalcode">@SommerHuse.PostalCode</h4>
+                                <h4 class="col-8 cardSpecialForm" style="overflow: hidden;" id="City">@SommerHuse.City</h4>
+                            </div>
+                            <div class="col-lg-6 d-flex row">
+                                <h4 class="col-9 cardSpecialForm" style="overflow: hidden;" id="StreetName">@SommerHuse.StreetName</h4>
+                                <h4 class="col-3 cardSpecialForm" style="overflow: hidden;" id="StreetHouseNumber">@SommerHuse.HouseNumber</h4>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex row">
+                            <div class="col-lg-6 d-flex row">
+                                <h4 class="col-6 cardSpecialForm" style="text-align: center;">Pris dagligt</h4>
+                                <h4 class="col-6 cardSpecialForm" style="text-align: center;">Antal gæster</h4>
+                                <h4 class="col-6 cardSpecialForm" id="Price"> @SommerHuse.Price Kr.</h4>
+                                <div class="col-2" style="padding-bottom: 12px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                    </svg>
+                                </div>
+                                <h4 class="col-4 cardSpecialForm" style="text-align: left;" id="AmountGuest">@SommerHuse.AmountSleepingSpace</h4>
+                            </div>
+                            <div class="col-lg-6 d-flex row justify-content-center" style="text-align:center;">
+                                <h4 class="col-12 cardSpecialForm">Udlejnings Perioden</h4>
+                                <h4 class="col-6 cardSpecialForm" id="DateFrom">@SommerHuse.DateFrom.ToShortDateString()</h4>
+                                <h4 class="col-6 cardSpecialForm" id="DateTo">@SommerHuse.DateTo.ToShortDateString()</h4>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-lg-12">
+                                <p class="cardSpecialDescriptionBox">
+                                    @SommerHuse.Description
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body text-black">
+                        <div class="d-flex justify-content-around text-white">
+                            @if (userLoggedIn)
+                            {
+                                <a asp-page="/BookingSite/Index" asp-route-summerhouseId="@SommerHuse.Id" class="btn btn-outline-dark btnSpecial rounded-pill" style="background: width: 50%; margin-left: 25%; margin-right: 25%;">Se Mere</a>
+                            }
+                            else
+                            {
+                                <div class="text text-black" role="alert">
+                                    <a asp-page="/UserSite/LogIn" class="btn btn-outline-dark btnSpecial rounded-pill col-12" style="width: 100%; margin-left: 0%; margin-right: 10%;">log ind for leje</a>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+<script>
+    function updatePriceDisplay(value) {
+        document.getElementById('priceDisplay').innerText = value + " DKK";
+    }
+
+    // Initialize the price display
+    document.addEventListener('DOMContentLoaded', function () {
+        var priceRange = document.getElementById('priceRange');
+        updatePriceDisplay(priceRange.value);
+    });
+</script>

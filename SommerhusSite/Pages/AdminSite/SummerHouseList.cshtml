@@ -1,0 +1,76 @@
+﻿@page
+@using SommerHusProjekt.Model07
+@model SommerhusSite.Pages.AdminSite.SummerHouseListModel
+@{
+}
+
+<h1>Her ses alle Sommerhuse</h1>
+
+<div class="form-selectt searchform rounded-2">
+    <form method="post">
+        <h2>Søg efter sommerhuse</h2>
+        <div class="row">
+            <div class="col">
+                Id <input type="number" class="form-control" asp-for="@Model.SearchId" />
+            </div>
+            <div class="col">
+                Vejnavn <input type="text" class="form-control" asp-for="@Model.SearchStreetName" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Husnummer <input type="text" class="form-control" asp-for="@Model.SearchHouseNumber" />
+            </div>
+            <div class="col">
+                Postnummer  <input type="text" class="form-control" asp-for="@Model.SearchPostalCode" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Pris <input type="text" class="form-control" asp-for="@Model.SearchPrice" />
+            </div>
+        </div>
+       <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-info" />
+    </form>
+</div>
+<br />
+@* Tabel med alle kunder og man kan sortere efter id og navn *@
+<div class="form-selectt">
+    <table class="tablelist table table-striped table-hover rounded-2">
+        <thead class="table-info">
+            <tr>
+                <form method="post">
+                <th><input type="submit" asp-page-handler="SortId" value="Sommerhus Nummer" class="btn btn-info" /></th>
+                <th><input type="submit" asp-page-handler="SortStreetName" value="Vejnavn" class="btn btn-info" /></th>
+                <th>Husnummer</th>
+                <th>Etage</th>
+                <th><input type="submit" asp-page-handler="SortPostalCode" value="Postnummer" class="btn btn-info" /></th>
+                <th>Pris</th>
+                <th>Antal Gæster</th>
+                <th>DateFrom</th>
+                <th>DateTo</th>
+                <th></th>
+                <th></th>
+                </form>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SummerHouse s in Model.SummerHouses)
+            {
+                <tr>
+                    <td>@s.Id</td>
+                    <td>@s.StreetName</td>
+                    <td>@s.HouseNumber</td>
+                    <td>@s.Floor</td>
+                    <td>@s.PostalCode</td>
+                    <td>@s.Price</td>
+                    <td>@s.AmountSleepingSpace</td>
+                    <td>@s.DateFrom.ToShortDateString()</td>
+                    <td>@s.DateTo.ToShortDateString()</td>
+                    <td><a asp-page="DeleteSummerHouse" asp-route-id="@s.Id" style="background-color: #ff0000;" class="btn btn-Danger">Slet</a></td>
+                    <td><a asp-page="UpdateSummerHouse" asp-route-id="@s.Id" style="background-color: green;" class="btn btn-Danger">Update</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

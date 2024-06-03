@@ -1,0 +1,67 @@
+﻿@page
+@using SommerHusProjekt.Model07
+@model SommerhusSite.Pages.AdminSite.UserListModel
+@{
+}
+
+<h1>Her ses alle kunder</h1>
+
+<div class="form-selectt searchform rounded-2">
+    <form method="post">
+        <h2>Søg efter kunder</h2>
+        <div class="row">
+            <div class="col">
+                Id <input type="number" class="form-control" asp-for="@Model.SearchId" />
+            </div>
+            <div class="col">
+                Fornavn <input type="text" class="form-control" asp-for="@Model.SearchFirstName" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Efternavn <input type="text" class="form-control" asp-for="@Model.SearchLastName" />
+            </div>
+            <div class="col">
+                Tlf  <input type="text" class="form-control" asp-for="@Model.SearchPhone" />
+            </div>
+        </div>
+        <div class="row">
+            <div class col>
+                Email <input type="text" class="form-control" asp-for="@Model.SearchEmail" />
+            </div>
+        </div>
+        <input type="submit" asp-page-handler="Search" value="Søg" class="btn btn-info" />
+    </form>
+</div>
+<br />
+@* Tabel med alle kunder og man kan sortere efter id og navn *@
+<div class="form-selectt">
+    <table class="tablelist table table-striped table-hover rounded-2">
+        <thead class="table-info">
+            <tr>
+                <form method="post">
+                <th><input type="submit" asp-page-handler="SortId" value="Kunde Nummer" class="btn btn-info" /></th>
+                <th><input type="submit" asp-page-handler="SortFirstName" value="Fornavn" class="btn btn-info" /></th>
+                <th><input type="submit" asp-page-handler="SortLastName" value="Efternavn" class="btn btn-info" /></th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th></th>
+                <th></th>
+                </form>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (User u in Model.Users)
+            {
+                <tr>
+                    <td>@u.Id</td>
+                    <td>@u.FirstName</td>
+                    <td>@u.LastName</td>
+                    <td>@u.Email</td>
+                    <td>@u.Phone</td>
+                    <td><a asp-page="DeleteUser" asp-route-id="@u.Id" style="background-color: #ff0000;" class="btn btn-Danger">Slet</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

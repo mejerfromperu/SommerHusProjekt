@@ -7,9 +7,194 @@ html {
     font-size: 16px;
   }
 }
+@media(min-width: 576px) and (max-width: 1708px) 
+{
+    .loginHeader {
+        left: 85%;
+        top: 10px;
+        position: absolute;
+        background: #DEE50F;
+    }
+}
+@media(max-width: 575px) {
+    .loginHeader-min {
+        left: 72%;
+        position: absolute;
+        top: 9px;
+        background: #DEE50F;
+    }
+}
+@media(min-width: 1708px)
+{
+    .loginHeader-max {
+        left: 75%;
+        top: 10px;
+        position: absolute;
+        background: #DEE50F;
+    }
+}
+/*Colors*/
+:root {
+    --Color1: #4AADFF;
+    --Color2: #DEE50F;
+    --Color3: antiquewhite;
+    --Color4: WhiteSmoke;
+}
+
+/*CSS to navbar*/
+.navbar-toggler .toggler-icon {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: 4px auto;
+    background-color: #333;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+.navbar-toggler.active .toggler-icon:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+.navbar-toggler.active .toggler-icon:nth-child(2) {
+    opacity: 0;
+}
+.navbar-toggler.active .toggler-icon:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+.sortCardsWrapper{
+    margin-top: 3em;
+    width: 92%;
+    border: solid 2px var(--Color1);
+    border-radius: 20px;
+    background: var(--Color4);
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+    .sortCardsWrapper p {
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 2px;
+    }
+
+.sortCardsWrapper1 {
+    margin-top: 10px;
+    width: 92%;
+    border: solid 2px var(--Color1);
+    border-radius: 20px;
+    background: var(--Color4);
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    align-content: center;
+}
+    .sortCardsWrapper1 p {
+        text-align: center;
+        font-weight: 500;
+    }
+
+.cardSpecial {
+    justify-content: center;
+    justify-items: center;
+    width: 22em;
+    max-height: 36.5em;
+    background: var(--Color4);
+    border: var(--Color1) 3px solid;
+    border-radius: 20px;
+    cursor: default;
+    transition: box-shadow 0.03s ease;
+    margin-top: 3em;
+}
+    .cardSpecial:hover {
+        box-shadow: 0px 0px 20px var(--Color1);
+    }
+
+@media (min-width: 992px) {
+    .cardSpecial {
+        width: 90%;
+    }
+
+    .cardSpecialInfoBox{
+        padding-left: 2em;
+    }
+    .cardSpecialIMG{
+        margin-bottom: 1.5em;
+    }
+
+}
+
+.cardSpecial1 {
+    justify-content: center;
+    justify-items: center;
+    width: 22em;
+    max-height: 36.5em;
+    background: var(--Color4);
+    border: var(--Color1) 3px solid;
+    border-radius: 20px;
+    cursor: default;
+    transition: box-shadow 0.03s ease;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+    .cardSpecial:hover {
+        box-shadow: 0px 0px 20px var(--Color1);
+    }
+
+.cardSpecialInfoBox{
+    width: 100%;
+    position: relative;
+    min-height: 13em;
+    justify-content: right;
+    align-items: center;
+    margin: revert-layer;
+    margin-top: 10px;
+}
+
+.cardSpecialDescriptionBox{
+    overflow-y: scroll;
+    height: 60px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.cardSpecialForm{
+    max-height: 26px;
+    font-size: 14px;
+    font-weight: 500;
+    align-content: center;
+}
+
+.cardSpecialForm h4{
+    font-size: 16px;
+}
+
+.cardSpecialIMG {
+    justify-content: center;
+    align-content: center;
+    width: 18.6em;
+    height: 14em;
+    border-radius: 16px;
+    margin-top: 1.5em;
+}
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.btnSpecial {
+    background: #DEE50F;
+    border: solid 2px dimgrey;
+    font-weight: 600;
 }
 
 html {
@@ -19,4 +204,462 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.BG-Special {
+    background: var(--Color1);
+    color: black;
+}
+
+.gradient-text {
+    background: linear-gradient(180deg, black, darkblue);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.textv1 {
+    color: var(--Color2);
+    font-family: fantasy, copperplate;
+}
+
+.forgotbox {
+    position: absolute;
+    background-color: var(--Color4);
+    backdrop-filter: blur(50%);
+    border: solid 4px var(--Color1);
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    width: 350px;
+    height: 500px;
+    padding: 3.5em 2.5em 2.5em 2.5em;
+}
+
+.forgotbox-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--Color1);
+    width: 240px;
+    height: 46px;
+    border-radius: 0 0 20px 20px;
+}
+
+    .forgotbox-header span {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+.input-forgotbox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 2px 0;
+    padding-bottom: 2px;
+}
+
+    .input-forgotbox span
+    {
+        position: absolute;
+        margin-top: 25px;
+        margin-left: 10px;
+    }
+
+.input-forgotfield {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    background: transparent;
+    padding-inline: 20px 10px;
+    border: 2px solid var(--Color1);
+    border-radius: 0 20px 20px 20px;
+    outline: none;
+    color: black;
+    margin-bottom: 10px;
+}
+
+    .input-forgotfield::placeholder {
+        color: dimgrey;
+    }
+
+    .input-forgotfield ::after {
+        background-color: transparent;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+.forgotlabel {
+    margin-left: 5px;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px 10px 0 0;
+}
+
+/*All CSS to The preview card*/
+.PreviewCardBox-Header {
+    position: relative;
+    margin-left: 47%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--Color2);
+    width: 140px;
+    height: 30px;
+    border-radius: 0 0 20px 20px;
+}
+    .PreviewCardBox-Header span {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+/*Sommerhus application*/
+.Application-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--Color1);
+    width: 270px;
+    height: 46px;
+    border-radius: 0 0 20px 20px;
+}
+    .Application-header span {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+/*All CSS to Create Profile*/
+.CreateBox {
+    position: relative;
+    background-color: var(--Color4);
+    backdrop-filter: blur(50%);
+    border: solid 4px var(--Color1);
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    max-width: 45em;
+    padding: 4.5em 2em 2em 2em;
+}
+
+.Create-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--Color1);
+    width: 210px;
+    height: 46px;
+    border-radius: 0 0 20px 20px;
+}
+    .Create-header span {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+/*All CSS to BookingConfirmationSite*/
+.BookingConfBox {
+    background-color: var(--Color3);
+    border: solid 3px var(--Color1);
+    justify-content: center;
+
+}
+
+/*All CSS to BookingWatchList*/
+.WatchListBox {
+    background-color: var(--Color3);
+    border: solid 3px var(--Color1);
+    justify-content: center;
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    max-width: 80%;
+    padding: 1em 0em 1em 0em;
+    margin-top: 2em;
+}
+
+.WatchListIMGBox {
+    width: 20em;
+    height: 15.5em;
+    background-color: var(--Color3);
+    border: solid 2px var(--Color3);
+    border-radius: 20px;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+.WatchListInfoBox {
+    background-color: var(--Color4);
+    border: solid 3px var(--Color1);
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    max-width: 98%;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    text-align: center;
+}
+
+.WatchListInfoBox label{
+    margin-top: 2px;
+    font-weight: 600;
+}
+
+.WatchListInfoBox output{
+    height: 35px;
+    margin-top: 10px;
+    font-weight: 600;
+    align-content: center;
+}
+
+.WatchListIMG {
+    max-width: 19em;
+    height: 14em;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.SortByBox {
+    position: relative;
+    background-color: var(--Color4);
+    border: solid 3px var(--Color1);
+    justify-content: center;
+    align-content: center;
+    border-radius: 0px 0px 20px 20px;
+    max-width: 80%;
+    padding: 5em 0em 1em 0em;
+    margin-top: 2em;
+}
+
+.SortByBoxHeader {
+    position: absolute;
+    background-color: var(--Color3);
+    border: solid 1px var(--Color1);
+    border-radius: 0px 0px 0px 40px ;
+    top: 0%;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+/*All CSS CreditInfoCard*/
+.CreditInfoCard {
+    justify-content: center;
+    max-width: 25em;
+    max-height: 15em;
+    border-radius: 25px 25px 25px 25px;
+    border: 4px solid black;
+    background-color: var(--Color4); /* Start color */
+    background-image: linear-gradient(to bottom right, black, var(--Color4)); /* Fallback for older browsers */
+    position: relative;
+    margin-bottom: 2em;
+}
+
+.CreditInfoCardBottom{
+    width: 100%;
+    height: 35px;
+    background-color: black;
+    position: relative;
+    margin-bottom: 1em;
+}
+
+/*All CSS to Profile Site*/
+.ProfileBox {
+    position: relative;
+    background-color: var(--Color1);
+    border: solid 3px var(--Color1);
+    border-radius: 20px 20px 20px 20px;
+    max-width: 45em;
+    max-height: 50em;
+    margin-top: 6em;
+    padding-bottom: 1.5em;
+}
+
+.ProfileUserForm{
+    position: relative;
+    background-color: var(--Color4);
+    height: 37px;
+    border-radius: 0px 20px 20px 20px;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    border: 2px solid var(--Color1);
+    text-align: center;
+    margin-bottom: 0.5em;
+    left: 8px;
+}
+
+.ProfileUserInfo {
+    position: relative;
+    margin-left: 5em;
+    padding: 2em 1em 1em 1em;
+}
+
+.ProfileUserTextBox{
+    top: 0%;
+    width: 100%;
+    height: 13px;
+    margin-bottom: 10px;
+}
+
+.ProfileUserInfo p{
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--Color2)
+}
+
+.ProfileUserInfo output{
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    justify-content: center;
+}
+
+.ProfileBoxHeader {
+    position: absolute;
+    background: var(--Color1);
+    border: solid 3px var(--Color1);
+    border-radius: 15px 0px 0px 15px;
+    top: 0%;
+    left: 0%;
+    transform: rotate(-0deg);
+    writing-mode: vertical-lr;
+    text-align:center;
+    align-content: center;
+    width: 4em;
+    height: 100%;
+}
+
+.input-field1 {
+    width: 90%;
+    height: 35px;
+    font-size: 16px;
+    background: transparent;
+    border: 0px solid var(--Color1);
+    border-radius: 0 0px 0px 0px;
+    outline: none;
+    color: black;
+    margin-bottom: 25px;
+}
+
+/*all CSS to The login box*/
+.loginbox {
+    margin-top: 6em;
+    position: absolute;
+    background-color: var(--Color4);
+    backdrop-filter: blur(50%);
+    border: solid 4px var(--Color1);
+    align-content: center;
+    border-radius: 20px 20px 20px 20px;
+    width: 350px;
+    height: 500px;
+    padding: 7.5em 2.5em 4em 2.5em;
+}
+
+.login-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--Color1);
+    width: 140px;
+    height: 46px;
+    border-radius: 0 0 20px 20px;
+}
+
+    .login-header span {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+.input-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    padding-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    background: transparent;
+    padding-inline: 20px 10px;
+    border: 2px solid var(--Color1);
+    border-radius: 0 20px 20px 20px;
+    outline: none;
+    color: black;
+    margin-bottom: 25px;
+}
+
+    .input-field::placeholder {
+        color: dimgrey;
+    }
+
+    .input-field ::after {
+        background-color: transparent;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+.label {
+    margin-left: 5px;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px 10px 0 0;
+}
+
+.remember-forgot {
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.NewProfile{
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.input-submit {
+    width: 100%;
+    height: 45px;
+    font-size: 24px;
+    font-weight: 600;
+    border-radius: 15px;
+    border: 2px solid dimgrey;
+    background-color: var(--Color2);
+}
+/*all CSS to admin tables*/
+.tablelist {
+    border: 2px solid var(--Color1);
+    width: 100%;
+    align-content: center;
+    overflow-x: scroll;
+}
+
+.searchform {
+    border: 2px solid var(--Color1);
+    width: 100%;
+    align-content: center;
+    padding: 10px;
 }
