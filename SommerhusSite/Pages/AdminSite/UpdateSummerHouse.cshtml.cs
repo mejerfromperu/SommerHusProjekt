@@ -35,6 +35,7 @@ namespace SommerhusSite.Pages.AdminSite
         public string NewSummerHouseHouseNumber { get; set; }
 
         [BindProperty]
+        [Required(ErrorMessage = "Etage skal udfyldes, men kan udfyldes med 0")]
         public string NewSummerHouseFloor { get; set; }
 
         [BindProperty]
@@ -112,7 +113,7 @@ namespace SommerhusSite.Pages.AdminSite
         {
             // Retrieve the summerHouse from the session
             var summerHouse = SessionHelper.Get<SummerHouse>(HttpContext);
-
+            ModelState.Remove("NewSummerHouseFloor");
             if (!ModelState.IsValid)
             {
                 if (summerHouse != null)
@@ -127,6 +128,11 @@ namespace SommerhusSite.Pages.AdminSite
             {
                 ModelState.AddModelError("", "Undskyld datoer udfyldt for sommerhuset er i fortiden eller passer ikke med hinanden.");
                 return Page();
+            }
+
+            if (NewSummerHouseFloor == null)
+            {
+                NewSummerHouseFloor = string.Empty;
             }
 
             if (summerHouse == null)
